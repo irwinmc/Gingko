@@ -1,9 +1,19 @@
 package org.gingko.server;
 
+import java.net.InetSocketAddress;
+
 /**
- * Created by Administrator on 14-3-4.
+ * @author Kyia
  */
 public interface Server {
 
+	void startServer() throws Exception;
 
+	void startServer(int port) throws Exception;
+
+	void startServer(InetSocketAddress socketAddress) throws Exception;
+
+	void stopServer() throws Exception;
+
+	InetSocketAddress getSocketAddress();
 }

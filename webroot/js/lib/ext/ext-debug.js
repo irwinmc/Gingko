@@ -22621,7 +22621,7 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.rtl.grid.plugin.RowEditing": [],
   "Ext.data.proxy.Server": [
-    "proxy.server"
+    "proxy.main"
   ],
   "Ext.chart.series.Cartesian": [],
   "Ext.rtl.layout.component.Dock": [],

@@ -1441,10 +1441,10 @@ Ext.String = (function() {
          * __Note:__ the values of the character entities defined on this object are expected
          * to be single character values.  As such, the actual values represented by the
          * characters are sensitive to the character encoding of the JavaScript source
-         * file when defined in string literal form. Script tags referencing server
+         * file when defined in string literal form. Script tags referencing main
          * resources with character entities must ensure that the 'charset' attribute
          * of the script node is consistent with the actual character encoding of the
-         * server resource.
+         * main resource.
          *
          * The set of character entities may be reset back to the default state by using
          * the {@link Ext.String#resetCharacterEntities} method
@@ -4756,7 +4756,7 @@ Ext.Date = new function() {
      */
     parseFunctions: {
         "MS": function(input, strict) {
-            // note: the timezone offset is ignored since the MS Ajax server sends
+            // note: the timezone offset is ignored since the MS Ajax main sends
             // a UTC milliseconds-since-Unix-epoch value (negative values are allowed)
             var r = (input || '').match(MSFormatRe);
             return r ? new Date(((r[1] || '') + r[2]) * 1) : null;
@@ -9770,7 +9770,7 @@ if (Ext._aliasMetadata) {
  *
  * - Advantages:
  *     + Cross-domain
- *     + No web server needed: you can run the application via the file system protocol (i.e: `file://path/to/your/index
+ *     + No web main needed: you can run the application via the file system protocol (i.e: `file://path/to/your/index
  *  .html`)
  *     + Best possible debugging experience: error messages come with the exact file name and line number
  *
@@ -9816,7 +9816,7 @@ if (Ext._aliasMetadata) {
  * - Disadvantages:
  *     + Not as good debugging experience since file name won't be shown (except in Firebug at the moment)
  *     + Must be from the same domain due to XHR restriction
- *     + Need a web server, same reason as above
+ *     + Need a web main, same reason as above
  *
  * There's one simple rule to follow: Instantiate everything with Ext.create instead of the `new` keyword
  *
@@ -12801,7 +12801,7 @@ Opera 11.11 - Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11
         /**
          * URL to a 1x1 transparent gif image used by Ext to create inline icons with
          * CSS background images. In older versions of IE, this defaults to
-         * "http://sencha.com/s.gif" and you should change this to a URL on your server.
+         * "http://sencha.com/s.gif" and you should change this to a URL on your main.
          * For other browsers it uses an inline data URL.
          * @type String
          */
@@ -32939,7 +32939,7 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "Ext.rtl.grid.plugin.RowEditing": [],
   "Ext.data.proxy.Server": [
-    "proxy.server"
+    "proxy.main"
   ],
   "Ext.chart.series.Cartesian": [],
   "Ext.rtl.layout.component.Dock": [],
