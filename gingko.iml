@@ -5,7 +5,9 @@
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/gingko/beans/server-beans.xml</file>
-          <file>file://$MODULE_DIR$/src/main/resources/gingko/props/gingko.properties</file>
+          <file>file://$MODULE_DIR$/src/main/resources/gingko/beans/server-handlers.xml</file>
+          <file>file://$MODULE_DIR$/conf/gingko.properties</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/gingko/context/AppSpringConfig.java</file>
         </fileset>
       </configuration>
     </facet>
@@ -36,6 +38,24 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:4.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:4.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: io.netty:netty-all:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-example:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport-sctp:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-http:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-socks:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.5.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.jcraft:jzlib:1.1.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.javassist:javassist:3.18.0-GA" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.jetty.npn:npn-api:1.1.0.v20120525" level="project" />
+    <orderEntry type="library" name="Maven: com.yammer.metrics:metrics-core:2.2.0" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport-udt:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: com.barchart.udt:barchart-udt-bundle:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport-rxtx:4.0.17.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.rxtx:rxtx:2.1.7" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.4" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.2.5" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.2.2" level="project" />

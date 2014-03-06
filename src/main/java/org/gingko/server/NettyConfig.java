@@ -26,14 +26,13 @@ public class NettyConfig {
 		return channelOptions;
 	}
 
-	public void setChannelOptions(
-			Map<ChannelOption<?>, Object> channelOptions) {
+	public void setChannelOptions(Map<ChannelOption<?>, Object> channelOptions) {
 		this.channelOptions = channelOptions;
 	}
 
 	public synchronized NioEventLoopGroup getBossGroup() {
-		if (null == bossGroup) {
-			if (0 >= bossThreadCount) {
+		if (bossGroup == null) {
+			if (bossThreadCount <= 0) {
 				bossGroup = new NioEventLoopGroup();
 			} else {
 				bossGroup = new NioEventLoopGroup(bossThreadCount);
@@ -47,8 +46,8 @@ public class NettyConfig {
 	}
 
 	public synchronized NioEventLoopGroup getWorkerGroup() {
-		if (null == workerGroup) {
-			if (0 >= workerThreadCount) {
+		if (workerGroup == null) {
+			if (workerThreadCount <= 0) {
 				workerGroup = new NioEventLoopGroup();
 			} else {
 				workerGroup = new NioEventLoopGroup(workerThreadCount);
@@ -78,7 +77,7 @@ public class NettyConfig {
 	}
 
 	public synchronized InetSocketAddress getSocketAddress() {
-		if (null == socketAddress) {
+		if (socketAddress == null) {
 			socketAddress = new InetSocketAddress(portNumber);
 		}
 		return socketAddress;

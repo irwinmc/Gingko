@@ -1,6 +1,5 @@
 package org.gingko;
 
-import org.gingko.context.AppContext;
 import org.gingko.server.ServerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,7 @@ public class SpringNettyServer {
 		// Start tcp and flash servers
 		ServerManager manager = (ServerManager) context.getBean("serverManager");
 		try {
-			manager.startServers(18090);
+			manager.startServers(808);
 		} catch (Exception e) {
 			LOG.error("Could not start servers cleanly: {}", e);
 		}

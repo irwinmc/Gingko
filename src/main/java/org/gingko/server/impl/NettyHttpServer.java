@@ -41,6 +41,8 @@ public class NettyHttpServer extends AbstractNettyServer {
 					.childHandler(getChannelInitializer());
 
 			LOG.info("Http Server started at {}", nettyConfig.getPortNumber());
+
+			serverBootstrap.bind(nettyConfig.getSocketAddress()).channel().closeFuture().sync();
 		} catch (Exception e) {
 			LOG.error("Http Server start error {}, going to shut down", e);
 			super.stopServer();

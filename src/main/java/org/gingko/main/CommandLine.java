@@ -1,5 +1,9 @@
 package org.gingko.main;
 
+import org.gingko.context.AppSpringConfig;
+import org.gingko.server.GingkoServer;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 /**
  * @author Kyia
  */
@@ -13,20 +17,25 @@ public class CommandLine {
 		CommandLine cli = new CommandLine();
 		try {
 			// Get configuration
+			GingkoServer server = cli.getConfiguration(args);
+			if (server == null) {
+				return;
+			}
 
 			// Start the server
+			server.start();
 
-			cli.addShutdownHook();
+			cli.addShutdownHook(server);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void addShutdownHook() {
+	private void addShutdownHook(final GingkoServer server) {
 		Runnable shutdownHook = new Runnable() {
 			@Override
 			public void run() {
-				// Stop the server
+				server.stop();
 			}
 		};
 
@@ -35,5 +44,16 @@ public class CommandLine {
 		runtime.addShutdownHook(new Thread(shutdownHook));
 	}
 
+	protected GingkoServer getConfiguration(String args[]) throws Exception {
+		GingkoServer server = null;
+		if (args.length == 0) {
+			System.out.println("Using default configuration.");
 
+			AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppSpringConfig.class);
+			//ctx.registerShutdownHook();
+
+			server = new GingkoServer();
+		}
+		return server;
+	}
 }
