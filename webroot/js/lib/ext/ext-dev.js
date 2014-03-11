@@ -18,7 +18,7 @@ at http://www.sencha.com/contact.
 
 Build date: 2013-05-16 14:36:50 (f9be68accb407158ba2b1be2c226a6ce1f649314)
 */
-// @tag foundation,core
+// @tag foundation,app
 // @define Ext
 
 /**
@@ -890,7 +890,7 @@ Ext.globalEval = Ext.global.execScript
         }());
     };
 
-// @tag foundation,core
+// @tag foundation,app
 // @require ../Ext.js
 // @define Ext.Version
 
@@ -923,7 +923,7 @@ Ext.globalEval = Ext.global.execScript
  */
 (function() {
 
-// Current core version
+// Current app version
 // also fix Ext-more.js
 var version = '4.2.1.883', Version;
     Ext.Version = Version = Ext.extend(Object, {
@@ -1215,7 +1215,7 @@ var version = '4.2.1.883', Version;
         /**
          * Set version number for the given package name.
          *
-         * @param {String} packageName The package name, for example: 'core', 'touch', 'extjs'
+         * @param {String} packageName The package name, for example: 'app', 'touch', 'extjs'
          * @param {String/Ext.Version} version The version, for example: '1.2.3alpha', '2.4.0-dev'
          * @return {Ext}
          */
@@ -1230,7 +1230,7 @@ var version = '4.2.1.883', Version;
          * Get the version number of the supplied package name; will return the last registered version
          * (last Ext.setVersion call) if there's no package name given.
          *
-         * @param {String} packageName (Optional) The package name, for example: 'core', 'touch', 'extjs'
+         * @param {String} packageName (Optional) The package name, for example: 'app', 'touch', 'extjs'
          * @return {Ext.Version} The version
          */
         getVersion: function(packageName) {
@@ -1269,7 +1269,7 @@ var version = '4.2.1.883', Version;
 
 }());
 
-// @tag foundation,core
+// @tag foundation,app
 // @require ../version/Version.js
 // @define Ext.String
 
@@ -1700,7 +1700,7 @@ Ext.htmlDecode = Ext.String.htmlDecode;
  */
 Ext.urlAppend = Ext.String.urlAppend;
 
-// @tag foundation,core
+// @tag foundation,app
 // @require String.js
 // @define Ext.Number
 
@@ -1893,7 +1893,7 @@ Ext.Number = new function() {
     };
 };
 
-// @tag foundation,core
+// @tag foundation,app
 // @require Number.js
 // @define Ext.Array
 
@@ -3224,7 +3224,7 @@ Ext.Number = new function() {
     };
 }());
 
-// @tag foundation,core
+// @tag foundation,app
 // @require Array.js
 // @define Ext.Function
 
@@ -3715,7 +3715,7 @@ Ext.pass = Ext.Function.alias(Ext.Function, 'pass');
  */
 Ext.bind = Ext.Function.alias(Ext.Function, 'bind');
 
-// @tag foundation,core
+// @tag foundation,app
 // @require Function.js
 // @define Ext.Object
 
@@ -4391,7 +4391,7 @@ Ext.urlDecode = function() {
 
 }());
 
-// @tag foundation,core
+// @tag foundation,app
 // @require Object.js
 // @define Ext.Date
 
@@ -6042,7 +6042,7 @@ Ext.Date = new function() {
   });
 };
 
-// @tag foundation,core
+// @tag foundation,app
 // @require ../lang/Date.js
 // @define Ext.Base
 
@@ -7287,7 +7287,7 @@ var noArgs = [],
 
 }(Ext.Function.flexSetter));
 
-// @tag foundation,core
+// @tag foundation,app
 // @require Base.js
 // @define Ext.Class
 
@@ -7954,7 +7954,7 @@ var noArgs = [],
     };
 }());
 
-// @tag foundation,core
+// @tag foundation,app
 // @require Class.js
 // @define Ext.ClassManager
 
@@ -9753,7 +9753,7 @@ if (Ext._aliasMetadata) {
     Ext._aliasMetadata = null;
 }
 
-// @tag foundation,core
+// @tag foundation,app
 // @require ClassManager.js
 // @define Ext.Loader
 
@@ -9999,7 +9999,7 @@ Ext.Loader = new function() {
          * Set the configuration for the loader. This should be called right after ext-(debug).js
          * is included in the page, and before Ext.onReady. i.e:
          *
-         *     <script type="text/javascript" src="ext-core-debug.js"></script>
+         *     <script type="text/javascript" src="ext-app-debug.js"></script>
          *     <script type="text/javascript">
          *         Ext.Loader.setConfig({
          *           enabled: true,
@@ -11204,9 +11204,9 @@ if (Ext._classPathMetadata) {
         path = src.substring(0, src.lastIndexOf('/') + 1),
         Loader = Ext.Loader;
 
-    if(src.indexOf("/platform/core/src/class/") != -1) {
+    if(src.indexOf("/platform/app/src/class/") != -1) {
         path = path + "../../../../extjs/";
-    } else if(src.indexOf("/core/src/class/") != -1) {
+    } else if(src.indexOf("/app/src/class/") != -1) {
         path = path + "../../../";
     }
 
@@ -11229,7 +11229,7 @@ if (Ext._beforereadyhandler){
     Ext._beforereadyhandler();
 }
 
-// @tag foundation,core
+// @tag foundation,app
 // @require ../class/Loader.js
 // @define Ext.Error
 
@@ -11556,7 +11556,7 @@ Ext.deprecated = function (suggestion) {
     poll();
 }());
 
-// @tag extras,core
+// @tag extras,app
 // @require ../lang/Error.js
 // @define Ext.JSON
 
@@ -11823,7 +11823,7 @@ Ext.encode = Ext.JSON.encode;
  */
 Ext.decode = Ext.JSON.decode;
 
-// @tag extras,core
+// @tag extras,app
 // @require misc/JSON.js
 // @define Ext
 
@@ -13238,7 +13238,7 @@ Ext.application = function(config) {
     });
 };
 
-// @tag extras,core
+// @tag extras,app
 // @require ../Ext-more.js
 // @define Ext.util.Format
 
@@ -13894,7 +13894,7 @@ Ext.application = function(config) {
     });
 }());
 
-// @tag extras,core
+// @tag extras,app
 // @require Format.js
 
 /**
@@ -14318,7 +14318,7 @@ function () {
 
 
 
-// @tag extras,core
+// @tag extras,app
 /**
  * A static {@link Ext.util.TaskRunner} instance that can be used to start and stop
  * arbitrary tasks. See {@link Ext.util.TaskRunner} for supported methods and task
@@ -14346,7 +14346,7 @@ Ext.define('Ext.util.TaskManager', {
     singleton: true
 });
 
-// @tag extras,core
+// @tag extras,app
 // @require ../util/TaskManager.js
 
 /**
@@ -14594,7 +14594,7 @@ function () {
     Ext.perf.getTimestamp = this.getTimestamp;
 });
 
-// @tag extras,core
+// @tag extras,app
 // @require Accumulator.js
 
 /**
@@ -14764,16 +14764,16 @@ Ext.define('Ext.perf.Monitor', {
 //                    'Ext.AbstractComponent': 'removeCls'
 //                },
 //                getStyle: {
-//                    'Ext.core.Element': 'getStyle'
+//                    'Ext.app.Element': 'getStyle'
 //                },
 //                setStyle: {
-//                    'Ext.core.Element': 'setStyle'
+//                    'Ext.app.Element': 'setStyle'
 //                },
 //                addCls: {
-//                    'Ext.core.Element': 'addCls'
+//                    'Ext.app.Element': 'addCls'
 //                },
 //                removeCls: {
-//                    'Ext.core.Element': 'removeCls'
+//                    'Ext.app.Element': 'removeCls'
 //                },
 //                measure: {
 //                    'Ext.layout.component.Component': 'measureAutoDimensions'
@@ -14812,7 +14812,7 @@ Ext.define('Ext.perf.Monitor', {
     }
 });
 
-// @tag extras,core
+// @tag extras,app
 // @require perf/Monitor.js
 // @define Ext.Supports
 
@@ -15669,7 +15669,7 @@ Ext.supports = {
 
 Ext.supports.init(); // run the "early" detections now
 
-// @tag dom,core
+// @tag dom,app
 // @require ../Support.js
 // @define Ext.util.DelayedTask
 
@@ -15767,7 +15767,7 @@ Ext.util.DelayedTask = function(fn, scope, args, cancelOnDelay) {
     };
 };
 
-// @tag dom,core
+// @tag dom,app
 /**
  * Represents single event type that an Observable object listens to.
  * All actual listeners are tracked inside here.  When the event fires,
@@ -16070,7 +16070,7 @@ Ext.define('Ext.util.Event', function() {
   };
 });
 
-// @tag dom,core
+// @tag dom,app
 // @require util/Event.js
 // @define Ext.EventManager
 
@@ -17424,7 +17424,7 @@ Ext.EventManager = new function() {
     Ext.onReady(initExtCss);
 };
 
-// @tag core
+// @tag app
 /**
  * Base class that provides a common interface for publishing events. Subclasses are expected to to have a property
  * "events" with all the events defined, and, optionally, a property "listeners" with configured listeners defined.
@@ -18723,7 +18723,7 @@ Ext.define('Ext.util.Observable', function(Observable) {
     });
 });
 
-// @tag dom,core
+// @tag dom,app
 // @require EventManager.js
 // @define Ext.EventObject
 
@@ -19607,7 +19607,7 @@ Ext.EventObject = new Ext.EventObjectImpl();
 });
 
 
-// @tag dom,core
+// @tag dom,app
 // @require ../EventObject.js
 
 /**
@@ -19683,7 +19683,7 @@ Ext.define('Ext.dom.AbstractQuery', {
 
 });
 
-// @tag dom,core
+// @tag dom,app
 // @require AbstractQuery.js
 
 /**
@@ -19976,7 +19976,7 @@ Ext.define('Ext.dom.AbstractHelper', {
 
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  */
 Ext.define('Ext.dom.AbstractElement_static', {
@@ -20408,7 +20408,7 @@ function () {
     });
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  */
 Ext.define('Ext.dom.AbstractElement_insertion', {
@@ -20638,7 +20638,7 @@ Ext.define('Ext.dom.AbstractElement_insertion', {
     }
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  */
 Ext.define('Ext.dom.AbstractElement_style', {
@@ -21336,7 +21336,7 @@ Ext.define('Ext.dom.AbstractElement_style', {
         },
 
         /**
-         * Puts a mask over this element to disable user interaction. Requires core.css.
+         * Puts a mask over this element to disable user interaction. Requires app.css.
          * This method can only be applied to elements which accept child nodes.
          * @param {String} [msg] A message to display in the mask
          * @param {String} [msgCls] A css class to apply to the msg element
@@ -21496,7 +21496,7 @@ Ext.define('Ext.dom.AbstractElement_style', {
 
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  */
 Ext.define('Ext.dom.AbstractElement_traversal', {
@@ -21681,7 +21681,7 @@ Ext.define('Ext.dom.AbstractElement_traversal', {
     }
 });
 
-// @tag dom,core
+// @tag dom,app
 // @require Ext.Supports
 
 /**
@@ -21838,7 +21838,7 @@ Ext.define('Ext.dom.AbstractElement', {
          * <p>The number of parameters is unlimited.</p>
          * <p>Example</p><pre><code>
 // Add x-invalid and x-mandatory classes, do not duplicate
-myElement.dom.className = Ext.core.Element.mergeClsList(this.initialClasses, 'x-invalid x-mandatory');
+myElement.dom.className = Ext.app.Element.mergeClsList(this.initialClasses, 'x-invalid x-mandatory');
 </code></pre>
          * @param {Mixed} clsList1 A string of class names, or an array of class names.
          * @param {Mixed} clsList2 A string of class names, or an array of class names.
@@ -21883,7 +21883,7 @@ myElement.dom.className = Ext.core.Element.mergeClsList(this.initialClasses, 'x-
          * from the second parameter removed.</p>
          * <p>Example</p><pre><code>
 // Remove x-invalid and x-mandatory classes if present.
-myElement.dom.className = Ext.core.Element.removeCls(this.initialClasses, 'x-invalid x-mandatory');
+myElement.dom.className = Ext.app.Element.removeCls(this.initialClasses, 'x-invalid x-mandatory');
 </code></pre>
          * @param {Mixed} existingClsList A string of class names, or an array of class names.
          * @param {Mixed} removeClsList A string of class names, or an array of class names to remove from <code>existingClsList</code>.
@@ -22412,15 +22412,15 @@ function() {
     }(this.prototype));
 });
 
-// @tag dom,core
+// @tag dom,app
 // @define Ext.DomHelper
 
-// @define Ext.core.DomHelper
+// @define Ext.app.DomHelper
 
 /**
  * @class Ext.DomHelper
  * @extends Ext.dom.Helper
- * @alternateClassName Ext.core.DomHelper
+ * @alternateClassName Ext.app.DomHelper
  * @singleton
  *
  * The DomHelper class provides a layer of abstraction from DOM and transparently supports creating elements via DOM or
@@ -22902,7 +22902,7 @@ return {
     Ext.DomHelper = Ext.core.DomHelper = new this;
 });
 
-// @tag core
+// @tag app
 /**
  * Represents an HTML fragment template. Templates may be {@link #compile precompiled} for greater performance.
  *
@@ -23235,7 +23235,7 @@ Ext.define('Ext.Template', {
     }
 });
 
-// @tag core
+// @tag app
 /**
  * This class parses the XTemplate syntax and calls abstract methods to process the parts.
  * @private
@@ -23505,7 +23505,7 @@ Ext.define('Ext.XTemplateParser', {
     elseRe:    /^\s*else\s*$/
 });
 
-// @tag core
+// @tag app
 /**
  * This class compiles the XTemplate syntax into a function object. The function is used
  * like so:
@@ -24044,7 +24044,7 @@ Ext.define('Ext.XTemplateCompiler', {
     proto.callFn = '.call(this,' + proto.fnArgs + ')';
 });
 
-// @tag core
+// @tag app
 /**
  * A template class that supports advanced functionality like:
  *
@@ -24444,10 +24444,10 @@ Ext.define('Ext.XTemplate', {
     }
 });
 
-// @tag dom,core
+// @tag dom,app
 // @require Helper.js
 // @define Ext.dom.Query
-// @define Ext.core.DomQuery
+// @define Ext.app.DomQuery
 // @define Ext.DomQuery
 
 /*
@@ -24457,7 +24457,7 @@ Ext.define('Ext.XTemplate', {
 /**
  * @class Ext.dom.Query
  * @alternateClassName Ext.DomQuery
- * @alternateClassName Ext.core.DomQuery
+ * @alternateClassName Ext.app.DomQuery
  * @singleton
  *
  * Provides high performance selector/xpath processing by compiling queries into reusable functions. New pseudo classes
@@ -25649,7 +25649,7 @@ Ext.dom.Query = Ext.core.DomQuery = Ext.DomQuery = (function() {
 */
 Ext.query = Ext.DomQuery.select;
 
-// @tag dom,core
+// @tag dom,app
 /* ================================
  * A Note About Wrapped Animations
  * ================================
@@ -26688,7 +26688,7 @@ Ext.define('Ext.dom.Element_anim', {
     }
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  */
 Ext.define('Ext.dom.Element_dd', {
@@ -26731,7 +26731,7 @@ Ext.define('Ext.dom.Element_dd', {
     }
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  */
 Ext.define('Ext.dom.Element_fx', {
@@ -26931,7 +26931,7 @@ Element.override({
 
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  */
 Ext.define('Ext.dom.Element_position', {
@@ -27558,7 +27558,7 @@ var flyInstance,
 
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  */
 Ext.define('Ext.dom.Element_scroll', {
@@ -27864,7 +27864,7 @@ Ext.define('Ext.dom.Element_scroll', {
     this.prototype.scrolltoFly = new this.Fly();
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  */
 Ext.define('Ext.dom.Element_style', {
@@ -28869,7 +28869,7 @@ Ext.onReady(function () {
     // problem given that this has been supported for a long time now...
 });
 
-// @tag core
+// @tag app
 /**
  * This mixin provides a common interface for objects that can be positioned, e.g.
  * {@link Ext.Component Components} and {@link Ext.dom.Element Elements}
@@ -29041,7 +29041,7 @@ Ext.define('Ext.util.Positionable', {
     // End Abstract Methods
     // ***********************
 
-    // private ==>  used outside of core
+    // private ==>  used outside of app
     // TODO: currently only used by ToolTip. does this method belong here?
     adjustForConstraints: function(xy, parent) {
         var vector = this.getConstrainVector(parent, xy);
@@ -29779,11 +29779,11 @@ Ext.define('Ext.util.Positionable', {
     }
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  * @class Ext.dom.Element
  * @alternateClassName Ext.Element
- * @alternateClassName Ext.core.Element
+ * @alternateClassName Ext.app.Element
  * @extends Ext.dom.AbstractElement
  *
  * Encapsulates a DOM element, adding simple DOM manipulation facilities, normalizing for browser differences.
@@ -30011,7 +30011,7 @@ Ext.define('Ext.dom.Element', function(Element) {
             // existence prior to calling getAttribute() if it is possible that the requested attribute does not exist on the specified element.
             //
             // https://developer.mozilla.org/en-US/docs/DOM/element.getAttribute
-            // http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-745549614
+            // http://www.w3.org/TR/DOM-Level-2-Core/app.html#ID-745549614
 
             function(name, ns) {
                 var d = this.dom,
@@ -30138,7 +30138,7 @@ Ext.define('Ext.dom.Element', function(Element) {
         },
 
         /**
-        * Puts a mask over this element to disable user interaction. Requires core.css.
+        * Puts a mask over this element to disable user interaction. Requires app.css.
         * This method can only be applied to elements which accept child nodes.
         * @param {String} [msg] A message to display in the mask
         * @param {String} [msgCls] A css class to apply to the msg element
@@ -31242,7 +31242,7 @@ Ext.define('Ext.dom.Element', function(Element) {
                 canFocus = false;
 
             // Certain browsers always report zero in the absence of the tabIndex attribute.
-            // Testing the specified property (Standards: http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-862529273)
+            // Testing the specified property (Standards: http://www.w3.org/TR/DOM-Level-2-Core/app.html#ID-862529273)
             // Should filter out these cases.
             // The exceptions are IE6 to IE8. In these browsers all elements will yield a tabIndex
             // and therefore all elements will appear to be focusable.
@@ -31373,7 +31373,7 @@ Ext.define('Ext.dom.Element', function(Element) {
     }
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  * This class encapsulates a *collection* of DOM elements, providing methods to filter members, or to perform collective
  * actions upon the whole set.
@@ -31835,7 +31835,7 @@ Ext.define('Ext.dom.CompositeElementLite', {
     };
 });
 
-// @tag dom,core
+// @tag dom,app
 /**
  * @class Ext.dom.CompositeElement
  * <p>This class encapsulates a <i>collection</i> of DOM elements, providing methods to filter

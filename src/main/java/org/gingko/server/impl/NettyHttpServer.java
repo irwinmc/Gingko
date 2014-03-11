@@ -40,9 +40,10 @@ public class NettyHttpServer extends AbstractNettyServer {
 					.channel(NioServerSocketChannel.class)
 					.childHandler(getChannelInitializer());
 
-			LOG.info("Http Server started at {}", nettyConfig.getPortNumber());
+			Channel serverChannel = serverBootstrap.bind(nettyConfig.getSocketAddress()).sync().channel();
+			LOG.debug("Sever bind channel {}", serverChannel);
 
-			serverBootstrap.bind(nettyConfig.getSocketAddress()).channel().closeFuture().sync();
+			LOG.info("Http Server started at {}", nettyConfig.getPortNumber());
 		} catch (Exception e) {
 			LOG.error("Http Server start error {}, going to shut down", e);
 			super.stopServer();

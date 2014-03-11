@@ -1,7 +1,7 @@
 package org.gingko.main;
 
-import org.gingko.context.AppSpringConfig;
-import org.gingko.server.GingkoServer;
+import org.gingko.config.spring.AppSpringConfig;
+import org.gingko.GingkoServer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**

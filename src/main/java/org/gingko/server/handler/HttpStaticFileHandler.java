@@ -64,7 +64,7 @@ public class HttpStaticFileHandler {
 			return;
 		}
 
-		LOG.info("Request file path: {}", path);
+		LOG.debug("Request file path: {}", path);
 
 		File file = new File(path);
 		if (file.isHidden() || !file.exists()) {

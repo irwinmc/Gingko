@@ -15033,7 +15033,7 @@ Ext.define('Ext.Template', {
     }
 });
 
-// @tag core
+// @tag app
 /**
  * This class parses the XTemplate syntax and calls abstract methods to process the parts.
  * @private
@@ -15750,7 +15750,7 @@ Ext.define('Ext.XTemplateCompiler', {
     proto.callFn = '.call(this,' + proto.fnArgs + ')';
 });
 
-// @tag core
+// @tag app
 /**
  * A template class that supports advanced functionality like:
  *
@@ -16149,10 +16149,10 @@ Ext.define('Ext.XTemplate', {
     }
 });
 
-// @tag dom,core
+// @tag dom,app
 // @require Helper.js
 // @define Ext.dom.Query
-// @define Ext.core.DomQuery
+// @define Ext.app.DomQuery
 // @define Ext.DomQuery
 
 /*
@@ -16162,7 +16162,7 @@ Ext.define('Ext.XTemplate', {
 /**
  * @class Ext.dom.Query
  * @alternateClassName Ext.DomQuery
- * @alternateClassName Ext.core.DomQuery
+ * @alternateClassName Ext.app.DomQuery
  * @singleton
  *
  * Provides high performance selector/xpath processing by compiling queries into reusable functions. New pseudo classes

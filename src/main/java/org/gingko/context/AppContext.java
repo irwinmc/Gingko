@@ -16,6 +16,9 @@ public class AppContext implements ApplicationContextAware {
 	public static final String SERVER_MANAGER = "serverManager";
 	public static final String HTTP_SERVER = "httpServer";
 
+	// Services
+	public static final String SCHEDULE_SERVICE = "scheduleService";
+
 	// The spring application context.
 	private static ApplicationContext applicationContext;
 

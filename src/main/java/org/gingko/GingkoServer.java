@@ -1,11 +1,12 @@
-package org.gingko.server;
+package org.gingko;
 
 import org.gingko.context.AppContext;
+import org.gingko.server.ServerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by Administrator on 14-3-6.
+ * @author Kyia
  */
 public class GingkoServer {
 
@@ -22,6 +23,8 @@ public class GingkoServer {
 		try {
 			serverManager.startServers();
 
+			// Engine start
+			Engine.INSTANCE.start();
 			started = true;
 		} catch (Exception e) {
 			LOG.error("Unable to start servers cleanly: {}", e);
@@ -33,6 +36,8 @@ public class GingkoServer {
 		try {
 			serverManager.stopServers();
 
+			// Engine stop
+			Engine.INSTANCE.stop();
 			started = false;
 			LOG.info("Server stopped.");
 		} catch (Exception e) {

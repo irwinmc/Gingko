@@ -2,6 +2,7 @@ package org.gingko.server.handler;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
@@ -20,6 +21,7 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 /**
  * @author Kyia
  */
+@Sharable
 public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
 	private static final Logger LOG = LoggerFactory.getLogger(HttpServerHandler.class);
@@ -32,7 +34,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
 	}
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception{
+	protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
 		if (request.getMethod() != GET) {
 			sendError(ctx, FORBIDDEN);
 			return;
@@ -41,7 +43,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
 		QueryStringDecoder decoder = new QueryStringDecoder(request.getUri());
 		String path = decoder.path();
 		Map<String, List<String>> parameters = decoder.parameters();
-		LOG.info(path);
+		LOG.debug(path);
 
 		if (!path.equals("/")) {
 			staticFileHandler.handleStaticFile(ctx, request);

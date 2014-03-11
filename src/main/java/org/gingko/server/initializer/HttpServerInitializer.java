@@ -15,6 +15,12 @@ import org.gingko.server.handler.HttpServerHandler;
  */
 public class HttpServerInitializer extends ChannelInitializer<SocketChannel> {
 
+	private HttpServerHandler httpServerHandler;
+
+	public HttpServerInitializer() {
+
+	}
+
 	@Override
 	public void initChannel(SocketChannel ch) throws Exception {
 		// Create a default pipeline implementation.
@@ -25,6 +31,14 @@ public class HttpServerInitializer extends ChannelInitializer<SocketChannel> {
 		p.addLast("encoder", new HttpResponseEncoder());
 		p.addLast("chunkedWriter", new ChunkedWriteHandler());
 
-		p.addLast("handler", new HttpServerHandler());
+		p.addLast("handler", httpServerHandler);
+	}
+
+	public HttpServerHandler getHttpServerHandler() {
+		return httpServerHandler;
+	}
+
+	public void setHttpServerHandler(HttpServerHandler httpServerHandler) {
+		this.httpServerHandler = httpServerHandler;
 	}
 }

@@ -5,7 +5,8 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<import resource="server-handlers.xml"/>
+	<context:annotation-config/>
+	<context:component-scan base-package="org.gingko"/>
 
 	<context:property-placeholder location="file:conf/gingko.properties"/>
 
@@ -21,4 +22,6 @@
 	</bean>
 
 	<bean id="appContext" class="org.gingko.context.AppContext"/>
+
+	<import resource="server-handlers.xml"/>
 </beans>

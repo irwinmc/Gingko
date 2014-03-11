@@ -19,9 +19,6 @@
 		<property name="portNumber" value="${http.port}"/>
 	</bean>
 
-	<bean id="httpServerChannelInitializer" class="org.gingko.server.initializer.HttpServerInitializer">
-	</bean>
-
 	<util:map id="httpChannelOptions" map-class="java.util.HashMap">
 		<entry>
 			<key>
@@ -43,5 +40,12 @@
 
 	<bean id="workerGroup" class="io.netty.channel.nio.NioEventLoopGroup" destroy-method="shutdownGracefully">
 		<constructor-arg type="int" index="0" value="${group.workerThreadCount}"/>
+	</bean>
+
+	<bean id="httpServerChannelInitializer" class="org.gingko.server.initializer.HttpServerInitializer">
+		<property name="httpServerHandler" ref="httpServerHandler"/>
+	</bean>
+
+	<bean id="httpServerHandler" class="org.gingko.server.handler.HttpServerHandler">
 	</bean>
 </beans>
