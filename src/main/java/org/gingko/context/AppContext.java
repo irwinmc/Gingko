@@ -18,6 +18,7 @@ public class AppContext implements ApplicationContextAware {
 
 	// Services
 	public static final String SCHEDULE_SERVICE = "scheduleService";
+	public static final String TASK_SERVICE = "taskService";
 
 	// The spring application context.
 	private static ApplicationContext applicationContext;

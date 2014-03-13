@@ -12,6 +12,7 @@ public class PathUtils {
 	private static String rootPath;
 
 	private static final String CONF_PATH = File.separator + "conf" + File.separator;
+	private static final String WEBROOT_PATH = File.separator + "webroot" + File.separator;
 
 	static {
 		rootPath = new File("").getAbsolutePath();
@@ -23,5 +24,9 @@ public class PathUtils {
 
 	public static String getConfPath() {
 		return getRootPath() + CONF_PATH;
+	}
+
+	public static String getWebRootPath() {
+		return getRootPath() + WEBROOT_PATH;
 	}
 }

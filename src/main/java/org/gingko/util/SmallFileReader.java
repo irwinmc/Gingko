@@ -22,7 +22,7 @@ public class SmallFileReader {
 		FileReader reader = new FileReader(smallFile);
 		BufferedReader bufferedReader = new BufferedReader(reader);
 		StringBuffer buf = new StringBuffer();
-		String line = null;
+		String line;
 		while ((line = bufferedReader.readLine()) != null) {
 			buf.append(line);
 		}

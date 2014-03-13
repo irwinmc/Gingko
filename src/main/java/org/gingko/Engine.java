@@ -1,5 +1,6 @@
 package org.gingko;
 
+import org.gingko.app.filter.impl.SECFilter;
 import org.gingko.context.AppContext;
 import org.gingko.services.ScheduleService;
 import org.slf4j.Logger;
@@ -18,6 +19,8 @@ public enum Engine {
 
 	public void start() {
 		scheduleService.init();
+
+		new SECFilter().load();
 	}
 
 	public void stop() {

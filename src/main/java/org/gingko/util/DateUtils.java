@@ -18,7 +18,9 @@ public class DateUtils {
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
 	
 	private static SimpleDateFormat timeFormat = new SimpleDateFormat(DEFAULT_TIME_FORMAT);
-	
+
+	public static final long MILLISECOND_PER_DAY = 24 * 60 * 60 * 1000;
+
 	/**
 	 * Constructor
 	 */

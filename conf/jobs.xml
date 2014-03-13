@@ -8,7 +8,7 @@
 		<job>
 			<name>download-job</name>
 			<group>DOWNLOAD_GROUP</group>
-			<job-class>org.gingko.app.schedule.job.DownloadJob</job-class>
+			<job-class>org.gingko.app.schedule.job.SECDownloadJob</job-class>
 		</job>
 		<trigger>
 			<cron>

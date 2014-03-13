@@ -24,4 +24,6 @@
 	<bean id="appContext" class="org.gingko.context.AppContext"/>
 
 	<import resource="server-handlers.xml"/>
+
+	<import resource="server-services.xml"/>
 </beans>
