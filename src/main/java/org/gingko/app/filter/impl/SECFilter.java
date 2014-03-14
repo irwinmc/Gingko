@@ -1,6 +1,5 @@
 package org.gingko.app.filter.impl;
 
-import org.gingko.app.filter.Filter;
 import org.gingko.app.vo.SECIdxItem;
 import org.gingko.config.SECProperties;
 import org.gingko.util.PathUtils;
@@ -14,7 +13,9 @@ import java.util.HashSet;
 /**
  * @author Kyia
  */
-public class SECFilter implements Filter<SECIdxItem> {
+public enum SECFilter {
+
+	INSTANCE;
 
 	private static final Logger LOG = LoggerFactory.getLogger(SECFilter.class);
 
@@ -25,7 +26,6 @@ public class SECFilter implements Filter<SECIdxItem> {
 	/**
 	 * 初始化
 	 */
-	@Override
 	public void load() {
 		loadCiksFile();
 		loadFormTypesFile();
@@ -92,7 +92,6 @@ public class SECFilter implements Filter<SECIdxItem> {
 	 * @param item
 	 * @return
 	 */
-	@Override
 	public boolean doFilter(SECIdxItem item) {
 		String cik = item.getCik();
 		String formType = item.getFormType();

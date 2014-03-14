@@ -1,5 +1,7 @@
 package org.gingko;
 
+import org.gingko.app.SECSimulator;
+import org.gingko.app.cache.SECCache;
 import org.gingko.app.filter.impl.SECFilter;
 import org.gingko.context.AppContext;
 import org.gingko.services.ScheduleService;
@@ -20,7 +22,10 @@ public enum Engine {
 	public void start() {
 		scheduleService.init();
 
-		new SECFilter().load();
+		// @Test
+		SECSimulator simulator = new SECSimulator();
+		simulator.prepare();
+		simulator.downloadSimulate();
 	}
 
 	public void stop() {

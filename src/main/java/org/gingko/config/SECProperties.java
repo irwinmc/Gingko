@@ -41,7 +41,9 @@ public class SECProperties {
 			filterCik = get("filter.cik");
 			filterFormType = get("filter.formType");
 
-			xlsDst = get("xls.dst");
+			dataXlsDst = get("data.xls.dst");
+			dataTxtDst = get("data.txt.dst");
+			dataHtmlIndexDst = get("data.html.index.dst");
 
 			LOG.info("Remote properties load completed.");
 		} catch (IOException e) {
@@ -58,7 +60,9 @@ public class SECProperties {
 	public static String filterCik = "sec-filter/cik.txt";
 	public static String filterFormType = "sec-filter/form-type.txt";
 
-	public static String xlsDst = "data/sec/xls/";
+	public static String dataXlsDst = "data/sec/xls/";
+	public static String dataTxtDst = "data/sec/txt/";
+	public static String dataHtmlIndexDst = "data/sec/html/index/";
 
 	/**
 	 * Get from properties file with blank filter

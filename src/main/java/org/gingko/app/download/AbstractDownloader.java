@@ -2,10 +2,12 @@ package org.gingko.app.download;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,12 +30,18 @@ public abstract class AbstractDownloader implements Downloader {
 	protected boolean downloadFile(String url, String dst) throws Exception {
 		boolean success = false;
 
-		CloseableHttpClient httpclient = HttpClients.createDefault();
+		CloseableHttpClient httpClient = HttpClients.createDefault();
 		try {
-			HttpGet httpget = new HttpGet(url);
-			LOG.info("Executing request " + httpget.getRequestLine());
+			HttpGet httpGet = new HttpGet(url);
+			// Request configuration can be overridden at the request level.
+			// They will take precedence over the one set at the client level.
+			RequestConfig requestConfig = RequestConfig.custom()
+					.setSocketTimeout(3000)
+					.setConnectTimeout(3000)
+					.build();
+			httpGet.setConfig(requestConfig);
 
-			CloseableHttpResponse response = httpclient.execute(httpget);
+			CloseableHttpResponse response = httpClient.execute(httpGet);
 			try {
 				int statusCode = response.getStatusLine().getStatusCode();
 				if (statusCode == HttpStatus.SC_OK) {
@@ -61,9 +69,49 @@ public abstract class AbstractDownloader implements Downloader {
 				response.close();
 			}
 		} finally {
-			httpclient.close();
+			httpClient.close();
 		}
 
 		return success;
+	}
+
+	/**
+	 * 多线程下载方法
+	 *
+	 * @param urls
+	 * @param dsts
+	 * @throws Exception
+	 */
+	protected void multiThreadedDownloadFile(String[] urls, String[] dsts) throws Exception {
+		// Create an HttpClient with the ThreadSafeClientConnManager.
+		// This connection manager must be used if more than one thread will
+		// be using the HttpClient.
+		PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+		cm.setMaxTotal(100);
+
+		CloseableHttpClient httpClient = HttpClients.custom()
+				.setConnectionManager(cm)
+				.build();
+
+		try {
+			// create a thread for each URI
+			DownloadThread[] threads = new DownloadThread[urls.length];
+			for (int i = 0; i < threads.length; i++) {
+				HttpGet httpGet = new HttpGet(urls[i]);
+				threads[i] = new DownloadThread(httpClient, httpGet, dsts[i]);
+			}
+
+			// start the threads
+			for (int j = 0; j < threads.length; j++) {
+				threads[j].start();
+			}
+
+			// join the threads
+			for (int j = 0; j < threads.length; j++) {
+				threads[j].join();
+			}
+		} finally {
+			httpClient.close();
+		}
 	}
 }
