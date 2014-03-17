@@ -104,55 +104,55 @@ public class StringUtils {
 
 	/**
 	 * This method is used to insert HTML block dynamically
-     *
-     * @param source the HTML code to be processes
-     * @param bReplaceNl if true '\n' will be replaced by <br>
-     * @param bReplaceTag if true '<' will be replaced by &lt; and 
-     *                          '>' will be replaced by &gt;
-     * @param bReplaceQuote if true '\"' will be replaced by &quot; 
-     */
+	 *
+	 * @param source        the HTML code to be processes
+	 * @param bReplaceNl    if true '\n' will be replaced by <br>
+	 * @param bReplaceTag   if true '<' will be replaced by &lt; and
+	 *                      '>' will be replaced by &gt;
+	 * @param bReplaceQuote if true '\"' will be replaced by &quot;
+	 */
 	public static String formatHtml(String source, boolean bReplaceNl, boolean bReplaceTag, boolean bReplaceQuote) {
 		StringBuffer sb = new StringBuffer();
 		int len = source.length();
 		for (int i = 0; i < len; i++) {
 			char c = source.charAt(i);
 			switch (c) {
-			case '\"':
-				if (bReplaceQuote)
-					sb.append("&quot;");
-				else
-					sb.append(c);
-				break;
-			case '<':
-				if (bReplaceTag)
-					sb.append("&lt;");
-				else
-					sb.append(c);
-				break;
-			case '>':
-				if (bReplaceTag)
-					sb.append("&gt;");
-				else
-					sb.append(c);
-				break;
-			case '\n':
-				if (bReplaceNl) {
-					if (bReplaceTag)
-						sb.append("&lt;br&gt;");
+				case '\"':
+					if (bReplaceQuote)
+						sb.append("&quot;");
 					else
-						sb.append("<br>");
-				} else {
+						sb.append(c);
+					break;
+				case '<':
+					if (bReplaceTag)
+						sb.append("&lt;");
+					else
+						sb.append(c);
+					break;
+				case '>':
+					if (bReplaceTag)
+						sb.append("&gt;");
+					else
+						sb.append(c);
+					break;
+				case '\n':
+					if (bReplaceNl) {
+						if (bReplaceTag)
+							sb.append("&lt;br&gt;");
+						else
+							sb.append("<br>");
+					} else {
+						sb.append(c);
+					}
+					break;
+				case '\r':
+					break;
+				case '&':
+					sb.append("&amp;");
+					break;
+				default:
 					sb.append(c);
-				}
-				break;
-			case '\r':
-				break;
-			case '&':
-				sb.append("&amp;");
-				break;
-			default:
-				sb.append(c);
-				break;
+					break;
 			}
 		}
 		return sb.toString();
@@ -211,7 +211,7 @@ public class StringUtils {
 
 	/**
 	 * Filter the space tab etc...
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
@@ -219,5 +219,35 @@ public class StringUtils {
 		Pattern p = Pattern.compile("\\s*|\t|\r|\n");
 		Matcher m = p.matcher(str);
 		return m.replaceAll("");
+	}
+
+	/**
+	 * Checks if a CharSequence is empty ("") or null.
+	 *
+	 * @param str
+	 * @return
+	 */
+	public static boolean isEmpty(String str) {
+		return str == null || str.length() == 0;
+	}
+
+	/**
+	 * Checks if the CharSequence contains only Unicode digits.
+	 * A decimal point is not a Unicode digit and returns false.
+	 *
+	 * @param cs
+	 * @return
+	 */
+	public static boolean isNumeric(String str) {
+		if (isEmpty(str)) {
+			return false;
+		}
+		final int sz = str.length();
+		for (int i = 0; i < sz; i++) {
+			if (Character.isDigit(str.charAt(i)) == false) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

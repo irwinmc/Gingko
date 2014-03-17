@@ -21,7 +21,7 @@ public class SECSimulator {
 		SECFilter.INSTANCE.load();
 	}
 
-	public void downloadSimulate() {
+	public void download() {
 		// 昨天的时间
 		long time = System.currentTimeMillis() - DateUtils.MILLISECOND_PER_DAY;
 
@@ -40,5 +40,9 @@ public class SECSimulator {
 			// 批量下载
 			downloader.multiThreadeDownloadIndexHtm(list);
 		}
+	}
+
+	public void parseHtmlIdx() {
+
 	}
 }

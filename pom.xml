@@ -139,18 +139,13 @@
 			<version>1.7.3</version>
 		</dependency>
 
-		<!-- PDF, HTML, TXT, EXCEL parser module -->
+		<!-- Utilities -->
 		<dependency>
-			<groupId>org.gingko</groupId>
-			<artifactId>gingko-html</artifactId>
-			<version>0.0.1</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.gingko</groupId>
-			<artifactId>gingko-pdf</artifactId>
-			<version>0.0.1</version>
-		</dependency>
 	</dependencies>
 
 </project>
