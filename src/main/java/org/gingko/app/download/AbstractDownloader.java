@@ -27,9 +27,7 @@ public abstract class AbstractDownloader implements Downloader {
 	 * @param dst 本地保存地址
 	 * @return
 	 */
-	protected boolean downloadFile(String url, String dst) throws Exception {
-		boolean success = false;
-
+	protected void downloadFile(String url, String dst) throws Exception {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		try {
 			HttpGet httpGet = new HttpGet(url);
@@ -63,7 +61,7 @@ public abstract class AbstractDownloader implements Downloader {
 							in.close();
 						}
 					}
-					success = true;
+					LOG.debug("URL: {} download successful.", url);
 				}
 			} finally {
 				response.close();
@@ -71,8 +69,6 @@ public abstract class AbstractDownloader implements Downloader {
 		} finally {
 			httpClient.close();
 		}
-
-		return success;
 	}
 
 	/**
@@ -93,11 +89,17 @@ public abstract class AbstractDownloader implements Downloader {
 				.setConnectionManager(cm)
 				.build();
 
+		RequestConfig requestConfig = RequestConfig.custom()
+				.setSocketTimeout(3000)
+				.setConnectTimeout(3000)
+				.build();
+
 		try {
 			// create a thread for each URI
 			DownloadThread[] threads = new DownloadThread[urls.length];
 			for (int i = 0; i < threads.length; i++) {
 				HttpGet httpGet = new HttpGet(urls[i]);
+//				httpGet.setConfig(requestConfig);
 				threads[i] = new DownloadThread(httpClient, httpGet, dsts[i]);
 			}
 

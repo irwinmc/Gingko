@@ -1,7 +1,8 @@
 package org.gingko.app.filter.impl;
 
-import org.gingko.app.vo.SECIdxItem;
-import org.gingko.config.SECProperties;
+import org.gingko.app.persist.domain.SecHtmlIdx;
+import org.gingko.app.persist.domain.SecIdx;
+import org.gingko.config.SecProperties;
 import org.gingko.util.PathUtils;
 import org.gingko.util.StringUtils;
 import org.slf4j.Logger;
@@ -13,11 +14,11 @@ import java.util.HashSet;
 /**
  * @author Kyia
  */
-public enum SECFilter {
+public enum SecFilter {
 
 	INSTANCE;
 
-	private static final Logger LOG = LoggerFactory.getLogger(SECFilter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SecFilter.class);
 
 	// 将过滤条件放入内存
 	private final HashSet<String> ciks = new HashSet<String>();
@@ -38,7 +39,7 @@ public enum SECFilter {
 	public void loadCiksFile() {
 		ciks.clear();
 
-		String fileName = PathUtils.getConfPath() + SECProperties.filterCik;
+		String fileName = PathUtils.getConfPath() + SecProperties.filterCik;
 		readFromFile(fileName, ciks);
 
 		LOG.info("Load SEC ciks complete.");
@@ -47,7 +48,7 @@ public enum SECFilter {
 	public void loadFormTypesFile() {
 		formTypes.clear();
 
-		String fileName = PathUtils.getConfPath() + SECProperties.filterFormType;
+		String fileName = PathUtils.getConfPath() + SecProperties.filterFormType;
 		readFromFile(fileName, formTypes);
 
 		LOG.info("Load SEC formTypes complete.");
@@ -87,15 +88,27 @@ public enum SECFilter {
 	}
 
 	/**
-	 * 过滤方法
+	 * 过滤MII方法
 	 *
-	 * @param item
+	 * @param secIdx
 	 * @return
 	 */
-	public boolean doFilter(SECIdxItem item) {
-		String cik = item.getCik();
-		String formType = item.getFormType();
+	public boolean doFilter(SecIdx secIdx) {
+		String cik = secIdx.getCik();
+		String formType = secIdx.getFormType();
 		return ciks.contains(cik) && formTypes.contains(formType);
+	}
+
+	/**
+	 * TODO: 临时方法，需要修改为多重优先级过滤
+	 * 过滤HII方法
+	 *
+	 * @param secHtmlIdx
+	 * @return
+	 */
+	public boolean doFilter(SecHtmlIdx secHtmlIdx) {
+		String type = secHtmlIdx.getType();
+		return formTypes.contains(type);
 	}
 
 	public HashSet<String> getCiks() {

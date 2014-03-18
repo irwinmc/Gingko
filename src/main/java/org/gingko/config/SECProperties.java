@@ -17,9 +17,9 @@ import java.util.Properties;
  * @author Kyia
  */
 @Component
-public class SECProperties {
+public class SecProperties {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SECProperties.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SecProperties.class);
 
 	private static final String SEC_PROPS = "sec.properties";
 	private static Properties props = new Properties();
@@ -33,6 +33,8 @@ public class SECProperties {
 
 			// SEC
 			base = get("base");
+			baseArchives = get("base.archives");
+
 			masterIdxFileName = get("master.idx.fileName");
 			masterIdxDateFormat = get("master.idx.dateFormat");
 			masterIdxUrl = get("master.idx.url");
@@ -44,6 +46,7 @@ public class SECProperties {
 			dataXlsDst = get("data.xls.dst");
 			dataTxtDst = get("data.txt.dst");
 			dataHtmlIndexDst = get("data.html.index.dst");
+			dataHtmlFormDst = get("data.html.form.dst");
 
 			LOG.info("Remote properties load completed.");
 		} catch (IOException e) {
@@ -51,7 +54,9 @@ public class SECProperties {
 		}
 	}
 
-	public static String base = "http://www.sec.gov/Archives/";
+	public static String base = "http://www.sec.gov/";
+	public static String baseArchives = "http://www.sec.gov/Archives/";
+
 	public static String masterIdxFileName = "master.${date}.idx";
 	public static String masterIdxDateFormat = "yyyyMMdd";
 	public static String masterIdxUrl = "http://www.sec.gov/Archives/edgar/daily-index/";
@@ -63,6 +68,7 @@ public class SECProperties {
 	public static String dataXlsDst = "data/sec/xls/";
 	public static String dataTxtDst = "data/sec/txt/";
 	public static String dataHtmlIndexDst = "data/sec/html/index/";
+	public static String dataHtmlFormDst = "data/sec/html/form/";
 
 	/**
 	 * Get from properties file with blank filter

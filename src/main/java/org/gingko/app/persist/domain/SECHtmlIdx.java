@@ -1,11 +1,13 @@
-package org.gingko.app.vo;
+package org.gingko.app.persist.domain;
+
+import java.io.Serializable;
 
 /**
  * @author Kyia
  *
  * Seq|Description|Document|Type|Size
  */
-public class SECHtmlIdxItem {
+public class SecHtmlIdx implements Serializable {
 
 	private int seq;
 	private String description;
@@ -15,17 +17,8 @@ public class SECHtmlIdxItem {
 	/** Document anchor */
 	private String anchor;
 
-	public SECHtmlIdxItem() {
+	public SecHtmlIdx() {
 
-	}
-
-	public SECHtmlIdxItem(int seq, String description, String document, String type, int size, String anchor) {
-		this.seq = seq;
-		this.description = description;
-		this.document = document;
-		this.type = type;
-		this.size = size;
-		this.anchor = anchor;
 	}
 
 	public int getSeq() {

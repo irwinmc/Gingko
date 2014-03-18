@@ -1,8 +1,7 @@
 package org.gingko.parse;
 
 import org.gingko.app.parse.table.HtmlTable;
-import org.gingko.app.vo.SECHtmlIdxItem;
-import org.gingko.util.StringUtils;
+import org.gingko.app.persist.domain.SecHtmlIdx;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -47,7 +46,7 @@ public class SimpleHtmlParser {
 	}
 
 	private static HtmlTable parseTable(Element e) {
-		List<SECHtmlIdxItem> list = new ArrayList<SECHtmlIdxItem>();
+		List<SecHtmlIdx> list = new ArrayList<SecHtmlIdx>();
 
 		// 以tr每行作为一个单独对象判断
 		for (Element tr : e.select("tr")) {

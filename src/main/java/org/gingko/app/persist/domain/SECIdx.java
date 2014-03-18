@@ -1,11 +1,13 @@
-package org.gingko.app.vo;
+package org.gingko.app.persist.domain;
+
+import java.io.Serializable;
 
 /**
  * @author Kyia
  *
  * CIK|Company Name|Form Type|Date Filed|File Name
  */
-public class SECIdxItem {
+public class SecIdx implements Serializable {
 
 	private String cik;
 	private String companyName;
@@ -13,16 +15,8 @@ public class SECIdxItem {
 	private String dateField;
 	private String fileName;
 
-	public SECIdxItem() {
+	public SecIdx() {
 
-	}
-
-	public SECIdxItem(String cik, String companyName, String formType, String dateField, String fileName) {
-		this.cik = cik;
-		this.companyName = companyName;
-		this.formType = formType;
-		this.dateField = dateField;
-		this.fileName = fileName;
 	}
 
 	public String getCik() {

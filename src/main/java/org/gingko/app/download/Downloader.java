@@ -11,7 +11,7 @@ public interface Downloader {
 	 *
 	 * 如：
 	 * HashMap<String, Downloader> map = new HashMap<String, Downloader>();
-	 * map.put("SEC", new SECDownloader());
+	 * map.put("SEC", new SecDownloader());
 	 *
 	 * 使用时
 	 *

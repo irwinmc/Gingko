@@ -1,6 +1,6 @@
 package org.gingko.app.parse;
 
-import org.gingko.app.vo.SECIdxItem;
+import org.gingko.app.persist.domain.SecIdx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +29,9 @@ import java.util.List;
  *         有部分配置在代码内部，视数据格式而定
  *         考虑配置放在外部
  */
-public class SECMasterIdxParser {
+public class SecMasterIdxParser {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SECMasterIdxParser.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SecMasterIdxParser.class);
 
 	// 从第八行来解析，如果这个网站格式变更，如何考虑改变规则
 	// TODO: 配置亦或是如何制定解析规则
@@ -48,8 +48,8 @@ public class SECMasterIdxParser {
 	 *
 	 * @param dst
 	 */
-	public List<SECIdxItem> parseMasterIdx(String dst) {
-		List<SECIdxItem> list = new ArrayList<SECIdxItem>();
+	public List<SecIdx> parseMasterIdx(String dst) {
+		List<SecIdx> list = new ArrayList<SecIdx>();
 
 		File file = new File(dst);
 		BufferedReader br = null;
@@ -62,7 +62,7 @@ public class SECMasterIdxParser {
 				if (line.length() > 0 && n >= parseStartLine) {
 					String[] strArray = line.split(parseSplitRegex);
 					if (strArray.length >= parseAttrNum) {
-						SECIdxItem item = new SECIdxItem();
+						SecIdx item = new SecIdx();
 						item.setCik(strArray[0]);
 						item.setCompanyName(strArray[1]);
 						item.setFormType(strArray[2]);

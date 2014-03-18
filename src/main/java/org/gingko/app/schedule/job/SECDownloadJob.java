@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
  *         而后开始针对处理之后的数据做进一步的下载分析
  *         这里触发下载队列
  */
-public class SECDownloadJob implements Job {
+public class SecDownloadJob implements Job {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SECDownloadJob.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SecDownloadJob.class);
 
 	/**
 	 * @param context

@@ -9,6 +9,7 @@
           <file>file://$MODULE_DIR$/conf/gingko.properties</file>
           <file>file://$MODULE_DIR$/src/main/java/org/gingko/config/spring/AppSpringConfig.java</file>
           <file>file://$MODULE_DIR$/src/main/resources/gingko/beans/server-services.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/gingko/beans/mybatis-beans.xml</file>
         </fileset>
       </configuration>
     </facet>

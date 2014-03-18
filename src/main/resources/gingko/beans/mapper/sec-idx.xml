@@ -1,0 +1,18 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.SecIdxMapper">
+
+	<select id="getAll">
+		select * from gingko.gk_sec_idx
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into gingko.gk_sec_idx (
+			"cik", "companyName", "formType", "dateField", "fileName"
+		) values (
+			#{cik}, #{companyName}, #{formType}, #{dateField}, #{fileName}
+		)
+	</insert>
+
+</mapper>

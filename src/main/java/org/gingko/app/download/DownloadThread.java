@@ -58,6 +58,7 @@ public class DownloadThread extends Thread {
 				response.close();
 			}
 		} catch (Exception e) {
+			System.out.println(httpGet.getRequestLine());
 			e.printStackTrace();
 		}
 	}

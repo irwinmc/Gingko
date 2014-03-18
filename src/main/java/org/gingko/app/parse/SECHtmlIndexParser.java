@@ -1,7 +1,7 @@
 package org.gingko.app.parse;
 
-import org.gingko.app.vo.SECHtmlIdxItem;
-import org.gingko.config.SECProperties;
+import org.gingko.app.persist.domain.SecHtmlIdx;
+import org.gingko.config.SecProperties;
 import org.gingko.util.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -41,9 +41,9 @@ import java.util.List;
  *         </tr>
  *         ...
  */
-public class SECHtmlIndexParser {
+public class SecHtmlIndexParser {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SECHtmlIndexParser.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SecHtmlIndexParser.class);
 
 	// 表单的属性中包含有以下属性，并且值为如下
 	// TODO: 这里为表单的定位条件，需要考虑在外部配置
@@ -59,14 +59,13 @@ public class SECHtmlIndexParser {
 	 * <p/>
 	 * 这里产生的是内存中间对象，具体的解析文件需要输入相应的配置规则进行定义，中间对象不做持久化
 	 *
-	 * @param dst
+	 * @param file
 	 */
-	public List<SECHtmlIdxItem> parseHtmlIdx(String dst) {
-		List<SECHtmlIdxItem> list = new ArrayList<SECHtmlIdxItem>();
+	public List<SecHtmlIdx> parseHtmlIdx(File file) {
+		List<SecHtmlIdx> list = new ArrayList<SecHtmlIdx>();
 
-		File file = new File(dst);
 		try {
-			Document doc = Jsoup.parse(file, "UTF-8", SECProperties.base);
+			Document doc = Jsoup.parse(file, "UTF-8", SecProperties.base);
 			Element table = doc.select(tableCssQuery).first();
 			// 检查条件是否匹配
 			if (table != null) {
@@ -82,14 +81,22 @@ public class SECHtmlIndexParser {
 							continue;
 						}
 
-						// 新建对象
+						// 获取属性数据
 						int seq = Integer.parseInt(tds.get(0).text());
 						String description = tds.get(1).text();
 						String document = tds.get(2).text();
 						String type = tds.get(3).text();
 						int size = Integer.parseInt(tds.get(4).text());
 						String anchor = tds.get(2).select("a[href]").first().attr("href");
-						SECHtmlIdxItem item = new SECHtmlIdxItem(seq, description, document, type, size, anchor);
+
+						// 对象
+						SecHtmlIdx item = new SecHtmlIdx();
+						item.setSeq(seq);
+						item.setDescription(description);
+						item.setDocument(document);
+						item.setType(type);
+						item.setSize(size);
+						item.setAnchor(anchor);
 						list.add(item);
 					}
 				}
