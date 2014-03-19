@@ -9,14 +9,27 @@ import java.io.Serializable;
  */
 public class SecIdx implements Serializable {
 
+	private int id;
 	private String cik;
 	private String companyName;
 	private String formType;
 	private String dateField;
 	private String fileName;
+	/** fill document index html url */
+	private String fillingHtmlUrl;
+	/** local index html file */
+	private String localFile;
 
 	public SecIdx() {
 
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCik() {
@@ -57,5 +70,21 @@ public class SecIdx implements Serializable {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getFillingHtmlUrl() {
+		return fillingHtmlUrl;
+	}
+
+	public void setFillingHtmlUrl(String fillingHtmlUrl) {
+		this.fillingHtmlUrl = fillingHtmlUrl;
+	}
+
+	public String getLocalFile() {
+		return localFile;
+	}
+
+	public void setLocalFile(String localFile) {
+		this.localFile = localFile;
 	}
 }

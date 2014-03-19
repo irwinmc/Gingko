@@ -1,6 +1,7 @@
 package org.gingko.app.parse;
 
 import org.gingko.app.persist.domain.SecIdx;
+import org.gingko.config.SecProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,12 +63,26 @@ public class SecMasterIdxParser {
 				if (line.length() > 0 && n >= parseStartLine) {
 					String[] strArray = line.split(parseSplitRegex);
 					if (strArray.length >= parseAttrNum) {
+						// 默认属性
+						String cik = strArray[0];
+						String companyName = strArray[1];
+						String formType = strArray[2];
+						String dateField = strArray[3];
+						String fileName = strArray[4];
+
+						// 附加属性
+						String fillingHtmlUrl = generateFillingHtmlUrl(fileName);
+						String localFile = generateLocalFile(cik, fileName);
+
+						// 新建对象
 						SecIdx item = new SecIdx();
-						item.setCik(strArray[0]);
-						item.setCompanyName(strArray[1]);
-						item.setFormType(strArray[2]);
-						item.setDateField(strArray[3]);
-						item.setFileName(strArray[4]);
+						item.setCik(cik);
+						item.setCompanyName(companyName);
+						item.setFormType(formType);
+						item.setDateField(dateField);
+						item.setFileName(fileName);
+						item.setFillingHtmlUrl(fillingHtmlUrl);
+						item.setLocalFile(localFile);
 						list.add(item);
 					}
 				}
@@ -88,5 +103,32 @@ public class SecMasterIdxParser {
 		}
 
 		return list;
+	}
+
+	/**
+	 * 生成完整的Fill Document Html地址
+	 *
+	 * @param fileName
+	 * @return
+	 */
+	private String generateFillingHtmlUrl(String fileName) {
+		String htmIndexFileName = fileName
+				.substring(fileName.lastIndexOf("/") + 1)
+				.replace(".txt", "-index.htm");
+		String url = SecProperties.baseArchives + fileName.replace("-", "").replace(".txt", "") + "/" + htmIndexFileName;
+		return url;
+	}
+
+	/**
+	 * 只取出文件名
+	 *
+	 * @param cik
+	 * @param fileName
+	 * @return
+	 */
+	private String generateLocalFile(String cik, String fileName) {
+		return cik + "-" + fileName
+				.substring(fileName.lastIndexOf("/") + 1)
+				.replace(".txt", ".htm");
 	}
 }

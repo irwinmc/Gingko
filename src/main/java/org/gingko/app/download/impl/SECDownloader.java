@@ -38,6 +38,12 @@ public class SecDownloader extends AbstractDownloader {
 		// 本地文件保存位置
 		String dst = PathUtils.getWebRootPath() + SecProperties.masterIdxDst + fileName;
 
+		// TODO: 检查文件是否存在
+//		File file = new File(dst);
+//		if (file.exists() && !file.isDirectory() && file.length() >= 0) {
+//			LOG.info("Daily master index file exist");
+//		}
+
 		try {
 			// 下载逻辑
 			downloadFile(url, dst);
@@ -71,13 +77,8 @@ public class SecDownloader extends AbstractDownloader {
 		for (int i = 0; i < list.size(); i++) {
 			SecIdx item = list.get(i);
 
-			String fileName = item.getFileName();
-			String htmIndexFileName = fileName
-					.substring(fileName.lastIndexOf("/") + 1, fileName.length())
-					.replace(".txt", "-index.htm");
-
-			String url = SecProperties.baseArchives + fileName.replace("-", "").replace(".txt", "") + "/" + htmIndexFileName;
-			String dst = root + File.separator + htmIndexFileName;
+			String url = item.getFillingHtmlUrl();
+			String dst = root + File.separator + item.getLocalFile();
 
 			urls[i] = url;
 			dsts[i] = dst;
@@ -115,9 +116,8 @@ public class SecDownloader extends AbstractDownloader {
 		for (int i = 0; i < list.size(); i++) {
 			SecHtmlIdx item = list.get(i);
 
-			String subUrl = item.getAnchor();
+			String url = item.getAnchor();
 			String fileName = item.getDocument();
-			String url = SecProperties.base + subUrl;
 			String dst = root + File.separator + fileName;
 
 			urls[i] = url;

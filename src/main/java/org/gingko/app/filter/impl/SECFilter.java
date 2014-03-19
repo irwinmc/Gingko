@@ -23,6 +23,7 @@ public enum SecFilter {
 	// 将过滤条件放入内存
 	private final HashSet<String> ciks = new HashSet<String>();
 	private final HashSet<String> formTypes = new HashSet<String>();
+	private final HashSet<String> fillingDocumentExts = new HashSet<String>();
 
 	/**
 	 * 初始化
@@ -30,6 +31,7 @@ public enum SecFilter {
 	public void load() {
 		loadCiksFile();
 		loadFormTypesFile();
+		loadFillingDocumentExtFile();
 	}
 
 	/**
@@ -52,6 +54,15 @@ public enum SecFilter {
 		readFromFile(fileName, formTypes);
 
 		LOG.info("Load SEC formTypes complete.");
+	}
+
+	public void loadFillingDocumentExtFile() {
+		fillingDocumentExts.clear();
+
+		String fileName = PathUtils.getConfPath() + SecProperties.filterFillingDocumentExt;
+		readFromFile(fileName, fillingDocumentExts);
+
+		LOG.info("Load SEC filling document extension complete.");
 	}
 
 	/**
@@ -108,7 +119,12 @@ public enum SecFilter {
 	 */
 	public boolean doFilter(SecHtmlIdx secHtmlIdx) {
 		String type = secHtmlIdx.getType();
-		return formTypes.contains(type);
+		String document = secHtmlIdx.getDocument();
+		String ext = document.substring(document.lastIndexOf("."));
+
+		// TYPE 需要增加优先级过滤
+
+		return formTypes.contains(type) && fillingDocumentExts.contains(ext);
 	}
 
 	public HashSet<String> getCiks() {

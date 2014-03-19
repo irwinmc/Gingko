@@ -1,16 +1,22 @@
 package org.gingko.app;
 
-import org.gingko.app.cache.SecCache;
 import org.gingko.app.download.impl.SecDownloader;
 import org.gingko.app.filter.impl.SecFilter;
 import org.gingko.app.parse.SecHtmlIndexParser;
+import org.gingko.app.parse.SecMasterIdxParser;
+import org.gingko.app.persist.PersistContext;
 import org.gingko.app.persist.domain.SecHtmlIdx;
 import org.gingko.app.persist.domain.SecIdx;
 import org.gingko.app.persist.mapper.SecHtmlIdxMapper;
+import org.gingko.app.persist.mapper.SecIdxMapper;
 import org.gingko.config.SecProperties;
 import org.gingko.context.AppContext;
+import org.gingko.services.TaskManagerService;
 import org.gingko.util.DateUtils;
+import org.gingko.util.FileUtils;
 import org.gingko.util.PathUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -22,9 +28,16 @@ import java.util.List;
  */
 public class SecSimulator {
 
-	private long time;
+	private static final Logger LOG = LoggerFactory.getLogger(SecSimulator.class);
 
-	private static SecHtmlIdxMapper secHtmlIdxMapper = (SecHtmlIdxMapper) AppContext.getBean("secHtmlIdxMapper");
+	private static SecHtmlIdxMapper secHtmlIdxMapper = (SecHtmlIdxMapper) AppContext.getBean(PersistContext.SEC_HTML_IDX_MAPPER);
+	private static SecIdxMapper secIdxMapper = (SecIdxMapper) AppContext.getBean(PersistContext.SEC_IDX_MAPPER);
+
+	private static TaskManagerService taskManagerService = (TaskManagerService) AppContext.getBean(AppContext.TASK_SERVICE);
+
+	private long time;
+	private String dateDir;
+	private SecDownloader downloader = new SecDownloader();
 
 	/**
 	 * Prepare
@@ -32,40 +45,91 @@ public class SecSimulator {
 	public void prepare() {
 		// 昨天的时间
 		time = System.currentTimeMillis() - DateUtils.MILLISECOND_PER_DAY;
+		dateDir = DateUtils.formatTime(time, "yyyyMMdd");
 
 		// 加载过滤器
 		SecFilter.INSTANCE.load();
 	}
 
 	/**
+	 * Clear
+	 */
+	public void clear() {
+//		secIdxMapper.delete();
+		secHtmlIdxMapper.delete();
+
+		// 删除所有文件
+//		String indexPath = PathUtils.getWebRootPath() + SecProperties.dataHtmlIndexDst + dateDir;
+//		FileUtils.deleteAllFile(indexPath);
+
+		String formPath = PathUtils.getWebRootPath() + SecProperties.dataHtmlFormDst + dateDir;
+		FileUtils.deleteAllFile(formPath);
+	}
+
+	/**
 	 * Download
 	 */
 	public void download() {
-		// 第一步先下载idx文件
-		SecDownloader downloader = new SecDownloader();
+		// 下载总索引文件
+//		downloadMasterIdx();
+
+		// 下载HTML索引文件
+//		downloadHtmlIdx();
+
+		// 解析HTML索引文件
+		parseHtmlIdx();
+
+		// 下载真实数据文件
+		downloadData();
+	}
+
+	/**
+	 * 下载总索引文件
+	 */
+	private void downloadMasterIdx() {
+		// 1. 第一步先下载idx文件
 		String dst = downloader.downloadMasterIdx(time);
 
-		// 解析idx并且放入内存
-		SecCache.INSTANCE.putIdxItems(dst);
-		List<SecIdx> list = SecCache.INSTANCE.getIdxItems();
-
-		// 检查
+		// 2. 检查下载文件并解析
+		SecMasterIdxParser parser = new SecMasterIdxParser();
+		List<SecIdx> list = parser.parseMasterIdx(dst);
 		if (list.isEmpty()) {
-			// 有错误
-		} else {
-			// 需要创建的子文件夹名称
-			String dateDir = DateUtils.formatTime(time, "yyyyMMdd");
-			// 批量下载HTML文件
+			// 没有数据
+			LOG.error("Master idx file parse error, file not exists or format error, please check the file and try again!");
+			return;
+		}
+
+		// 3. 过滤并且存入数据库
+		List<SecIdx> filteredList = new ArrayList<SecIdx>();
+		for (SecIdx secIdx : list) {
+			if (SecFilter.INSTANCE.doFilter(secIdx)) {
+				filteredList.add(secIdx);
+			}
+		}
+		secIdxMapper.insertList(filteredList);
+
+		LOG.info("All filtered master idx data had been inserted into database.");
+	}
+
+	/**
+	 * 下载Html索引文件
+	 * Fill Document
+	 */
+	private void downloadHtmlIdx() {
+		List<SecIdx> list = secIdxMapper.select();
+		if (!list.isEmpty()) {
+			// 4. 批量下载HTML文件
 			downloader.multiThreadDownloadIndexHtm(list, dateDir);
+		} else {
+			LOG.warn("No master idx data in database.");
 		}
 	}
 
 	/**
-	 * Parse
+	 * 解析Html索引文件插入数据库
 	 */
-	public void parse() {
-		// 时间文件夹
-		String dateDir = DateUtils.formatTime(time, "yyyyMMdd");
+	public void parseHtmlIdx() {
+		// 目标文件夹
 		String path = PathUtils.getWebRootPath() + SecProperties.dataHtmlIndexDst + dateDir;
 		File dir = new File(path);
 		File[] files = dir.listFiles(new FilenameFilter() {
@@ -83,36 +147,27 @@ public class SecSimulator {
 				list.addAll(l);
 			}
 		}
-		SecCache.INSTANCE.putHtmlIdxItems(list);
+
+		// 过滤出必要的数据文件
+		List<SecHtmlIdx> filteredList = new ArrayList<SecHtmlIdx>();
+		for (SecHtmlIdx secHtmlIdx : list) {
+			if (SecFilter.INSTANCE.doFilter(secHtmlIdx)) {
+				filteredList.add(secHtmlIdx);
+			}
+		}
+		secHtmlIdxMapper.insertList(filteredList);
 	}
 
 	/**
-	 * Fetch, just other download, real download
+	 * 下载真正数据文件
 	 */
-	public void fetch() {
-		SecDownloader downloader = new SecDownloader();
-
-		List<SecHtmlIdx> list = SecCache.INSTANCE.getHtmlIdxItems();
-		// 检查
+	public void downloadData() {
+		List<SecHtmlIdx> list = secHtmlIdxMapper.select();
 		if (list.isEmpty()) {
-			// 有错误
+			LOG.warn("No html idx data in database.");
 		} else {
-			// 需要创建的子文件夹名称
-			String dateDir = DateUtils.formatTime(time, "yyyyMMdd");
 			// 批量下载HTML文件
 			downloader.multiThreadDownloadDataHtm(list, dateDir);
 		}
-	}
-
-	public void insertIdx() {
-		SecHtmlIdx secHtmlIdx = new SecHtmlIdx();
-		secHtmlIdx.setSeq(1);
-		secHtmlIdx.setDescription("FORM 8-K OF AMERICAN EXPRESS COMPANY");
-		secHtmlIdx.setDocument("creditstatmar172013.htm");
-		secHtmlIdx.setType("8-K");
-		secHtmlIdx.setSize(60096);
-		secHtmlIdx.setAnchor("http://www.sec.gov/Archives/edgar/data/4962/000000496214000019/creditstatmar172013.htm");
-
-		secHtmlIdxMapper.insert(secHtmlIdx);
 	}
 }

@@ -1,5 +1,7 @@
 package org.gingko.app.schedule.job;
 
+import org.gingko.app.download.impl.SecDownloader;
+import org.gingko.util.DateUtils;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

@@ -41,7 +41,8 @@ public class SecProperties {
 			masterIdxDst = get("master.idx.dst");
 
 			filterCik = get("filter.cik");
-			filterFormType = get("filter.formType");
+			filterFormType = get("filter.form.type");
+			filterFillingDocumentExt = get("filter.filling.document.ext");
 
 			dataXlsDst = get("data.xls.dst");
 			dataTxtDst = get("data.txt.dst");
@@ -64,6 +65,7 @@ public class SecProperties {
 
 	public static String filterCik = "sec-filter/cik.txt";
 	public static String filterFormType = "sec-filter/form-type.txt";
+	public static String filterFillingDocumentExt = "sec-filter/filling-document-ext.txt";
 
 	public static String dataXlsDst = "data/sec/xls/";
 	public static String dataTxtDst = "data/sec/txt/";

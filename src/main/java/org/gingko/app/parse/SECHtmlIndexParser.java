@@ -75,7 +75,7 @@ public class SecHtmlIndexParser {
 					// 因此可以直接跳过th部分直接解析td，后期需要考虑如何动态配置列名th
 					Elements tds = tr.select("td");
 					if (tds.size() >= parseAttrNum) {
-						// 开始解析对象属性
+						// 开始解析对象属性，过滤非数据行
 						String strSeq = tds.get(0).text();
 						if (!StringUtils.isNumeric(strSeq)) {
 							continue;
@@ -88,6 +88,7 @@ public class SecHtmlIndexParser {
 						String type = tds.get(3).text();
 						int size = Integer.parseInt(tds.get(4).text());
 						String anchor = tds.get(2).select("a[href]").first().attr("href");
+						anchor = SecProperties.base + anchor.substring(1);
 
 						// 对象
 						SecHtmlIdx item = new SecHtmlIdx();

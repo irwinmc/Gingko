@@ -22,11 +22,11 @@ public enum Engine {
 
 		// @Test
 		SecSimulator simulator = new SecSimulator();
-//		simulator.prepare();
-//		simulator.download();
-//		simulator.parse();
-//		simulator.fetch();
-		simulator.insertIdx();
+		simulator.prepare();
+		simulator.clear();
+		simulator.download();
+//		SecChecker checker = new SecChecker();
+//		checker.checkIdxFiles();
 	}
 
 	public void stop() {

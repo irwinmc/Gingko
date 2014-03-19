@@ -3,16 +3,30 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gingko.app.persist.mapper.SecIdxMapper">
 
-	<select id="getAll">
+	<select id="select" resultType="org.gingko.app.persist.domain.SecIdx">
 		select * from gingko.gk_sec_idx
 	</select>
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	<insert id="insert">
 		insert into gingko.gk_sec_idx (
-			"cik", "companyName", "formType", "dateField", "fileName"
+			"cik", "companyName", "formType", "dateField", "fileName", "fillingHtmlUrl", "localFile"
 		) values (
-			#{cik}, #{companyName}, #{formType}, #{dateField}, #{fileName}
+			#{cik}, #{companyName}, #{formType}, #{dateField}, #{fileName},
+			#{item.fillingHtmlUrl}, #{item.localFile}
 		)
 	</insert>
 
+	<insert id="insertList" parameterType="java.util.List">
+		insert into gingko.gk_sec_idx (
+			"cik", "companyName", "formType", "dateField", "fileName", "fillingHtmlUrl", "localFile"
+		) values
+		<foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
+			#{item.cik}, #{item.companyName}, #{item.formType}, #{item.dateField}, #{item.fileName},
+			#{item.fillingHtmlUrl}, #{item.localFile}
+		</foreach>
+	</insert>
+
+	<delete id="delete">
+		delete from gingko.gk_sec_idx
+	</delete>
 </mapper>

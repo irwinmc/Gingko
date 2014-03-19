@@ -3,16 +3,27 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gingko.app.persist.mapper.SecHtmlIdxMapper">
 
-	<select id="getAll">
+	<select id="select" resultType="org.gingko.app.persist.domain.SecHtmlIdx">
 		select * from gingko.gk_sec_html_idx
 	</select>
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-		insert into gingko.gk_sec_html_idx (
-			"seq", "description", "document", "type", "size", "anchor"
-		) values (
-			#{seq}, #{description}, #{document}, #{type}, #{size}, #{anchor}
-		)
+	<insert id="insert">
+		insert into gingko.gk_sec_html_idx
+			("seq", "description", "document", "type", "size", "anchor")
+		values
+			(#{seq}, #{description}, #{document}, #{type}, #{size}, #{anchor})
 	</insert>
 
+	<insert id="insertList" parameterType="java.util.List">
+		insert into gingko.gk_sec_html_idx
+			("seq", "description", "document", "type", "size", "anchor")
+		values
+		<foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
+			#{item.seq}, #{item.description}, #{item.document}, #{item.type}, #{item.size}, #{item.anchor}
+		</foreach>
+	</insert>
+
+	<delete id="delete">
+		delete from gingko.gk_sec_html_idx
+	</delete>
 </mapper>

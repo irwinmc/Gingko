@@ -83,15 +83,10 @@ public abstract class AbstractDownloader implements Downloader {
 		// This connection manager must be used if more than one thread will
 		// be using the HttpClient.
 		PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-		cm.setMaxTotal(100);
+		cm.setMaxTotal(200);
 
 		CloseableHttpClient httpClient = HttpClients.custom()
 				.setConnectionManager(cm)
-				.build();
-
-		RequestConfig requestConfig = RequestConfig.custom()
-				.setSocketTimeout(3000)
-				.setConnectTimeout(3000)
 				.build();
 
 		try {
@@ -99,7 +94,6 @@ public abstract class AbstractDownloader implements Downloader {
 			DownloadThread[] threads = new DownloadThread[urls.length];
 			for (int i = 0; i < threads.length; i++) {
 				HttpGet httpGet = new HttpGet(urls[i]);
-//				httpGet.setConfig(requestConfig);
 				threads[i] = new DownloadThread(httpClient, httpGet, dsts[i]);
 			}
 

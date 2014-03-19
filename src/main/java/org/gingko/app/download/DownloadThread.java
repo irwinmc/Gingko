@@ -7,6 +7,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
@@ -14,6 +16,8 @@ import java.io.*;
  * @author Kyia
  */
 public class DownloadThread extends Thread {
+
+	private static final Logger LOG = LoggerFactory.getLogger(DownloadThread.class);
 
 	private final CloseableHttpClient httpClient;
 	private final HttpContext context;
@@ -53,6 +57,8 @@ public class DownloadThread extends Thread {
 							in.close();
 						}
 					}
+				} else {
+					LOG.warn("Status code {} during request {}.", statusCode, httpGet.getRequestLine());
 				}
 			} finally {
 				response.close();

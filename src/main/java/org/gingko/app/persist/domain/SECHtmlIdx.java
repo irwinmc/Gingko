@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class SecHtmlIdx implements Serializable {
 
+	private int id;
 	private int seq;
 	private String description;
 	private String document;
@@ -19,6 +20,14 @@ public class SecHtmlIdx implements Serializable {
 
 	public SecHtmlIdx() {
 
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getSeq() {
