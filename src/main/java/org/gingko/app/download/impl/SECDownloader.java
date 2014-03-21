@@ -4,7 +4,6 @@ import org.gingko.app.download.AbstractDownloader;
 import org.gingko.app.persist.domain.SecHtmlIdx;
 import org.gingko.app.persist.domain.SecIdx;
 import org.gingko.config.SecProperties;
-import org.gingko.util.DateUtils;
 import org.gingko.util.FileUtils;
 import org.gingko.util.PathUtils;
 import org.slf4j.Logger;
@@ -24,25 +23,16 @@ public class SecDownloader extends AbstractDownloader {
 
 	/**
 	 * 下载ESC Master Idx文件以供解析，idx下载地址生成规则为替换日期，针对SEC网站使用的规则
-	 * TODO: 规则匹配考虑后期写入配置
 	 *
-	 * @param time
+	 * @param date
 	 */
-	public String downloadMasterIdx(long time) {
-		// 获取指定格式的日期
-		String date = DateUtils.formatTime(time, SecProperties.masterIdxDateFormat);
+	public String downloadMasterIdx(String date) {
 		// 获取文件名
 		String fileName = SecProperties.masterIdxFileName.replace("${date}", date);
 		// 下载URL连接
 		String url = SecProperties.masterIdxUrl + fileName;
 		// 本地文件保存位置
 		String dst = PathUtils.getWebRootPath() + SecProperties.masterIdxDst + fileName;
-
-		// TODO: 检查文件是否存在
-//		File file = new File(dst);
-//		if (file.exists() && !file.isDirectory() && file.length() >= 0) {
-//			LOG.info("Daily master index file exist");
-//		}
 
 		try {
 			// 下载逻辑
@@ -60,25 +50,28 @@ public class SecDownloader extends AbstractDownloader {
 	 * 批量下载Index Html文件
 	 *
 	 * @param list
-	 * @param dateDir
+	 * @param date
 	 * @return
 	 */
-	public void multiThreadDownloadIndexHtm(List<SecIdx> list, String dateDir) {
+	public void multiThreadDownloadIndexHtm(List<SecIdx> list, String date) {
 		String[] urls = new String[list.size()];
 		String[] dsts = new String[list.size()];
 
 		// 检查下载路径文件夹存在与否
-		String root = PathUtils.getWebRootPath() + SecProperties.dataHtmlIndexDst + dateDir;
-		if (FileUtils.mkdir(root).equals("")) {
+		String path = PathUtils.getWebRootPath() + SecProperties.dataHtmlIndexDst + date;
+		if (FileUtils.mkdir(path).equals("")) {
 			return;
 		}
+
+		// 下载之前删除该文件夹下所有文件
+		FileUtils.deleteAllFile(path);
 
 		// 组成下载路径
 		for (int i = 0; i < list.size(); i++) {
 			SecIdx item = list.get(i);
 
 			String url = item.getFillingHtmlUrl();
-			String dst = root + File.separator + item.getLocalFile();
+			String dst = path + File.separator + item.getSiid() + ".htm";
 
 			urls[i] = url;
 			dsts[i] = dst;
@@ -100,25 +93,27 @@ public class SecDownloader extends AbstractDownloader {
 	 * 下载需要分析的真正数据文件
 	 *
 	 * @param list
-	 * @param dateDir
+	 * @param date
 	 */
-	public void multiThreadDownloadDataHtm(List<SecHtmlIdx> list, String dateDir) {
+	public void multiThreadDownloadDataHtm(List<SecHtmlIdx> list, String date) {
 		String[] urls = new String[list.size()];
 		String[] dsts = new String[list.size()];
 
 		// 检查下载路径文件夹存在与否
-		String root = PathUtils.getWebRootPath() + SecProperties.dataHtmlFormDst + dateDir;
-		if (FileUtils.mkdir(root).equals("")) {
+		String path = PathUtils.getWebRootPath() + SecProperties.dataHtmlFormDst + date;
+		if (FileUtils.mkdir(path).equals("")) {
 			return;
 		}
+
+		// 下载之前删除该文件夹下所有文件
+		FileUtils.deleteAllFile(path);
 
 		// 组成下载路径
 		for (int i = 0; i < list.size(); i++) {
 			SecHtmlIdx item = list.get(i);
 
 			String url = item.getAnchor();
-			String fileName = item.getDocument();
-			String dst = root + File.separator + fileName;
+			String dst = path + File.separator + item.getLocalFile();
 
 			urls[i] = url;
 			dsts[i] = dst;

@@ -11,9 +11,15 @@ public interface SecIdxMapper {
 
 	List<SecIdx> select();
 
+	List<SecIdx> selectByDate();
+
+	SecIdx selectBySiid();
+
 	void insert(SecIdx secIdx);
 
 	void insertList(List<SecIdx> list);
 
 	void delete();
+
+	void deleteByDate(String date);
 }

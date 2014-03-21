@@ -60,8 +60,9 @@ public class SecHtmlIndexParser {
 	 * 这里产生的是内存中间对象，具体的解析文件需要输入相应的配置规则进行定义，中间对象不做持久化
 	 *
 	 * @param file
+	 * @param date
 	 */
-	public List<SecHtmlIdx> parseHtmlIdx(File file) {
+	public List<SecHtmlIdx> parseHtmlIdx(File file, String date) {
 		List<SecHtmlIdx> list = new ArrayList<SecHtmlIdx>();
 
 		try {
@@ -81,14 +82,17 @@ public class SecHtmlIndexParser {
 							continue;
 						}
 
+						String fileName = file.getName();
+						String siid = fileName.substring(0, fileName.lastIndexOf("."));
+
 						// 获取属性数据
 						int seq = Integer.parseInt(tds.get(0).text());
 						String description = tds.get(1).text();
 						String document = tds.get(2).text();
 						String type = tds.get(3).text();
 						int size = Integer.parseInt(tds.get(4).text());
-						String anchor = tds.get(2).select("a[href]").first().attr("href");
-						anchor = SecProperties.base + anchor.substring(1);
+						String anchor = generateAnchor(tds.get(2));
+						String localFile = generateLocalFile(siid, document);
 
 						// 对象
 						SecHtmlIdx item = new SecHtmlIdx();
@@ -98,6 +102,9 @@ public class SecHtmlIndexParser {
 						item.setType(type);
 						item.setSize(size);
 						item.setAnchor(anchor);
+						item.setSiid(siid);
+						item.setDate(date);
+						item.setLocalFile(localFile);
 						list.add(item);
 					}
 				}
@@ -110,5 +117,27 @@ public class SecHtmlIndexParser {
 		}
 
 		return list;
+	}
+
+	/**
+	 * 生成链接
+	 *
+	 * @param ele
+	 * @return
+	 */
+	private String generateAnchor(Element ele) {
+		String anchor = ele.select("a[href]").first().attr("href");
+		return SecProperties.base + anchor.substring(1);
+	}
+
+	/**
+	 * 生成唯一的本地文件
+	 *
+	 * @param siid
+	 * @param document
+	 * @return
+	 */
+	private String generateLocalFile(String siid, String document) {
+		return siid + "-" + document;
 	}
 }

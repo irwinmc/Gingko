@@ -48,8 +48,9 @@ public class SecMasterIdxParser {
 	 * 解析ESC Master Idx文件
 	 *
 	 * @param dst
+	 * @param date
 	 */
-	public List<SecIdx> parseMasterIdx(String dst) {
+	public List<SecIdx> parseMasterIdx(String dst, String date) {
 		List<SecIdx> list = new ArrayList<SecIdx>();
 
 		File file = new File(dst);
@@ -72,7 +73,7 @@ public class SecMasterIdxParser {
 
 						// 附加属性
 						String fillingHtmlUrl = generateFillingHtmlUrl(fileName);
-						String localFile = generateLocalFile(cik, fileName);
+						String siid = generateSiid(cik, fileName);
 
 						// 新建对象
 						SecIdx item = new SecIdx();
@@ -82,7 +83,8 @@ public class SecMasterIdxParser {
 						item.setDateField(dateField);
 						item.setFileName(fileName);
 						item.setFillingHtmlUrl(fillingHtmlUrl);
-						item.setLocalFile(localFile);
+						item.setSiid(siid);
+						item.setDate(date);
 						list.add(item);
 					}
 				}
@@ -126,9 +128,9 @@ public class SecMasterIdxParser {
 	 * @param fileName
 	 * @return
 	 */
-	private String generateLocalFile(String cik, String fileName) {
+	private String generateSiid(String cik, String fileName) {
 		return cik + "-" + fileName
 				.substring(fileName.lastIndexOf("/") + 1)
-				.replace(".txt", ".htm");
+				.replace(".txt", "");
 	}
 }

@@ -3,30 +3,53 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.gingko.app.persist.mapper.SecIdxMapper">
 
-	<select id="select" resultType="org.gingko.app.persist.domain.SecIdx">
+	<resultMap id="secIdxMap" type="org.gingko.app.persist.domain.SecIdx">
+		<result property="cik" column="cik"/>
+		<result property="companyName" column="company_name"/>
+		<result property="formType" column="form_type"/>
+		<result property="dateField" column="date_field"/>
+		<result property="fileName" column="file_name"/>
+		<result property="fillingHtmlUrl" column="filling_html_url"/>
+		<result property="siid" column="siid"/>
+		<result property="date" column="date"/>
+	</resultMap>
+
+	<select id="select" resultMap="secIdxMap">
 		select * from gingko.gk_sec_idx
+	</select>
+
+	<select id="selectByDate" parameterType="String" resultMap="secIdxMap">
+		select * from gingko.gk_sec_idx where "date"=#{date}
+	</select>
+
+	<select id="selectBySiid" parameterType="String" resultMap="secIdxMap">
+		select * from gingko.gk_sec_idx where "siid"=#{siid}
 	</select>
 
 	<insert id="insert">
 		insert into gingko.gk_sec_idx (
-			"cik", "companyName", "formType", "dateField", "fileName", "fillingHtmlUrl", "localFile"
+			"cik", "company_name", "form_type", "date_field", "file_name", "filling_html_url", "siid", "date"
 		) values (
 			#{cik}, #{companyName}, #{formType}, #{dateField}, #{fileName},
-			#{item.fillingHtmlUrl}, #{item.localFile}
+			#{fillingHtmlUrl}, #{siid}, #{date}
 		)
 	</insert>
 
 	<insert id="insertList" parameterType="java.util.List">
 		insert into gingko.gk_sec_idx (
-			"cik", "companyName", "formType", "dateField", "fileName", "fillingHtmlUrl", "localFile"
+			"cik", "company_name", "form_type", "date_field", "file_name", "filling_html_url", "siid", "date"
 		) values
 		<foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
 			#{item.cik}, #{item.companyName}, #{item.formType}, #{item.dateField}, #{item.fileName},
-			#{item.fillingHtmlUrl}, #{item.localFile}
+			#{item.fillingHtmlUrl}, #{item.siid}, #{item.date}
 		</foreach>
 	</insert>
 
 	<delete id="delete">
 		delete from gingko.gk_sec_idx
+	</delete>
+
+	<delete id="deleteByDate" parameterType="String">
+		delete from gingko.gk_sec_idx where "date"=#{date}
 	</delete>
 </mapper>

@@ -16,7 +16,7 @@
 				<group>DOWNLOAD_GROUP</group>
 				<job-name>download-job</job-name>
 				<job-group>DOWNLOAD_GROUP</job-group>
-				<cron-expression>0 30 4 * * ?</cron-expression>
+				<cron-expression>0 0 10 * * ?</cron-expression>
 			</cron>
 		</trigger>
 	</schedule>

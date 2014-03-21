@@ -36,7 +36,6 @@ public class SecProperties {
 			baseArchives = get("base.archives");
 
 			masterIdxFileName = get("master.idx.fileName");
-			masterIdxDateFormat = get("master.idx.dateFormat");
 			masterIdxUrl = get("master.idx.url");
 			masterIdxDst = get("master.idx.dst");
 
@@ -59,7 +58,6 @@ public class SecProperties {
 	public static String baseArchives = "http://www.sec.gov/Archives/";
 
 	public static String masterIdxFileName = "master.${date}.idx";
-	public static String masterIdxDateFormat = "yyyyMMdd";
 	public static String masterIdxUrl = "http://www.sec.gov/Archives/edgar/daily-index/";
 	public static String masterIdxDst = "data/sec/daily-index/";
 

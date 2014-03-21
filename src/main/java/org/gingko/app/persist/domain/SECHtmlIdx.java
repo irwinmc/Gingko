@@ -9,7 +9,6 @@ import java.io.Serializable;
  */
 public class SecHtmlIdx implements Serializable {
 
-	private int id;
 	private int seq;
 	private String description;
 	private String document;
@@ -17,17 +16,12 @@ public class SecHtmlIdx implements Serializable {
 	private int size;
 	/** Document anchor */
 	private String anchor;
+	private String siid;
+	private String date;
+	private String localFile;
 
 	public SecHtmlIdx() {
 
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public int getSeq() {
@@ -76,5 +70,29 @@ public class SecHtmlIdx implements Serializable {
 
 	public void setAnchor(String anchor) {
 		this.anchor = anchor;
+	}
+
+	public String getSiid() {
+		return siid;
+	}
+
+	public void setSiid(String siid) {
+		this.siid = siid;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getLocalFile() {
+		return localFile;
+	}
+
+	public void setLocalFile(String localFile) {
+		this.localFile = localFile;
 	}
 }
