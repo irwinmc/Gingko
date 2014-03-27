@@ -25,6 +25,7 @@ public class NettyHttpServer extends AbstractNettyServer {
 		super(nettyConfig, channelInitializer);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void startServer() throws Exception {
 		try {

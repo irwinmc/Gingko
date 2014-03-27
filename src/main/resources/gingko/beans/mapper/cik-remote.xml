@@ -1,0 +1,34 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.remote.CikRemoteMapper">
+
+	<resultMap id="cikMap" type="org.gingko.app.persist.domain.usk.Cik">
+        <result column="cik" property="cik"/>
+		<result column="code" property="code"/>
+	</resultMap>
+
+    <select id="select" resultMap="cikMap">
+        select p1.cikcode_pub220 cik, p2.seccode_pub205 code
+        from db40.pub220 p1, db40.pub205 p2
+        where p1.isvalid=1
+        and p2.isvalid=1
+        and p1.orgid_pub220=p2.f014v_pub205
+        and p2.f005v_pub205 in ('212010','212011','212049','212050','212088')
+        and (p2.f034n_pub205=1
+        or p2.f034n_pub205=0
+        and (exists
+        (select 1
+        from pub205 q
+        where q.isvalid=1
+        and q.f014v_pub205=p2.f014v_pub205
+        and q.f005v_pub205 not in ('212010','212011','212049','212050','212088')
+        and q.f034n_pub205=1)
+        or not exists
+        (select 1
+        from pub205 q
+        where q.isvalid=1
+        and q.f014v_pub205=p2.f014v_pub205
+        and q.f034n_pub205=1)))
+    </select>
+</mapper>

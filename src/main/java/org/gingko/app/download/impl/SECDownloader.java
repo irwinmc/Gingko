@@ -14,8 +14,6 @@ import java.util.List;
 
 /**
  * @author Kyia
- *         <p/>
- *         TODO: 单线程同步下载，后期改为多线程异步处理
  */
 public class SecDownloader extends AbstractDownloader {
 

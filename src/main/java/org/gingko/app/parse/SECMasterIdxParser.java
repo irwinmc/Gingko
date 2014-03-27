@@ -51,7 +51,7 @@ public class SecMasterIdxParser {
 	 * @param date
 	 */
 	public List<SecIdx> parseMasterIdx(String dst, String date) {
-		List<SecIdx> list = new ArrayList<SecIdx>();
+		List<SecIdx> list = new ArrayList<>();
 
 		File file = new File(dst);
 		BufferedReader br = null;

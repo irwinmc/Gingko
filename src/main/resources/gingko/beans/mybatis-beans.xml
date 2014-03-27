@@ -4,6 +4,16 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Persistence mappers -->
+	<bean id="reportMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="org.gingko.app.persist.mapper.ReportMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<bean id="reportKeywordMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="org.gingko.app.persist.mapper.ReportKeywordMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
 	<bean id="secHtmlIdxMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="org.gingko.app.persist.mapper.SecHtmlIdxMapper"/>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
@@ -13,4 +23,35 @@
 		<property name="mapperInterface" value="org.gingko.app.persist.mapper.SecIdxMapper"/>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
+
+    <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.gingko.app.persist.mapper.UserMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+
+    <bean id="menuMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.gingko.app.persist.mapper.MenuMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+
+    <bean id="identityMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.gingko.app.persist.mapper.IdentityMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+
+    <bean id="formTypeMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.gingko.app.persist.mapper.usk.FormTypeMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+
+    <bean id="cikMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.gingko.app.persist.mapper.usk.CikMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+
+    <!-- Remote -->
+    <bean id="cikRemoteMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.gingko.app.persist.mapper.remote.CikRemoteMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactoryB"></property>
+    </bean>
 </beans>

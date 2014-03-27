@@ -57,7 +57,8 @@ public class HttpStaticFileHandler {
 			return;
 		}
 
-		final String uri = request.getUri();
+        QueryStringDecoder decoder = new QueryStringDecoder(request.getUri());
+        final String uri = decoder.path();
 		final String path = sanitizeUri(uri);
 		if (path == null) {
 			sendError(ctx, FORBIDDEN);
@@ -168,7 +169,8 @@ public class HttpStaticFileHandler {
 		}
 
 		// Convert to absolute path.
-		return System.getProperty("user.dir") + File.separator + WEB_ROOT + File.separator + uri;
+        String path = System.getProperty("user.dir") + File.separator + WEB_ROOT + File.separator + uri;
+		return path;
 	}
 
 	private static void sendRedirect(ChannelHandlerContext ctx, String newUri) {

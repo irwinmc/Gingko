@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class SecIdx implements Serializable {
 
 	private String cik;
+    private String code;
 	private String companyName;
 	private String formType;
 	private String dateField;
@@ -20,6 +21,8 @@ public class SecIdx implements Serializable {
 	private String siid;
 	/** date time, according to the idx date */
 	private String date;
+    private int state;
+    private String operator;
 
 	public SecIdx() {
 
@@ -33,7 +36,15 @@ public class SecIdx implements Serializable {
 		this.cik = cik;
 	}
 
-	public String getCompanyName() {
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCompanyName() {
 		return companyName;
 	}
 
@@ -88,4 +99,20 @@ public class SecIdx implements Serializable {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
 }

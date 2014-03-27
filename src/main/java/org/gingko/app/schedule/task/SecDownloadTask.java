@@ -68,7 +68,7 @@ public class SecDownloadTask implements Runnable {
 			// Check exist data
 			secIdxMapper.deleteByDate(date);
 			// Filter the need data
-			List<SecIdx> filteredList = new ArrayList<SecIdx>();
+			List<SecIdx> filteredList = new ArrayList<>();
 			for (SecIdx secIdx : list) {
 				if (SecFilter.INSTANCE.doFilter(secIdx)) {
 					filteredList.add(secIdx);
@@ -122,7 +122,7 @@ public class SecDownloadTask implements Runnable {
 		});
 
 		// Html index parser
-		List<SecHtmlIdx> list = new ArrayList<SecHtmlIdx>();
+		List<SecHtmlIdx> list = new ArrayList<>();
 		SecHtmlIndexParser parser = new SecHtmlIndexParser();
 		for (File file : files) {
 			List<SecHtmlIdx> l = parser.parseHtmlIdx(file, date);
@@ -135,7 +135,7 @@ public class SecDownloadTask implements Runnable {
 		secHtmlIdxMapper.deleteByDate(date);
 
 		// Filter the need data
-		List<SecHtmlIdx> filteredList = new ArrayList<SecHtmlIdx>();
+		List<SecHtmlIdx> filteredList = new ArrayList<>();
 		for (SecHtmlIdx secHtmlIdx : list) {
 			if (SecFilter.INSTANCE.doFilter(secHtmlIdx)) {
 				filteredList.add(secHtmlIdx);

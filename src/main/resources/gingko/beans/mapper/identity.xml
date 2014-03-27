@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.IdentityMapper">
+
+	<resultMap id="identityMap" type="org.gingko.app.persist.domain.Identity">
+		<id column="id" property="id"/>
+		<result column="menu_id" property="menuId"/>
+		<result column="identity" property="identity"/>
+	</resultMap>
+
+    <select id="selectByPage" resultMap="identityMap">
+        select * from gingko.sys_identity where 1=1
+        <if test="identity!=0"> and "identity"=#{identity} </if> limit #{limit} offset #{offset}
+    </select>
+
+    <select id="totalCount" resultType="int">
+        select count(*) from gingko.sys_identity where 1=1
+        <if test="identity!=0"> and "identity"=#{identity} </if>
+    </select>
+
+	<select id="selectMenusByIdentity" resultType="String">
+		select "menu_id" from gingko.sys_identity where "identity"=#{identity}
+    </select>
+
+    <insert id="insert">
+		insert into gingko.sys_identity (
+			"menu_id", "identity"
+		) values (
+			#{menuId}, #{identity}
+		)
+	</insert>
+
+    <delete id="deleteById">
+		delete from gingko.sys_identity where "id"=#{id}
+	</delete>
+
+</mapper>

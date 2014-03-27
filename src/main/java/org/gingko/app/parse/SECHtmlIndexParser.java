@@ -63,7 +63,7 @@ public class SecHtmlIndexParser {
 	 * @param date
 	 */
 	public List<SecHtmlIdx> parseHtmlIdx(File file, String date) {
-		List<SecHtmlIdx> list = new ArrayList<SecHtmlIdx>();
+		List<SecHtmlIdx> list = new ArrayList<>();
 
 		try {
 			Document doc = Jsoup.parse(file, "UTF-8", SecProperties.base);

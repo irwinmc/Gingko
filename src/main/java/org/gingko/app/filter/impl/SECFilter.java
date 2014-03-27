@@ -127,6 +127,8 @@ public enum SecFilter {
 		return formTypes.contains(type) && fillingDocumentExts.contains(ext);
 	}
 
+
+
 	public HashSet<String> getCiks() {
 		return ciks;
 	}

@@ -1,5 +1,6 @@
 package org.gingko.app.persist.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.gingko.app.persist.domain.SecIdx;
 
 import java.util.List;
@@ -9,17 +10,27 @@ import java.util.List;
  */
 public interface SecIdxMapper {
 
-	List<SecIdx> select();
+    List<SecIdx> select();
 
-	List<SecIdx> selectByDate();
+    List<SecIdx> selectByPage(@Param("formTypes") String[] formTypes,
+                              @Param("state") int state,
+                              @Param("date") String date,
+                              @Param("limit") int limit,
+                              @Param("offset") int offset);
 
-	SecIdx selectBySiid();
+    List<SecIdx> selectByDate(String date);
 
-	void insert(SecIdx secIdx);
+    SecIdx selectBySiid(String siid);
 
-	void insertList(List<SecIdx> list);
+    int selectTotalCount(@Param("formTypes") String[] formTypes, @Param("state") int state, @Param("date") String date);
 
-	void delete();
+    void update(SecIdx secIdx);
 
-	void deleteByDate(String date);
+    void insert(SecIdx secIdx);
+
+    void insertList(List<SecIdx> list);
+
+    void delete();
+
+    void deleteByDate(String date);
 }

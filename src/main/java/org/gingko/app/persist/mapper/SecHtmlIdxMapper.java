@@ -11,7 +11,7 @@ public interface SecHtmlIdxMapper {
 
 	List<SecHtmlIdx> select();
 
-	List<SecHtmlIdx> selectBySiid();
+	List<SecHtmlIdx> selectBySiid(String siid);
 
 	void insert(SecHtmlIdx secHtmlIdx);
 
@@ -19,7 +19,7 @@ public interface SecHtmlIdxMapper {
 
 	void delete();
 
-	void deleteBySiid();
+	void deleteBySiid(String siid);
 
 	void deleteByDate(String date);
 }

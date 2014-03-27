@@ -1,0 +1,156 @@
+/** APP project icon **/
+.logo {
+	background: url("../img/logo.png") no-repeat;
+}
+
+/** APP common icon **/
+.icon-login {
+	background: url(../img/lib/16px/arrow_right.png) no-repeat !important;
+}
+.icon-logout {
+	background: url(../img/lib/16px/logout.png) no-repeat !important;
+}
+.icon-menu {
+	background: url(../img/lib/16px/label.png) no-repeat !important;
+}
+
+/** APP common icon **/
+.icon-app {
+	background: url(../img/icons/application.png) no-repeat !important;
+}
+.icon-app-home {
+	background: url(../img/icons/application_home.png) no-repeat !important;
+}
+.icon-form {
+	background: url(../img/icons/application_form.png) no-repeat !important;
+}
+.icon-form-add {
+	background: url(../img/icons/application_form_add.png) no-repeat !important;
+}
+.icon-form-delete {
+	background: url(../img/icons/application_form_delete.png) no-repeat !important;
+}
+.icon-form-edit {
+	background: url(../img/icons/application_form_edit.png) no-repeat !important;
+}
+
+.icon-refresh {
+	background: url(../img/icons/arrow_refresh.png) no-repeat !important;
+}
+.icon-undo {
+	background: url(../img/icons/arrow_undo.png) no-repeat !important;
+}
+.icon-cancel {
+	background: url(../img/icons/cancel.png) no-repeat !important;
+}
+.icon-save {
+	background: url(../img/icons/disk.png) no-repeat !important;
+}
+.icon-accept {
+	background: url(../img/icons/accept.png) no-repeat !important;
+}
+.icon-delete {
+	background: url(../img/icons/delete.png) no-repeat !important;
+}
+.icon-add {
+	background: url(../img/icons/add.png) no-repeat !important;
+}
+.icon-edit {
+	background: url(../img/icons/page_white_edit.png) no-repeat !important;
+}
+.icon-tick {
+	background: url(../img/icons/tick.png) no-repeat !important;
+}
+.icon-cross {
+	background: url(../img/icons/cross.png) no-repeat !important;
+}
+.icon-search {
+	background: url(../img/icons/zoom.png) no-repeat !important;
+}
+
+.icon-open {
+	background: url(../img/icons/controller.png) no-repeat !important;
+}
+.icon-close {
+	background: url(../img/icons/cancel.png) no-repeat !important;
+}
+.icon-ready {
+	background: url(../img/icons/hourglass.png) no-repeat !important;
+}
+.icon-all-ready {
+	background: url(../img/icons/bug.png) no-repeat !important;
+}
+
+.icon-setting {
+	background: url(../img/icons/cog.png) no-repeat !important;
+}
+.icon-setting-add {
+	background: url(../img/icons/cog_add.png) no-repeat !important;
+}
+.icon-setting-delete {
+	background: url(../img/icons/cog_delete.png) no-repeat !important;
+}
+.icon-setting-edit {
+	background: url(../img/icons/cog_edit.png) no-repeat !important;
+}
+
+.icon-user {
+	background: url(../img/icons/user.png) no-repeat !important;
+}
+.icon-user-add {
+	background: url(../img/icons/user_add.png) no-repeat !important;
+}
+.icon-user-delete {
+	background: url(../img/icons/user_delete.png) no-repeat !important;
+}
+.icon-user-edit {
+	background: url(../img/icons/user_edit.png) no-repeat !important;
+}
+.icon-user-common {
+	background: url(../img/icons/user_green.png) no-repeat !important;
+}
+.icon-user-advance {
+	background: url(../img/icons/user_orange.png) no-repeat !important;
+}
+.icon-user-super {
+	background: url(../img/icons/user_red.png) no-repeat !important;
+}
+
+.icon-item {
+	background: url(../img/icons/newspaper.png) no-repeat !important;
+}
+.icon-item-send {
+	background: url(../img/icons/newspaper_go.png) no-repeat !important;
+}
+
+.icon-key {
+	background: url(../img/icons/key.png) no-repeat !important;
+}
+.icon-lock {
+	background: url(../img/icons/lock.png) no-repeat !important;
+}
+.icon-lock-open {
+	background: url(../img/icons/lock_open.png) no-repeat !important;
+}
+.icon-game {
+	background: url(../img/icons/controller.png) no-repeat !important;
+}
+.icon-data {
+	background: url(../img/icons/chart_curve.png) no-repeat !important;
+}
+.icon-data-colunm {
+	background: url(../img/icons/bricks.png) no-repeat !important;
+}
+.icon-data-group {
+	background: url(../img/icons/brick.png) no-repeat !important;
+}
+.icon-chart-bar {
+	background: url(../img/icons/chart_bar.png) no-repeat !important;
+}
+.icon-chart-pie {
+	background: url(../img/icons/chart_pie.png) no-repeat !important;
+}
+.icon-chart-line {
+	background: url(../img/icons/chart_line.png) no-repeat !important;
+}
+

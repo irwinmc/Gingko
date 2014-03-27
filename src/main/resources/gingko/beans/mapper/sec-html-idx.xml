@@ -53,4 +53,5 @@
 	<delete id="deleteByDate" parameterType="String">
 		delete from gingko.gk_sec_html_idx where "date"=#{date}
 	</delete>
+
 </mapper>
