@@ -44,6 +44,16 @@ Ext.define('IDAT.view.manage.user.Edit', {
                 displayField: 'display',
                 emptyText: LANG.EMPTY_TIPS.empty_combo_identity,
                 value: this.record.get('identity')
+            }, {
+                xtype: 'combobox',
+                name: 'groupId',
+                fieldLabel: LANG.LABEL.group_id,
+                store: 'ComboGroups',
+                editable: false,
+                valueField: 'value',
+                displayField: 'display',
+                allowBlank : false,
+                emptyText: LANG.EMPTY_TIPS.empty_combo_group
             }],
 
             buttonAlign: 'center',
@@ -56,8 +66,8 @@ Ext.define('IDAT.view.manage.user.Edit', {
                     if (form.isValid()) {
                         form.submit({
                             clientValidation: true,
-                            url: 'action/user_edit',
-                            method: 'Get',
+                            url: ACTION.USER_EDIT,
+                            method: 'GET',
                             success: function (form, action) {
                                 Ext.Msg.alert(LANG.TITLE.success, action.result.msg);
                                 userStore.reload();

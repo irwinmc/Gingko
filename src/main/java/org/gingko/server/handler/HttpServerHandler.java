@@ -34,12 +34,6 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
 
     private HttpStaticFileHandler staticFileHandler = new HttpStaticFileHandler();
 
-    private static final String USER_ACTION = "/user";			// USER ACTION
-    private static final String IDENTITY_ACTION = "/identity";	// IDENTITY ACTION
-    private static final String MENU_ACTION = "/menu";			// MENU ACTION
-    private static final String REPORT_ACTION = "/report";	    // REPORT ACTION
-    private static final String SETTING_ACTION = "/setting";	    // SETTING ACTION
-
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
         if (request.getMethod() != GET) {
@@ -56,36 +50,11 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
             return;
         }
 
+        // Action request
         String actionUri = getActionUri(path);
-        String[] array = actionUri.split("_");
-
-        // user request
-        if (array[0].equals(USER_ACTION)) {
-            handleUserApi(ctx, parameters, array[1]);
-            return;
-        }
-
-        // user request
-        if (array[0].equals(IDENTITY_ACTION)) {
-            handleIdentityApi(ctx, parameters, array[1]);
-            return;
-        }
-
-        // menu request
-        if (array[0].equals(MENU_ACTION)) {
-            handleMenuApi(ctx, parameters, array[1]);
-            return;
-        }
-
-        // report request
-        if (array[0].equals(REPORT_ACTION)) {
-            handleReportApi(ctx, parameters, array[1]);
-            return;
-        }
-
-        // report request
-        if (array[0].equals(SETTING_ACTION)) {
-            handleSettingApi(ctx, parameters, array[1]);
+        actionUri = actionUri.replaceAll("/", "").replaceAll("action", "");
+        if (actionUri.contains("_")) {
+            handleActionApi(ctx, parameters, actionUri);
             return;
         }
 
@@ -94,15 +63,15 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
 	}
 
     /**
-     * Deal user request
+     * Action request
      *
      * @param ctx
      * @param parameters
-     * @param function
+     * @param action
      */
-    protected void handleUserApi(ChannelHandlerContext ctx, Map<String, List<String>> parameters, String function) {
-        switch(function) {
-        case Api.USER_LOGIN: {
+    protected void handleActionApi(ChannelHandlerContext ctx, Map<String, List<String>> parameters, String action) {
+        // User Action start -----------------------------------------------------------------------------------
+        if (action.equals(Api.USER_LOGIN)) {
             if (parameters.get("account") != null
                     && parameters.get("password") != null) {
                 String account = parameters.get("account").get(0);
@@ -112,9 +81,9 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
                 sendJsonResponse(ctx, json);
                 return;
             }
-            break;
         }
-        case Api.USER_LOAD: {
+
+        else if (action.equals(Api.USER_LOAD)) {
             if (parameters.get("start") != null
                     && parameters.get("limit") != null) {
                 String start = parameters.get("start").get(0);
@@ -124,42 +93,45 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
                 sendJsonResponse(ctx, json);
                 return;
             }
-            break;
         }
-        case Api.USER_ADD: {
+
+        else if (action.equals(Api.USER_ADD)) {
             if (parameters.get("account") != null
                     && parameters.get("password") != null
                     && parameters.get("name") != null
-                    && parameters.get("identity") != null) {
+                    && parameters.get("identity") != null
+                    && parameters.get("groupId") != null) {
                 String account = parameters.get("account").get(0);
                 String password = parameters.get("password").get(0);
                 String name = parameters.get("name").get(0);
                 String identity = parameters.get("identity").get(0);
+                String groupId = parameters.get("groupId").get(0);
 
-
-                String json = UserAction.INSTANCE.add(account, password, name, identity);
+                String json = UserAction.INSTANCE.add(account, password, name, identity, groupId);
                 sendJsonResponse(ctx, json);
                 return;
             }
-            break;
         }
-        case Api.USER_EDIT: {
+
+        else if (action.equals(Api.USER_EDIT)) {
             if (parameters.get("account") != null
                     && parameters.get("password") != null
                     && parameters.get("name") != null
-                    && parameters.get("identity") != null) {
+                    && parameters.get("identity") != null
+                    && parameters.get("groupId") != null) {
                 String account = parameters.get("account").get(0);
                 String password = parameters.get("password").get(0);
                 String name = parameters.get("name").get(0);
                 String identity = parameters.get("identity").get(0);
+                String groupId = parameters.get("groupId").get(0);
 
-                String json = UserAction.INSTANCE.edit(account, password, name, identity);
+                String json = UserAction.INSTANCE.edit(account, password, name, identity, groupId);
                 sendJsonResponse(ctx, json);
                 return;
             }
-            break;
         }
-        case Api.USER_DELETE: {
+
+        else if (action.equals(Api.USER_DELETE)) {
             if (parameters.get("account") != null) {
                 String account = parameters.get("account").get(0);
 
@@ -167,221 +139,203 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
                 sendJsonResponse(ctx, json);
                 return;
             }
-            break;
         }
-        default:
-            break;
-        }
+        // User Action end ----------------------------------------------------------------------------------------
 
-        sendJsonResponse(ctx, new Gson().toJson(new ExtMessage(false, Lang.paramError)));
-    }
+        // Menu Action start --------------------------------------------------------------------------------------
+        else if (action.equals(Api.MENU_TREE_LOAD)) {
+            if (parameters.get("parentId") != null
+                    && parameters.get("identity") != null) {
+                String parentId = parameters.get("parentId").get(0);
+                String identity = parameters.get("identity").get(0);
 
-    /**
-     * Deal menu request
-     *
-     * @param ctx
-     * @param parameters
-     * @param function
-     */
-    protected void handleMenuApi(ChannelHandlerContext ctx, Map<String, List<String>> parameters, String function) {
-        switch(function) {
-            case Api.MENU_LOAD: {
-                if (parameters.get("parentId") != null
-                        && parameters.get("identity") != null) {
-                    String parentId = parameters.get("parentId").get(0);
-                    String identity = parameters.get("identity").get(0);
-
-                    String json = MenuAction.INSTANCE.load(parentId, identity);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            case Api.MENU_LOAD_ALL: {
-                if (parameters.get("identity") != null) {
-                    String identity = parameters.get("identity").get(0);
-
-                    String json = MenuAction.INSTANCE.loadAll(identity);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            case Api.MENU_COMBO: {
-                String json = MenuAction.INSTANCE.combo();
+                String json = MenuAction.INSTANCE.load(parentId, identity);
                 sendJsonResponse(ctx, json);
                 return;
             }
-            default:
-                break;
         }
 
-        sendJsonResponse(ctx, new Gson().toJson(new ExtMessage(false, Lang.paramError)));
-    }
+        else if (action.equals(Api.MENU_BY_IDENTITY)) {
+            if (parameters.get("identity") != null) {
+                String identity = parameters.get("identity").get(0);
 
-    /**
-     * Deal report request
-     *
-     * @param ctx
-     * @param parameters
-     * @param function
-     */
-    protected void handleReportApi(ChannelHandlerContext ctx, Map<String, List<String>> parameters, String function) {
-        switch(function) {
-            case Api.LOAD_IDX: {
-                if (parameters.get("start") != null
-                        && parameters.get("limit") != null) {
-                    String start = parameters.get("start").get(0);
-                    String limit = parameters.get("limit").get(0);
-                    String formType = parameters.get("formType") != null ? parameters.get("formType").get(0) : "ALL";
-                    String state = parameters.get("state") != null ? parameters.get("state").get(0) : "-1";
-                    String date = parameters.get("date") != null ? parameters.get("date").get(0) : "";
-
-                    String json = ReportAction.INSTANCE.loadIdx(formType, state, date, start, limit);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            case Api.LOAD_IDX_REPORT: {
-                if (parameters.get("siid") != null) {
-                    String siid = parameters.get("siid").get(0);
-
-                    String json = ReportAction.INSTANCE.loadIdxReport(siid);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            case Api.OPERATE: {
-                if (parameters.get("siid") != null
-                        && parameters.get("state") != null) {
-                    String siid = parameters.get("siid").get(0);
-                    String state = parameters.get("state").get(0);
-
-                    String json = ReportAction.INSTANCE.operate(siid, state);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            default:
-                break;
-        }
-
-        sendJsonResponse(ctx, new Gson().toJson(new ExtMessage(false, Lang.paramError)));
-    }
-
-    /**
-     * Deal identity request
-     *
-     * @param ctx
-     * @param parameters
-     * @param function
-     */
-    protected void handleIdentityApi(ChannelHandlerContext ctx, Map<String, List<String>> parameters, String function) {
-        switch(function) {
-            case Api.IDENTITY_LOAD: {
-                if (parameters.get("start") != null
-                        && parameters.get("limit") != null) {
-                    String start = parameters.get("start").get(0);
-                    String limit = parameters.get("limit").get(0);
-                    String identity = parameters.get("identity") != null ? parameters.get("identity").get(0) : null;
-
-                    String json = IdentityAction.INSTANCE.load(identity, start, limit);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            case Api.IDENTITY_ADD: {
-                if (parameters.get("identity") != null
-                        && parameters.get("menuId") != null) {
-                    String identity = parameters.get("identity").get(0);
-                    String menuId = parameters.get("menuId").get(0);
-
-                    String json = IdentityAction.INSTANCE.add(identity, menuId);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            case Api.IDENTITY_DELETE: {
-                if (parameters.get("id") != null) {
-                    String id = parameters.get("id").get(0);
-
-                    String json = IdentityAction.INSTANCE.deleteById(id);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            default:
-                break;
-        }
-
-        sendJsonResponse(ctx, new Gson().toJson(new ExtMessage(false, Lang.paramError)));
-    }
-
-    /**
-     * Deal setting request
-     *
-     * @param ctx
-     * @param parameters
-     * @param function
-     */
-    protected void handleSettingApi(ChannelHandlerContext ctx, Map<String, List<String>> parameters, String function) {
-        switch(function) {
-            case Api.SET_LOAD_FORM_TYPE: {
-                String json = SettingAction.INSTANCE.loadFormType();
+                String json = MenuAction.INSTANCE.loadAll(identity);
                 sendJsonResponse(ctx, json);
                 return;
             }
-            case Api.SET_COMBO_FORM_TYPE: {
-                String json = SettingAction.INSTANCE.comboType();
-                sendJsonResponse(ctx, json);
-                return;
-            }
-            case Api.SET_ADD_FORM_TYPE: {
-                if (parameters.get("formType") != null) {
-                    String formType = parameters.get("formType").get(0);
-
-                    String json = SettingAction.INSTANCE.addFormType(formType);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            case Api.SET_DELETE_FORM_TYPE: {
-                if (parameters.get("formType") != null) {
-                    String formType = parameters.get("formType").get(0);
-
-                    String json = SettingAction.INSTANCE.deleteFormType(formType);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            case Api.SET_USE_FORM_TYPE: {
-                if (parameters.get("formType") != null
-                        && parameters.get("used") != null) {
-                    String formType = parameters.get("formType").get(0);
-                    String used = parameters.get("used").get(0);
-
-                    String json = SettingAction.INSTANCE.useFormType(formType, used);
-                    sendJsonResponse(ctx, json);
-                    return;
-                }
-                break;
-            }
-            case "test": {
-                String json = SettingAction.INSTANCE.test();
-                sendJsonResponse(ctx, json);
-                return;
-            }
-            default:
-                break;
         }
+
+        else if (action.equals(Api.MENU_COMBO)) {
+            String json = MenuAction.INSTANCE.combo();
+            sendJsonResponse(ctx, json);
+            return;
+        }
+        // Menu Action end ----------------------------------------------------------------------------------------
+
+        // Report Action start ------------------------------------------------------------------------------------
+        else if (action.equals(Api.REPORT_IDX_LOAD)) {
+            if (parameters.get("start") != null
+                    && parameters.get("limit") != null) {
+                String start = parameters.get("start").get(0);
+                String limit = parameters.get("limit").get(0);
+                String formType = parameters.get("formType") != null ? parameters.get("formType").get(0) : "ALL";
+                String date = parameters.get("date") != null ? parameters.get("date").get(0) : "";
+
+                String json = ReportAction.INSTANCE.secIdxLoad(formType, date, start, limit);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.REPORT_HTML_LOAD)) {
+            if (parameters.get("siid") != null) {
+                String siid = parameters.get("siid").get(0);
+
+                String json = ReportAction.INSTANCE.secIdxHtmlLoad(siid);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.REPORT_FORM_LOAD)) {
+            if (parameters.get("siid") != null) {
+                String siid = parameters.get("siid").get(0);
+
+                String json = ReportAction.INSTANCE.secIdxFormLoad(siid);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.REPORT_STATE_CHANGE)) {
+            if (parameters.get("id") != null) {
+                String id = parameters.get("id").get(0);
+
+                String json = ReportAction.INSTANCE.idxFormComplete(id);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.REPORT_GRID_GENERATE)) {
+            String json = ReportAction.INSTANCE.generateReportGrid();
+            sendJsonResponse(ctx, json);
+            return;
+        }
+        // Report Action end ----------------------------------------------------------------------------------------
+
+        // Setting Action start --------------------------------------------------------------------------------------
+        else if (action.equals(Api.SET_FORM_TYPE_LOAD)) {
+            if (parameters.get("groupId") != null) {
+                String groupId = parameters.get("groupId").get(0);
+                String json = SettingAction.INSTANCE.formTypeLoad(groupId);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.SET_FORM_TYPE_COMBO)) {
+            if (parameters.get("groupId") != null) {
+                String groupId = parameters.get("groupId").get(0);
+
+                String json = SettingAction.INSTANCE.formTypeCombo(groupId);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.SET_FORM_TYPE_ADD)) {
+            if (parameters.get("formType") != null
+                    && parameters.get("groupId") != null) {
+                String formType = parameters.get("formType").get(0);
+                String groupId = parameters.get("groupId").get(0);
+
+                String json = SettingAction.INSTANCE.formTypeAdd(formType, groupId);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.SET_FORM_TYPE_DELETE)) {
+            if (parameters.get("id") != null) {
+                String id = parameters.get("id").get(0);
+
+                String json = SettingAction.INSTANCE.formTypeDelete(id);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.SET_GROUP_LOAD)) {
+            String json = SettingAction.INSTANCE.groupLoad();
+            sendJsonResponse(ctx, json);
+            return;
+        }
+
+        else if (action.equals(Api.SET_GROUP_COMBO)) {
+            String json = SettingAction.INSTANCE.groupCombo();
+            sendJsonResponse(ctx, json);
+            return;
+        }
+
+        else if (action.equals(Api.SET_GROUP_ADD)) {
+            if (parameters.get("name") != null
+                    && parameters.get("host") != null) {
+                String name = parameters.get("name").get(0);
+                String host = parameters.get("host").get(0);
+
+                String json = SettingAction.INSTANCE.groupAdd(name, host);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.SET_GROUP_DELETE)) {
+            if (parameters.get("groupId") != null) {
+                String groupId = parameters.get("groupId").get(0);
+
+                String json = SettingAction.INSTANCE.groupDelete(groupId);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.SET_IDENTITY_MENU_LOAD)) {
+            if (parameters.get("start") != null
+                    && parameters.get("limit") != null) {
+                String start = parameters.get("start").get(0);
+                String limit = parameters.get("limit").get(0);
+                String identity = parameters.get("identity") != null ? parameters.get("identity").get(0) : null;
+
+                String json = SettingAction.INSTANCE.identityMenuLoad(identity, start, limit);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.SET_IDENTITY_MENU_ADD)) {
+            if (parameters.get("identity") != null
+                    && parameters.get("menuId") != null) {
+                String identity = parameters.get("identity").get(0);
+                String menuId = parameters.get("menuId").get(0);
+
+                String json = SettingAction.INSTANCE.identityMenuAdd(identity, menuId);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
+        else if (action.equals(Api.SET_IDENTITY_MENU_DELETE)) {
+            if (parameters.get("id") != null) {
+                String id = parameters.get("id").get(0);
+
+                String json = SettingAction.INSTANCE.identityMenudelete(id);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+        // Identity Action end ----------------------------------------------------------------------------------------
+        // Setting Action end --------------------------------------------------------------------------------------
 
         sendJsonResponse(ctx, new Gson().toJson(new ExtMessage(false, Lang.paramError)));
     }

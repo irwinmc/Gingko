@@ -1,11 +1,16 @@
 Ext.define('IDAT.store.IdentityMenus', {
-	extend : 'Ext.data.TreeStore',
-	
-	model : 'IDAT.model.TreeMenu',
-	autoLoad: false,
-	proxy : {
-		type : 'ajax',
-		url : 'action/menu_loadAll',
-        method: 'Get'
-	}
+    extend: 'Ext.data.Store',
+    model: 'IDAT.model.IdentityMenu',
+
+    proxy: {
+        type: 'ajax',
+        url: ACTION.SET_IDENTITY_MENU_LOAD,
+        method: 'GET',
+        reader: {
+            type: 'json',
+            root: 'items',
+            totalProperty: 'count',
+            successProperty: 'success'
+        }
+    }
 });

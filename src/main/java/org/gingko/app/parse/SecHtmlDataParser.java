@@ -1,16 +1,14 @@
 package org.gingko.app.parse;
 
 import org.gingko.app.SecUtils;
-import org.gingko.app.parse.table.Cell;
-import org.gingko.app.parse.table.Table;
+import org.gingko.app.collect.ArrayBasedTable;
+import org.gingko.app.collect.Cell;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author Kyia
@@ -18,7 +16,7 @@ import java.util.regex.Pattern;
 public class SecHtmlDataParser {
 
 	// Add need to remove attributes
-	private static List<String> removeAttrs = new ArrayList<>();
+	private static List<String> removeAttrs = new ArrayList<String>();
 
 	// Html attribute of table colspan for table data cell
 	private static final String HTML_COLSPAN = "colspan";
@@ -33,14 +31,12 @@ public class SecHtmlDataParser {
 		removeAttrs.add("nowrap");
 	}
 
-
-
 	/**
 	 * 解析数据表格
 	 *
 	 * @param ele
 	 */
-	public Table parseTable(Element ele) {
+	public ArrayBasedTable parseTable(Element ele) {
 		// 1. Each element remove above attributes
 		clearTableAttrs(ele);
 
@@ -57,8 +53,17 @@ public class SecHtmlDataParser {
 		int column = 0;
 		for (Element tr : trs) {
 			Elements tds = tr.select("td");
-			if (tds.size() > column) {
-				column = tds.size();
+			// May be each row contains cell whose colspan greater than 2
+			int c = 0;
+			for (Element td : tds) {
+				int colSpan = 1;
+				if (!td.attr(HTML_COLSPAN).equals("")) {
+					colSpan = Integer.parseInt(td.attr(HTML_COLSPAN));
+				}
+				c += colSpan;
+			}
+			if (c > column) {
+				column = c;
 			}
 		}
 
@@ -133,51 +138,20 @@ public class SecHtmlDataParser {
 				newColumn++;
 			}
 		}
-		Cell[][] newCells = new Cell[row][newColumn];
-		for (int i = 0; i < row; i++) {
-			for (int j = 0, k = 0; j < column; j++) {
-				if (validColumns[j]) {
-					newCells[i][k] = cells[i][j];
-					k++;
-				}
-			}
-		}
 
-		return new Table(newCells);
-	}
-
-	/**
-	 * 处理Table数据，根据固定规则处理，考虑配置的可能性
-	 *
-	 * @return
-	 */
-	public Table processTable(Table table) {
-		// 第一列为名称列
-		Cell[][] cells = table.getCells();
-		// 财务数据处理，空行都用“-”补全，数据单元格以“(”开头处理成负数，用于加减
-		int row = cells.length;
-		int column = cells[0].length;
-		for (int i = 0; i < row; i++) {
-			cells[i][0].setField(true);
-		}
-
-		// 从第二列开始处理
-		for (int i = 0; i < row; i++) {
-			for (int j = 1; j < column; j++) {
-				Cell cell = cells[i][j];
-				if (cell.getColSpan() > 1 || cell.getRowSpan() > 1) {
-					cell.setField(true);
-				}
-				if (!cell.isField()) {
-					String str = cell.getText();
-					if (str.equals("")) {
-						cell.setText("-");
-					} else if (str.startsWith("(")) {
-						str = str.replace("(", "-");
-						cell.setText(str);
+		// If no valid column
+		ArrayBasedTable table = null;
+		if (newColumn > 0) {
+			Cell[][] newCells = new Cell[row][newColumn];
+			for (int i = 0; i < row; i++) {
+				for (int j = 0, k = 0; j < column; j++) {
+					if (validColumns[j]) {
+						newCells[i][k] = cells[i][j];
+						k++;
 					}
 				}
 			}
+			table = new ArrayBasedTable(newCells);
 		}
 
 		return table;
@@ -220,11 +194,15 @@ public class SecHtmlDataParser {
 				String str = SecUtils.removeHtmlTag(td.html()).trim();
 
 				// TODO: 单位格内容有效性验证，非常重要的一步，哪些是无效内容，无意义的需要有大量数据支持
-				if (str.equals("$") | str.equals(")") | str.equals("(") | str.equals("(restated)")) {
+				if (str.equals("$")
+						| str.equals(")")
+						| str.equals("(")
+						| str.equals("(restated)")
+						| str.equals("%")) {
 					str = "";
 				}
 
-				td.html(str);
+				td.html(str.toLowerCase());
 			}
 		}
 		return ele;

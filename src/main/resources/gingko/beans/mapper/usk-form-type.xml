@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.usk.FormTypeMapper">
+
+    <select id="selectAll" resultType="org.gingko.app.persist.domain.usk.FormType">
+        select * from usk_form_type
+    </select>
+
+	<select id="selectByGroupId" resultType="org.gingko.app.persist.domain.usk.FormType">
+		select * from usk_form_type where groupId=#{groupId}
+    </select>
+
+    <select id="selectByGroupAndType" resultType="org.gingko.app.persist.domain.usk.FormType">
+		select * from gingko.usk_form_type where formType=#{formType} and groupId=#{groupId}
+    </select>
+
+    <insert id="insert">
+		insert into usk_form_type (
+			formType, groupId
+		) values (
+			#{formType}, #{groupId}
+		)
+	</insert>
+
+    <delete id="deleteById">
+		delete from usk_form_type where id=#{id}
+	</delete>
+
+</mapper>

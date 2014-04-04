@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="gingko" default="deploy" basedir=".">
+	<!--======================== TIME ================== -->
+	<tstamp>
+		<format property="date" pattern="yyyyMMdd" locale="zh"/>
+	</tstamp>
+
+	<property name="author" value="Kyia"/>
+	<property name="version" value="0.1"/>
+	<property name="subversion" value="build${date}"/>
+	<property name="lang" value="zh_cn"/>
+	<property name="src" value="${basedir}/src/main/java"/>
+	<property name="resources" value="${basedir}/src/main/resources"/>
+	<property name="conf" value="${basedir}/conf"/>
+	<property name="webroot" value="${basedir}/webroot"/>
+	<property name="locale" value="${basedir}/locale"/>
+	<property name="build" value="${basedir}/build"/>
+	<property name="classes" value="${build}/classes"/>
+	<property name="lib" value="${basedir}/lib"/>
+	<property name="jar-file" value="${build}/${ant.project.name}-${version}.jar"/>
+	<property name="deploy" value="${basedir}/target"/>
+
+	<!--======================== JAR FILE LOCATIONS ================== -->
+	<path id="server.classpath">
+		<fileset dir="${lib}" includes="*.jar"/>
+	</path>
+
+	<!--=========================== TARGETS ========================== -->
+	<target name="clean">
+		<delete dir="${build}"/>
+		<delete dir="${deploy}"/>
+	</target>
+
+	<target name="prepare" depends="clean">
+		<mkdir dir="${build}"/>
+		<mkdir dir="${classes}"/>
+		<mkdir dir="${deploy}"/>
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac target="1.6" srcdir="${src}" destdir="${classes}" classpathref="server.classpath" includeAntRuntime="false"
+			   encoding="UTF-8"/>
+		<!-- 
+		<iajc debug="true" destdir="${classes}" source="1.6" classpathRef="server.classpath">
+			<sourceroots>
+				<pathelement location="${src}" />
+			</sourceroots>
+		</iajc>
+		-->
+	</target>
+
+	<target name="jar" depends="compile">
+		<!-- create a property containing all .jar files, prefix lib/, and seperated with a space -->
+		<pathconvert property="libs.project" pathsep=" ">
+			<mapper>
+				<chainedmapper>
+					<flattenmapper/>
+					<globmapper from="*" to="lib/*"/>
+				</chainedmapper>
+			</mapper>
+			<path>
+				<fileset dir="${lib}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</path>
+		</pathconvert>
+		<!-- create the jar -->
+		<jar destfile="${jar-file}" basedir="${classes}">
+			<fileset dir="${resources}">
+				<include name="**/*.xml"/>
+			</fileset>
+			<fileset dir="${resources}">
+				<include name="log4j.properties"/>
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${author}"/>
+				<attribute name="Manifest-Version" value="${version}"/>
+				<attribute name="Main-Class" value="org.gingko.main.CommandLine"/>
+				<attribute name="Class-Path" value="${libs.project}"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="deploy" depends="jar">
+		<copy file="${jar-file}" todir="${deploy}"/>
+		<copy todir="${deploy}">
+			<fileset dir="${basedir}">
+				<include name="startup.sh"/>
+				<include name="shutdown.sh"/>
+				<include name="fabfile.py"/>
+			</fileset>
+		</copy>
+
+		<!-- copy lib -->
+		<copy todir="${deploy}/lib/">
+			<fileset dir="${lib}">
+				<include name="**/*.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="${deploy}/conf/">
+			<fileset dir="${conf}">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${deploy}/webroot/">
+			<fileset dir="${webroot}">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${deploy}/locale">
+			<fileset dir="${locale}">
+				<include name="**/*${lang}.properties"/>
+			</fileset>
+		</copy>
+
+		<!-- <jar jarfile="${ant.project.name}-${version}-build${date}.zip" basedir="${deploy}" /> -->
+	</target>
+</project>

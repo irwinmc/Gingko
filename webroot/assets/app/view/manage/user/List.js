@@ -10,6 +10,7 @@ Ext.define('IDAT.view.manage.user.List' ,{
         {header: LANG.LABEL.name, dataIndex: 'name', flex: 1},
         {header: LANG.LABEL.password, dataIndex: 'password', flex: 1},
         {header: LANG.LABEL.identity, dataIndex: 'identity', flex: 1, renderer: RenderUtil.identity},
+        {header: LANG.LABEL.group_id, dataIndex: 'groupId', flex: 1},
         {header: LANG.LABEL.edit, dataIndex: 'edit', align: 'center', width: 60, renderer: RenderUtil.btnEdit},
         {header: LANG.LABEL.delete, dataIndex: 'delete', align: 'center', width: 60, renderer: RenderUtil.btnDel}
     ],

@@ -4,7 +4,7 @@ Ext.define('IDAT.store.ComboMenus', {
 
     proxy: {
         type: 'ajax',
-        url: 'action/menu_combo',
-        method: 'Get'
+        url: ACTION.MENU_COMBO,
+        method: 'GET'
     }
 });

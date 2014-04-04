@@ -2,8 +2,8 @@ package org.gingko.server.handler.api.actions;
 
 import com.google.gson.Gson;
 import org.gingko.app.persist.PersistContext;
-import org.gingko.app.persist.domain.User;
-import org.gingko.app.persist.mapper.UserMapper;
+import org.gingko.app.persist.domain.sys.User;
+import org.gingko.app.persist.mapper.sys.UserMapper;
 import org.gingko.config.Lang;
 import org.gingko.context.AppContext;
 import org.gingko.server.handler.api.vo.ExtMessage;
@@ -26,13 +26,13 @@ public enum UserAction {
      * @return
      */
     public String login(String account, String password) {
-        User user = userMapper.login(account, password);
-        ExtMessage message = new ExtMessage(false, Lang.userLoginFailure);
-        if (user != null) {
-            message.setSuccess(true);
-            message.setMsg(Lang.userLoginSuccess);
-            message.setAccount(user.getAccount());
-            message.setIdentity(user.getIdentity());
+            User user = userMapper.login(account, password);
+            ExtMessage message = new ExtMessage(false, Lang.userLoginFailure);
+            if (user != null) {
+                message.setSuccess(true);
+                message.setMsg(Lang.userLoginSuccess);
+                message.setAccount(user.getAccount());
+                message.setIdentity(user.getIdentity());
         }
         return new Gson().toJson(message);
     }
@@ -54,7 +54,7 @@ public enum UserAction {
         }
 
         List<User> users = userMapper.selectByPage(l, o);
-        int totalCount = userMapper.totalCount();
+        int totalCount = userMapper.selectTotalCount();
 
         ExtPagingData<User> items = new ExtPagingData<User>(true, totalCount, users);
         return new Gson().toJson(items);
@@ -68,10 +68,11 @@ public enum UserAction {
      * @param identity
      * @return
      */
-    public String add(String account, String password, String name, String identity) {
-        int i = 0;
+    public String add(String account, String password, String name, String identity, String groupId) {
+        int iId = 0, gId = 0;
         try {
-            i = Integer.valueOf(identity);
+            iId = Integer.valueOf(identity);
+            gId = Integer.valueOf(groupId);
         } catch (NumberFormatException e) {
             return new Gson().toJson(new ExtMessage(false, Lang.paramError));
         }
@@ -87,7 +88,8 @@ public enum UserAction {
         user.setAccount(account);
         user.setPassword(password);
         user.setName(name);
-        user.setIdentity(i);
+        user.setIdentity(iId);
+        user.setIdentity(gId);
         userMapper.insert(user);
 
         ExtMessage message = new ExtMessage(true, Lang.operateAddSuccess);
@@ -103,10 +105,11 @@ public enum UserAction {
      * @param identity
      * @return
      */
-    public String edit( String account, String password, String name, String identity) {
-        int i = 0;
+    public String edit( String account, String password, String name, String identity, String groupId) {
+        int iId = 0, gId = 0;
         try {
-            i = Integer.valueOf(identity);
+            iId = Integer.valueOf(identity);
+            gId = Integer.valueOf(groupId);
         } catch (NumberFormatException e) {
             return new Gson().toJson(new ExtMessage(false, Lang.paramError));
         }
@@ -120,7 +123,8 @@ public enum UserAction {
         user.setAccount(account);
         user.setPassword(password);
         user.setName(name);
-        user.setIdentity(i);
+        user.setIdentity(iId);
+        user.setGroupId(gId);
         userMapper.update(user);
 
         ExtMessage message = new ExtMessage(true, Lang.operateEditSuccess);

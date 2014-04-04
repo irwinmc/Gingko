@@ -1,6 +1,6 @@
 package org.gingko.server.handler.api.vo;
 
-import org.gingko.app.persist.domain.Menu;
+import org.gingko.app.persist.domain.sys.Menu;
 
 import java.util.ArrayList;
 import java.util.List;

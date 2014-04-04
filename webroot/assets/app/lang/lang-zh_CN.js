@@ -1,10 +1,3 @@
-// 申明一些全局变量
-var GLOBAL = {
-    PARENT_ID: "dataanalytic",
-    ACCOUNT: "",
-    IDENTITY: 3
-};
-
 /**
  * Created by TangYing
  */
@@ -29,7 +22,8 @@ var LANG = {
         reset: '重置',
         confirm: '确定',
         use: '使用选中',
-        unuse: '不使用选中'
+        unuse: '不使用选中',
+        input: '入库'
     },
 
     TITLE: {
@@ -46,10 +40,13 @@ var LANG = {
         edit: '编辑',
         delete: '删除',
         home_page: '主页',
-        idx_grid1: '报表索引',
-        idx_grid2: '报表链接',
+        grid_idx: '报表索引',
+        grid_idx_form: '解析结果',
         identity_menu: '权限菜单',
-        identity_grid: '权限表格'
+        identity_grid: '权限表格',
+        report_match: '数据匹配',
+        report_table: '报表展示',
+        report_type: '报表类型'
     },
 
     LABEL: {
@@ -68,16 +65,25 @@ var LANG = {
         type: '类型',
         keyword: '关键字',
         cik: 'cik',
-        stockCode: '股票代码',
+        stock_code: '股票代码',
         siid: 'siid',
-        companyName: '公司名称',
-        formType: '报表类型',
-        fileName: '文件名称',
+        company_name: '公司名称',
+        form_type: '数据类型',
+        report_type: '报表类型',
+        file_name: '文件名称',
         description: '描述',
-        anchor: '链接',
+        anchor: '原始链接',
         state: '报表状态',
         date: '报表日期',
-        used: '是否使用'
+        used: '是否使用',
+        html_column: '科目',
+        sign: '符号',
+        data: '数据',
+        group_id: '小组ID',
+        group_host: '小组组长',
+        group_name: '小组名称',
+        local_file: '本地报表',
+        form_name: '报表名称'
     },
 
     EMPTY_TIPS: {
@@ -89,13 +95,15 @@ var LANG = {
         empty_combo_menu: '请选择菜单',
         empty_combo_type: '请选择类型',
         empty_combo_state: '请选择状态',
-        empty_combo_identity: '请选择相应权限'
+        empty_combo_identity: '请选择相应权限',
+        empty_combo_group: '请选择相应小组'
     },
 
     MESSAGE: {
         delete: '你确定要删除该条数据吗？',
         failure_connect: '系统连接错误！请刷新页面重新载入，如果还不能解决，请联系技术人员',
-        empty_record_chose: '<font color="red">请先选择您要删除的行！<font>'
+        empty_record_chose: '<font color="red">请先选择您要删除的行！<font>',
+        failure_load: '<font color="red">数据加载失败！<font>'
     }
 }
 
@@ -141,30 +149,15 @@ RenderUtil = function () {
         btnDel: function () {
             return "<a href='' onclick='return false' ><font color='red'/>[删除]</a>";
         },
-        btnOperate: function (value, c, records) {
-            switch (REPORT.RECORD_STATE) {
-                case 0: return "<a href='' onclick='return false'><font color='#9acd32'/>[开始处理]</a>";
-                case 1: return "<a href='' onclick='return false'><font color='green'/>[完成处理]</a>";
-                case 2: return "<a href='' onclick='return false'><font color='red'/>[重新处理]</a>";
-                default :
-                     return "状态错误";
-            }
+        btnOpen: function () {
+            return "<a href='' onclick='return false' ><font color='red'/>[查看]</a>";
         },
         state: function (value) {
             switch (value) {
                 case 0: return "<font color='red'/>未处理";
-                case 1: return "<font color='#9acd32'/>正在处理中";
-                case 2: return "<font color='green'/>处理完成";
+                case 1: return "<font color='green'/>已处理";
                 default :
                     return "状态错误";
-            }
-        },
-        used: function (value) {
-            switch (value) {
-                case 0: return "<font color='red'/>未使用";
-                case 1: return "<font color='#9acd32'/>已使用";
-                default :
-                    return "未使用";
             }
         },
         identity: function (value) {
@@ -175,6 +168,20 @@ RenderUtil = function () {
                 default :
                     return "权限错误或未分配";
             }
+        },
+
+        /**
+         * Custom function used for column renderer
+         * @param {Object} val
+         */
+        change: function(val) {
+            if (val > 0) {
+                return '<span style="color:green;">' + val + '</span>';
+            } else if (val < 0) {
+                return '<span style="color:red;">' + val + '</span>';
+            }
+            return val;
         }
     };
 }();
+

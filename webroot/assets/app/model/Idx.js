@@ -5,5 +5,5 @@ Ext.define('IDAT.model.Idx', {
         'Ext.data.reader.Json'
     ],
 
-    fields: ['cik', 'code', 'companyName', 'formType', 'fileName', 'siid', 'state', 'operator', 'date']
+    fields: ['cik', 'code', 'companyName', 'formType', 'fileName', 'siid', 'date']
 });

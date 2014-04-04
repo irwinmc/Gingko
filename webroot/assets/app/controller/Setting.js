@@ -1,23 +1,43 @@
 var formTypeStore = Ext.create('IDAT.store.FormTypes');
+var groupStore = Ext.create('IDAT.store.Groups');
+var identityMenuStore = Ext.create('IDAT.store.IdentityMenus');
 
 Ext.define('IDAT.controller.Setting', {
     extend: 'Ext.app.Controller',
     models: [ ],
-    stores: [ 'FormTypes@IDAT.store'],
-    views: [ 'List@IDAT.view.setting.type' ],
+    stores: [
+        'ComboMenus@IDAT.store',
+        'ComboIdentity@IDAT.store',
+        'ComboGroups@IDAT.store',
+        'FormTypes@IDAT.store',
+        'Groups@IDAT.store',
+        'IdentityMenus@IDAT.store',
+        'TreeIdentityMenus@IDAT.store'
+    ],
+    views: [
+        'List@IDAT.view.setting.usk.type',
+        'List@IDAT.view.setting.group',
+        'List@IDAT.view.setting.identity',
+        'Tree@IDAT.view.setting.identity',
+        'Interface@IDAT.view.setting.identity'
+    ],
     refs: [
-        {ref: 'formTypeSetting', selector: 'formtypesetting'}
+        {ref: 'settingFormType', selector: 'settingformtype'},
+        {ref: 'settingGroup', selector: 'settinggroup'},
+        { ref: 'settingIdentity', selector: 'settingidentity'},
+        { ref: 'identityGrid', selector: 'identitygrid'}
+
     ],
 
     init : function() {
 		this.control({
-            // FORM TYPE SETTING START -------------------------------------------------------------
-            'formtypesetting': {
+            // SETTING GROUP START -------------------------------------------------------------
+            'settinggroup': {
                 beforeactivate: function () {
-                    formTypeStore.reload();
+                    groupStore.reload();
                 },
                 cellclick: function(view, td, cellIndex, record) {
-                    if (cellIndex == this.getFormTypeSetting().columns.length - 0) {
+                    if (cellIndex == this.getSettingGroup().columns.length - 1) {
                         Ext.Msg.show({
                             title: LANG.TITLE.delete,
                             msg: LANG.MESSAGE.delete,
@@ -26,10 +46,54 @@ Ext.define('IDAT.controller.Setting', {
                             fn:function(btn) {
                                 if (btn == 'yes') {
                                     Ext.Ajax.request({
-                                        url: 'action/setting_deleteFormType',
-                                        method: 'Get',
+                                        url: ACTION.SET_GROUP_DELETE,
+                                        method: 'GET',
                                         params: {
-                                            formType: record.get('formType')
+                                            groupId: record.get('groupId')
+                                        },
+                                        success : function(response) {
+                                            var responseJson = Ext.JSON.decode(response.responseText);
+                                            Ext.Msg.alert(LANG.TITLE.success, responseJson.msg);
+                                            groupStore.reload();
+                                        },
+                                        failure : function(response) {
+                                            var responseJson = Ext.JSON.decode(response.responseText);
+                                            Ext.Msg.alert(LANG.TITLE.failure, responseJson.msg);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            },
+
+            'settinggroup button[action=add]': {
+                click: function() {
+                    Ext.create('IDAT.view.setting.group.Add').show();
+                }
+            },
+            // SETTING GROUP END ---------------------------------------------------------------
+
+            // SETTING FORM TYPE START -------------------------------------------------------------
+            'settingformtype': {
+                beforeactivate: function () {
+
+                },
+                cellclick: function(view, td, cellIndex, record) {
+                    if (cellIndex == this.getSettingFormType().columns.length - 2) {
+                        Ext.Msg.show({
+                            title: LANG.TITLE.delete,
+                            msg: LANG.MESSAGE.delete,
+                            buttons: Ext.Msg.YESNO,
+                            icon: Ext.Msg.QUESTION,
+                            fn:function(btn) {
+                                if (btn == 'yes') {
+                                    Ext.Ajax.request({
+                                        url: ACTION.SET_FORM_TYPE_DELETE,
+                                        method: 'GET',
+                                        params: {
+                                            id: record.get('id')
                                         },
                                         success : function(response) {
                                             var responseJson = Ext.JSON.decode(response.responseText);
@@ -47,76 +111,54 @@ Ext.define('IDAT.controller.Setting', {
                     }
                 }
 			},
-            'formtypesetting button[action=add]': {
+            'settingformtype button[action=add]': {
                 click: function() {
-                    Ext.create('IDAT.view.setting.type.Add').show();
+                    Ext.create('IDAT.view.setting.usk.type.Add').show();
                 }
             },
-            'formtypesetting button[action=use]': {
-                click: function() {
-                    var records = this.getFormTypeSetting().getSelectionModel().getSelection();
-                    if (records.length == 0) {
-                        return;
-                    }
-                    var temp = "";
-                    for (var i =0; i <records.length; i++) {
-                        temp +=  records[i].get('formType') + ",";
-                    }
-                    var formType = temp.substring(0, temp.length - 1);
+            // SETTING FORM TYPE END -------------------------------------------------------------
 
-                    Ext.Ajax.request({
-                        url: 'action/setting_useFormType',
-                        method: 'Get',
-                        params: {
-                            formType: formType,
-                            used: 1
-                        },
-                        success : function(response) {
-                            var responseJson = Ext.JSON.decode(response.responseText);
-                            Ext.Msg.alert(LANG.TITLE.success, responseJson.msg);
-                            formTypeStore.reload();
-                        },
-                        failure : function(response) {
-                            var responseJson = Ext.JSON.decode(response.responseText);
-                            Ext.Msg.alert(LANG.TITLE.failure, responseJson.msg);
-                        }
-                    });
+            // IDENTITY MANAGE START -------------------------------------------------------------
+            'identitygrid': {
+                cellclick: function(view, td, cellIndex, record) {
+                    if (cellIndex == this.getIdentityGrid().columns.length - 2) {
+                        Ext.Msg.show({
+                            title: LANG.TITLE.delete,
+                            msg: LANG.MESSAGE.delete,
+                            buttons: Ext.Msg.YESNO,
+                            icon: Ext.Msg.QUESTION,
+                            fn:function(btn) {
+                                if (btn == 'yes') {
+                                    Ext.Ajax.request({
+                                        url: ACTION.SET_IDENTITY_MENU_DELETE,
+                                        method: 'Get',
+                                        params: {
+                                            id: record.get('id')
+                                        },
+                                        success : function(response) {
+                                            var responseJson = Ext.JSON.decode(response.responseText);
+                                            Ext.Msg.alert(LANG.TITLE.success, responseJson.msg);
+                                            identityMenuStore.reload();
+                                            Ext.getStore('IdentityMenus').proxy.extraParams={identity : record.get('identity')};
+                                            Ext.getStore('IdentityMenus').reload();
+                                        },
+                                        failure : function(response) {
+                                            var responseJson = Ext.JSON.decode(response.responseText);
+                                            Ext.Msg.alert(LANG.TITLE.failure, responseJson.msg);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
                 }
             },
-            'formtypesetting button[action=unuse]': {
+            'settingidentity button[action=add]': {
                 click: function(button) {
-                    var records = this.getFormTypeSetting().getSelectionModel().getSelection();
-                    if (records.length == 0) {
-                        return;
-                    }
-
-                    var temp = "";
-                    for (var i =0; i <records.length; i++) {
-                        temp +=  records[i].get('formType') + ",";
-                    }
-                    var formType = temp.substring(0, temp.length - 1);
-
-                    Ext.Ajax.request({
-                        url: 'action/setting_useFormType',
-                        method: 'Get',
-                        params: {
-                            formType: formType,
-                            used: 0
-                        },
-                        success : function(response) {
-                            var responseJson = Ext.JSON.decode(response.responseText);
-                            Ext.Msg.alert(LANG.TITLE.success, responseJson.msg);
-                            formTypeStore.reload();
-                        },
-                        failure : function(response) {
-                            var responseJson = Ext.JSON.decode(response.responseText);
-                            Ext.Msg.alert(LANG.TITLE.failure, responseJson.msg);
-                        }
-                    });
+                    Ext.create('IDAT.view.setting.identity.Add').show();
                 }
             }
-            // FORM TYPE SETTING END -------------------------------------------------------------
-
+            // IDENTITY MANAGE END -------------------------------------------------------------
 		});
 	}
 });

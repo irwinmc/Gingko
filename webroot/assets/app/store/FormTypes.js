@@ -4,8 +4,8 @@ Ext.define('IDAT.store.FormTypes', {
 
     proxy: {
         type: 'ajax',
-        url: 'action/setting_loadFormType',
-        method: 'Get',
+        url: ACTION.SET_FORM_TYPE_LOAD,
+        method: 'GET',
         reader: {
             type: 'json',
             root: 'items',

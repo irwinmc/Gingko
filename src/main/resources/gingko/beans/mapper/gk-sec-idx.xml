@@ -1,0 +1,65 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.SecIdxMapper">
+
+	<select id="select" resultType="org.gingko.app.persist.domain.SecIdx">
+		select * from gk_sec_idx
+	</select>
+
+    <select id="selectByPage" resultType="org.gingko.app.persist.domain.SecIdx">
+		select * from gk_sec_idx where date=#{date}
+        <if test="formTypes!= null" > and formType in
+            <foreach item="item" index="index" collection="formTypes"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if> order by siid limit #{limit} offset #{offset}
+	</select>
+
+    <select id="selectTotalCount" resultType="int">
+        select count(*) from gk_sec_idx where date=#{date}
+        <if test="formTypes!= null" > and formType in
+            <foreach item="item" index="index" collection="formTypes"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+	<select id="selectByDate" parameterType="String" resultType="org.gingko.app.persist.domain.SecIdx">
+		select * from gk_sec_idx where date=#{date}
+	</select>
+
+	<select id="selectBySiid" parameterType="String" resultType="org.gingko.app.persist.domain.SecIdx">
+		select * from gk_sec_idx where siid=#{siid}
+	</select>
+
+    <insert id="insert">
+		insert into gk_sec_idx (
+			cik, companyName, formType, dateField, fileName, fillingHtmlUrl, siid, date
+		) values (
+			#{cik}, #{companyName}, #{formType}, #{dateField}, #{fileName},
+			#{fillingHtmlUrl}, #{siid}, #{date}
+		)
+	</insert>
+
+	<insert id="insertList" parameterType="java.util.List">
+		insert into gk_sec_idx (
+			cik, companyName, formType, dateField, fileName, fillingHtmlUrl, siid, date
+		) values
+		<foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
+			#{item.cik}, #{item.companyName}, #{item.formType}, #{item.dateField}, #{item.fileName},
+			#{item.fillingHtmlUrl}, #{item.siid}, #{item.date}
+		</foreach>
+	</insert>
+
+	<delete id="delete">
+		delete from gk_sec_idx
+	</delete>
+
+	<delete id="deleteByDate" parameterType="String">
+		delete from gk_sec_idx where date=#{date}
+	</delete>
+
+</mapper>

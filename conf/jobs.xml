@@ -16,9 +16,26 @@
 				<group>DOWNLOAD_GROUP</group>
 				<job-name>download-job</job-name>
 				<job-group>DOWNLOAD_GROUP</job-group>
-				<cron-expression>0 5 10 ? * TUE-SAT</cron-expression>
+				<cron-expression>0 44 17 ? * TUE-SAT</cron-expression>
 			</cron>
 		</trigger>
 	</schedule>
+
+    <schedule>
+        <job>
+            <name>sync-job</name>
+            <group>SYNC_GROUP</group>
+            <job-class>org.gingko.app.schedule.job.SyncCikJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>sync-trigger</name>
+                <group>SYNC_GROUP</group>
+                <job-name>sync-job</job-name>
+                <job-group>SYNC_GROUP</job-group>
+                <cron-expression>0 5 8 ? * TUE-SAT</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>
 
 </job-scheduling-data>

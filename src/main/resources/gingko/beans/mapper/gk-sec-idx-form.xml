@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.SecIdxFormMapper">
+
+    <select id="select" resultType="org.gingko.app.persist.domain.SecIdxForm">
+		select * from gk_sec_idx_form where id=#{id}
+	</select>
+
+	<select id="selectBySiid" resultType="org.gingko.app.persist.domain.SecIdxForm">
+		select * from gk_sec_idx_form where siid=#{siid}
+	</select>
+
+    <update id="update">
+		update gk_sec_idx_form set state=#{state} where siid=#{siid}
+	</update>
+
+    <insert id="insert">
+		insert into gk_sec_idx_form (
+			siid, name, formType, reportType, date, localFile, anchor, state
+		) values (
+			#{siid}, #{name}, #{formType}, #{reportType}, #{date},
+			#{localFile}, #{anchor}, #{state}
+		)
+	</insert>
+
+</mapper>

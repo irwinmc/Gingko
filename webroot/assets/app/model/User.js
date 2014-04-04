@@ -5,5 +5,5 @@ Ext.define('IDAT.model.User', {
         'Ext.data.reader.Json'
     ],
 
-    fields: ['userId','account', 'password', 'name', 'identity']
+    fields: ['userId','account', 'password', 'name', 'identity', 'groupId']
 });

@@ -5,8 +5,9 @@ Ext.define('IDAT.store.Idxs', {
     pageSize: 15,
     proxy: {
         type: 'ajax',
-        url: 'action/report_loadIdx',
-        method: 'Get',
+        url: ACTION.REPORT_IDX_LOAD,
+        method: 'GET',
+
         reader: {
             type: 'json',
             root: 'items',

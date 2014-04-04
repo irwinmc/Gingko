@@ -1,0 +1,10 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.ReportMapper">
+
+	<select id="select" resultType="org.gingko.app.persist.domain.Report">
+		select * from gk_report
+	</select>
+
+</mapper>

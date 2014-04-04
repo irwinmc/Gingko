@@ -7,7 +7,6 @@ Ext.define('IDAT.view.home.Menu', {
     height: 300,
     title: LANG.TITLE.menu,
     iconCls: 'icon-menu',
-    containerScroll: true,
 	collapsible: true,
 	autoScroll: false,
 	border: false,

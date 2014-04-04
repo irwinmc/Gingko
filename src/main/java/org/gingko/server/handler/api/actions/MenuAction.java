@@ -2,9 +2,8 @@ package org.gingko.server.handler.api.actions;
 
 import com.google.gson.Gson;
 import org.gingko.app.persist.PersistContext;
-import org.gingko.app.persist.domain.Menu;
-import org.gingko.app.persist.mapper.IdentityMapper;
-import org.gingko.app.persist.mapper.MenuMapper;
+import org.gingko.app.persist.domain.sys.Menu;
+import org.gingko.app.persist.mapper.sys.MenuMapper;
 import org.gingko.config.Lang;
 import org.gingko.context.AppContext;
 import org.gingko.server.handler.api.vo.ExtCombo;
@@ -22,7 +21,6 @@ public enum MenuAction {
     INSTANCE;
 
     private static MenuMapper menuMapper = (MenuMapper) AppContext.getBean(PersistContext.MENU_MAPPER);
-    private static IdentityMapper identityMapper = (IdentityMapper) AppContext.getBean(PersistContext.IDENTITY_MAPPER);
 
     /**
      * Menu load

@@ -42,9 +42,16 @@ public class SecUtils {
 			matcher = pattern.matcher(html);
 			html = matcher.replaceAll("");
 
-			html = html.replace("&nbsp;", " ")	// Blank space
-					.replace("&#x2019;", "\'")	// Close single quote
-					.replace("&#x2014;", "-");	// Em dash
+			// Blank space
+			html = html.replace("&nbsp;", " ");
+			html = html.replace("&#x200b;", " ");
+
+			// Close single quote
+			html = html.replace("&#x2019;", "\'");
+
+			// Em dash
+			html = html.replace("&#x2013;", "-");
+			html = html.replace("&#x2014;", "-");
 
 		} catch (Exception e) {
 			e.printStackTrace();

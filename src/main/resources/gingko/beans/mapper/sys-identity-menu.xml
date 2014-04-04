@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.sys.IdentityMenuMapper">
+
+    <select id="selectByPage" resultType="org.gingko.app.persist.domain.sys.IdentityMenu">
+        select * from sys_identity_menu where 1=1
+        <if test="identity!=0"> and identity=#{identity} </if> limit #{limit} offset #{offset}
+    </select>
+
+    <select id="selectTotalCount" resultType="int">
+        select count(*) from sys_identity_menu where 1=1
+        <if test="identity!=0"> and identity=#{identity} </if>
+    </select>
+
+	<select id="selectMenusByIdentity" resultType="String">
+		select menuId from sys_identity_menu where identity=#{identity}
+    </select>
+
+    <insert id="insert">
+		insert into sys_identity_menu (
+			menuId, identity
+		) values (
+			#{menuId}, #{identity}
+		)
+	</insert>
+
+    <delete id="deleteById">
+		delete from sys_identity_menu where id=#{id}
+	</delete>
+
+</mapper>

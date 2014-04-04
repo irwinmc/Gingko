@@ -17,11 +17,11 @@
 		<property name="password" value="${db.password}"/>
 	</bean>
 
-    <bean id="dataSourceB" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-        <property name="driverClass" value="${db.driverClass}"/>
-        <property name="jdbcUrl" value="${b.db.jdbcUrl}"/>
-        <property name="username" value="${b.db.username}"/>
-        <property name="password" value="${b.db.password}"/>
+    <bean id="dataSourcePg109" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass" value="${dbpg109.driverClass}"/>
+        <property name="jdbcUrl" value="${dbpg109.jdbcUrl}"/>
+        <property name="username" value="${dbpg109.username}"/>
+        <property name="password" value="${dbpg109.password}"/>
     </bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -29,8 +29,8 @@
 		<property name="mapperLocations" value="classpath:gingko/beans/mapper/**/*.xml" />
 	</bean>
 
-    <bean id="sqlSessionFactoryB" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSourceB"/>
+    <bean id="sqlSessionFactoryPg109" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourcePg109"/>
         <property name="mapperLocations" value="classpath:gingko/beans/mapper/**/*.xml" />
     </bean>
 

@@ -1,5 +1,5 @@
 #!/bin/sh
-files=`ls -r | grep 'gingko-server.*\.jar'`
+files=`ls -r | grep 'gingko*\.jar'`
 
 for var in files; do
 	file=$var

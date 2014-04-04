@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.sys.GroupMapper">
+
+    <select id="selectAll" resultType="org.gingko.app.persist.domain.sys.Group">
+        select * from sys_group
+    </select>
+
+    <update id="update">
+        update sys_group set name=#{name}, host=#{host}
+    </update>
+
+    <insert id="insert">
+		insert into sys_group (
+			name, host
+		) values (
+			#{name}, #{host}
+		)
+	</insert>
+
+    <delete id="deleteById">
+		delete from sys_group where groupId=#{groupId}
+	</delete>
+
+</mapper>

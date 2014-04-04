@@ -12,13 +12,11 @@ public interface FormTypeMapper {
 
     List<FormType> selectAll();
 
-    List<String> selectByUsed();
+    List<FormType> selectByGroupId(int groupId);
 
-    FormType selectByFormType(String formType);
-
-    void update(@Param("formTypes") String[] formTypes ,@Param("used")  int used);
+    FormType selectByGroupAndType(@Param("formType")  String formType, @Param("groupId")  int groupId);
 
     void insert(FormType formType);
 
-    void delete(String formType);
+    void deleteById(int id);
 }

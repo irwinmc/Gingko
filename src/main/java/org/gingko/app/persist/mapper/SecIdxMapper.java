@@ -13,18 +13,16 @@ public interface SecIdxMapper {
     List<SecIdx> select();
 
     List<SecIdx> selectByPage(@Param("formTypes") String[] formTypes,
-                              @Param("state") int state,
                               @Param("date") String date,
                               @Param("limit") int limit,
                               @Param("offset") int offset);
 
+    int selectTotalCount(@Param("formTypes") String[] formTypes,
+                         @Param("date") String date);
+
     List<SecIdx> selectByDate(String date);
 
     SecIdx selectBySiid(String siid);
-
-    int selectTotalCount(@Param("formTypes") String[] formTypes, @Param("state") int state, @Param("date") String date);
-
-    void update(SecIdx secIdx);
 
     void insert(SecIdx secIdx);
 

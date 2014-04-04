@@ -1,5 +1,5 @@
 #!/bin/bash
-pid=`ps aux | grep gingko-server | awk '{if($11=="java") print $2}'`
+pid=`ps aux | grep gingko | awk '{if($11=="java") print $2}'`
 
 if { $pid }
 then

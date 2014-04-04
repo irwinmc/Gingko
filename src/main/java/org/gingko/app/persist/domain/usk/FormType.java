@@ -7,8 +7,9 @@ import java.io.Serializable;
  */
 public class FormType implements Serializable {
 
+    private int id;
+    private int groupId;
     private String formType;
-    private int used;
 
     public FormType() {
 
@@ -22,11 +23,19 @@ public class FormType implements Serializable {
         this.formType = formType;
     }
 
-    public int getUsed() {
-        return used;
+    public int getId() {
+        return id;
     }
 
-    public void setUsed(int used) {
-        this.used = used;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 }

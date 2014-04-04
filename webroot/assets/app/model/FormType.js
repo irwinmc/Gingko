@@ -5,5 +5,5 @@ Ext.define('IDAT.model.FormType', {
         'Ext.data.reader.Json'
     ],
 
-    fields: ['formType', 'used']
+    fields: ['id', 'formType', 'groupId']
 });

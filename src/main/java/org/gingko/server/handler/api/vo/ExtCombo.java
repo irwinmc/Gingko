@@ -1,6 +1,8 @@
 package org.gingko.server.handler.api.vo;
 
-import org.gingko.app.persist.domain.Menu;
+import org.gingko.app.persist.domain.sys.Group;
+import org.gingko.app.persist.domain.sys.Menu;
+import org.gingko.app.persist.domain.usk.FormType;
 
 public class ExtCombo {
 
@@ -11,6 +13,16 @@ public class ExtCombo {
 		this.value = menu.getMenuId();
 		this.display = menu.getText();
 	}
+
+    public ExtCombo(Group group) {
+        this.value = group.getGroupId();
+        this.display = group.getName();
+    }
+
+    public ExtCombo(FormType formType) {
+        this.value = formType.getFormType();
+        this.display = formType.getFormType();
+    }
 
 	public ExtCombo(String value, String display) {
 		this.value = value;

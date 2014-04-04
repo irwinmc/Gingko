@@ -1,6 +1,5 @@
 package org.gingko;
 
-import org.gingko.app.filter.impl.SecFilter;
 import org.gingko.context.AppContext;
 import org.gingko.services.ScheduleService;
 import org.slf4j.Logger;
@@ -19,9 +18,6 @@ public enum Engine {
 
 	public void start() {
 		scheduleService.init();
-
-		// 加载过滤器，TODO: 这里要改成过滤器管理器全局加载
-		SecFilter.INSTANCE.load();
 	}
 
 	public void stop() {

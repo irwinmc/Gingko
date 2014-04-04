@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gingko.app.persist.mapper.usk.CikMapper">
+
+    <select id="selectAll" resultType="org.gingko.app.persist.domain.usk.Cik">
+        select * from usk_cik
+    </select>
+
+    <select id="selectCodeByCik" resultType="String">
+        select code from usk_cik where cik=#{cik}
+    </select>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into usk_cik (
+            cik, code
+        ) values
+        <foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
+            #{item.cik}, #{item.code}
+        </foreach>
+    </insert>
+
+    <delete id="delete">
+		delete from usk_cik where cik=#{cik}
+	</delete>
+
+</mapper>

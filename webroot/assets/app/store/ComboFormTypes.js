@@ -4,7 +4,10 @@ Ext.define('IDAT.store.ComboFormTypes', {
 
     proxy: {
         type: 'ajax',
-        url: 'action/setting_comboFormType',
-        method: 'Get'
+        url: ACTION.SET_FORM_TYPE_COMBO,
+        method: 'GET',
+        extraParams : {
+            groupId : GLOBAL.GROUP_ID
+        }
     }
 });
