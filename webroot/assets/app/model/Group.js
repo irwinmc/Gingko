@@ -1,9 +1,9 @@
 Ext.define('IDAT.model.Group', {
-    extend: 'Ext.data.Model',
+	extend: 'Ext.data.Model',
 
-    requires: [
-        'Ext.data.reader.Json'
-    ],
+	requires: [
+		'Ext.data.reader.Json'
+	],
 
-    fields: ['groupId', 'name', 'host']
+	fields: ['groupId', 'name', 'host']
 });

@@ -11,6 +11,10 @@
 		select * from gk_sec_html_idx where siid=#{siid}
 	</select>
 
+    <select id="selectByDate" parameterType="String" resultType="org.gingko.app.persist.domain.SecHtmlIdx">
+		select * from gk_sec_html_idx where date=#{date}
+	</select>
+
 	<insert id="insert">
 		insert into gk_sec_html_idx (
 			seq, description, document, type, size, anchor, siid, date, localFile

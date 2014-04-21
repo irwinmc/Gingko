@@ -32,6 +32,9 @@ public class SecDownloader extends AbstractDownloader {
 		// 本地文件保存位置
 		String dst = PathUtils.getWebRootPath() + SecProperties.masterIdxDst + fileName;
 
+        // Check dst
+        FileUtils.mkdir(PathUtils.getWebRootPath() + SecProperties.masterIdxDst);
+
 		try {
 			// 下载逻辑
 			downloadFile(url, dst);
@@ -106,16 +109,16 @@ public class SecDownloader extends AbstractDownloader {
 		// 下载之前删除该文件夹下所有文件
 		FileUtils.deleteAllFile(path);
 
-		// 组成下载路径
-		for (int i = 0; i < list.size(); i++) {
-			SecHtmlIdx item = list.get(i);
+        // 组成下载路径
+        for (int i = 0; i < list.size(); i++) {
+            SecHtmlIdx item = list.get(i);
 
-			String url = item.getAnchor();
-			String dst = path + File.separator + item.getLocalFile();
+            String url = item.getAnchor();
+            String dst = path + File.separator + item.getLocalFile();
 
-			urls[i] = url;
-			dsts[i] = dst;
-		}
+            urls[i] = url;
+            dsts[i] = dst;
+        }
 
 		try {
 			LOG.info("Start download html data files, total {} files.", urls.length);

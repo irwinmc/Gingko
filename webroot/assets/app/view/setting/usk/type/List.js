@@ -2,7 +2,7 @@ Ext.define('IDAT.view.setting.usk.type.List' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.settingformtype',
 
-    store: formTypeStore,
+    store: 'FormTypes',
     columnLines: true,
     columns: [
         {header: LANG.LABEL.id, dataIndex: 'id', hidden: true},
@@ -31,8 +31,8 @@ Ext.define('IDAT.view.setting.usk.type.List' ,{
             scope: this,
             'select': function (combo, records) {
                 var groupId = records[0].get('value');
-                formTypeStore.proxy.extraParams = {groupId: groupId};
-                formTypeStore.reload();
+                Ext.getStore('FormTypes').proxy.extraParams = {groupId: groupId};
+                Ext.getStore('FormTypes').reload();
             }
         }
     }]

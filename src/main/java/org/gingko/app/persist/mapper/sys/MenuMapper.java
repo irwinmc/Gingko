@@ -13,4 +13,6 @@ public interface MenuMapper {
     List<Menu> selectAll();
 
 	List<Menu> selectByParentId( @Param("parentId") String parentId, @Param("identity") int identity);
+
+    Menu selectByMenuId( @Param("menuId") String menuId, @Param("identity") int identity);
 }

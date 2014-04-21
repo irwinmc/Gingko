@@ -33,10 +33,15 @@ public enum ReportCache {
 	 */
 	private final Map<String, List<String>> reportKeywordMap = new HashMap<String, List<String>>();
 
+    public void init() {
+        initReport();
+        initKeyword();
+    }
+
 	/**
 	 * 初始化报表
 	 */
-	public void init() {
+	public void initReport() {
 		reportList.clear();
 
 		// 这里存入需要过滤的报表类型

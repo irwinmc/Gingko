@@ -1,5 +1,0 @@
-[
-    {"id": "usk127", "parentId": "type", "text": "USK 127", "iconCls": "icon-identity", "qtip": "USK 127", "leaf": true, "children": []},
-    {"id": "usk128", "parentId": "type", "text": "USK 128", "iconCls": "icon-identity", "qtip": "USK 128", "leaf": true, "children": []},
-    {"id": "usk129", "parentId": "type", "text": "USK 129", "iconCls": "icon-identity", "qtip": "USK 129", "leaf": true, "children": []}
-]

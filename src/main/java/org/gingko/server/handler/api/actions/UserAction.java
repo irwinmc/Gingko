@@ -26,13 +26,13 @@ public enum UserAction {
      * @return
      */
     public String login(String account, String password) {
-            User user = userMapper.login(account, password);
-            ExtMessage message = new ExtMessage(false, Lang.userLoginFailure);
-            if (user != null) {
-                message.setSuccess(true);
-                message.setMsg(Lang.userLoginSuccess);
-                message.setAccount(user.getAccount());
-                message.setIdentity(user.getIdentity());
+        User user = userMapper.login(account, password);
+        ExtMessage message = new ExtMessage(false, Lang.userLoginFailure);
+        if (user != null) {
+            message.setSuccess(true);
+            message.setMsg(Lang.userLoginSuccess);
+            message.setAccount(user.getAccount());
+            message.setIdentity(user.getIdentity());
         }
         return new Gson().toJson(message);
     }

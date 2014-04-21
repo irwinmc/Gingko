@@ -1,11 +1,14 @@
 package org.gingko.server.handler.api.vo;
 
+import org.gingko.app.persist.domain.sys.Menu;
+
 public class ExtMessage {
 
     private boolean success;
     private String msg;
     private String account;
     private int identity;
+    private Menu menu;
 
     public ExtMessage(boolean success, String msg) {
         this.success = success;
@@ -42,5 +45,13 @@ public class ExtMessage {
 
     public void setIdentity(int identity) {
         this.identity = identity;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }

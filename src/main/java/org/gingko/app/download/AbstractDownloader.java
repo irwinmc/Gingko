@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.gingko.util.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,7 @@ public abstract class AbstractDownloader implements Downloader {
 					if (entity != null) {
 						InputStream in = entity.getContent();
 						try {
-							OutputStream out = new FileOutputStream(new File(dst));
+                            OutputStream out = new FileOutputStream(new File(dst));
 							byte b[] = new byte[1024];
 							int len;
 							while ((len = in.read(b)) != -1) {

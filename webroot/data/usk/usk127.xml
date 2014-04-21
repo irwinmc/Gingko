@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+	<table value="usk127">
+		<file DBField="F004N_USK127" name="cash and cash equivalents"/>
+		<file DBField="F005N_USK127" name="short-term investments" />
+		<file DBField="F006N_USK127" name="total cash" />
+		<file DBField="F007N_USK127" name="net receivables" />
+		<file DBField="F008N_USK127" name="inventory" />
+		<file DBField="F009N_USK127" name="deferred taxes assets-current assets" />
+		<file DBField="F010N_USK127" name="prepaid expenses" />
+		<file DBField="F011N_USK127" name="current assets special subject" />
+		<file DBField="F012N_USK127" name="total current assets" />
+		<file DBField="F013N_USK127" name="gross property, plant and equipment" />
+		<file DBField="F014N_USK127" name="accumulated depreciation" />
+		<file DBField="F015N_USK127" name="net property, plant and equipment" />
+		<file DBField="F016N_USK127" name="equity and other investments" />
+		<file DBField="F017N_USK127" name="goodwill" />
+		<file DBField="F018N_USK127" name="net intangible assets" />
+		<file DBField="F019N_USK127" name="accumulated amortization" />
+		<file DBField="F020N_USK127" name="deferred taxes assets-non-current assets" />
+		<file DBField="F021N_USK127" name="non-current assets special subject" />
+		<file DBField="F022N_USK127" name="total non-current assets" />
+		<file DBField="F023N_USK127" name="cash and due from banks" />
+		<file DBField="F024N_USK127" name="deposits with banks" />
+		<file DBField="F025N_USK127" name="federal funds sold" />
+		<file DBField="F026N_USK127" name="trading assets" />
+		<file DBField="F027N_USK127" name="debt securities" />
+		<file DBField="F028N_USK127" name="loans" />
+		<file DBField="F029N_USK127" name="allowance for loan losses" />
+		<file DBField="F030N_USK127" name="net loans" />
+		<file DBField="F031N_USK127" name="receivables" />
+		<file DBField="F032N_USK127" name="mortgage servicing rights" />
+		<file DBField="F033N_USK127" name="fixed maturity securities" />
+		<file DBField="F034N_USK127" name="equity securities" />
+		<file DBField="F035N_USK127" name="trading securities" />
+		<file DBField="F036N_USK127" name="other investments" />
+		<file DBField="F037N_USK127" name="total investments" />
+		<file DBField="F038N_USK127" name="accrued investment income" />
+		<file DBField="F039N_USK127" name="premiums and other receivables" />
+		<file DBField="F040N_USK127" name="reinsurance assets" />
+		<file DBField="F041N_USK127" name="deferred policy acquisition costs" />
+		<file DBField="F042N_USK127" name="deferred income taxes" />
+		<file DBField="F043N_USK127" name="separate account assets" />
+		<file DBField="F044N_USK127" name="securities borrowed" />
+		<file DBField="F045N_USK127" name="total assets special subject" />
+		<file DBField="F046N_USK127" name="total assets" />
+		<file DBField="F047N_USK127" name="short-term debt" />
+		<file DBField="F048N_USK127" name="accounts payable" />
+		<file DBField="F049N_USK127" name="income taxes payable" />
+		<file DBField="F050N_USK127" name="accrued liabilities" />
+		<file DBField="F051N_USK127" name="deferred revenues-current liabilities" />
+		<file DBField="F052N_USK127" name="current liabilities special subject" />
+		<file DBField="F053N_USK127" name="total current liabilities" />
+		<file DBField="F054N_USK127" name="long-term debt" />
+		<file DBField="F055N_USK127" name="deferred taxes liabilities" />
+		<file DBField="F056N_USK127" name="deferred revenues-non-current liabilities" />
+		<file DBField="F057N_USK127" name="non-current liabilities special subject" />
+		<file DBField="F058N_USK127" name="total non-current liabilities" />
+		<file DBField="F059N_USK127" name="deposits" />
+		<file DBField="F060N_USK127" name="federal funds purchased" />
+		<file DBField="F061N_USK127" name="trading liabilities" />
+		<file DBField="F062N_USK127" name="payables" />
+		<file DBField="F063N_USK127" name="short-term borrowing" />
+		<file DBField="F064N_USK127" name="future policy benefits" />
+		<file DBField="F065N_USK127" name="policyholder funds" />
+		<file DBField="F066N_USK127" name="unearned premiums" />
+		<file DBField="F067N_USK127" name="reinsurance liabilities" />
+		<file DBField="F068N_USK127" name="taxes payable" />
+		<file DBField="F069N_USK127" name="separate account liabilities" />
+		<file DBField="F070N_USK127" name="total liabilities special subject" />
+		<file DBField="F071N_USK127" name="total liabilities" />
+		<file DBField="F072N_USK127" name="preferred stock" />
+		<file DBField="F073N_USK127" name="common stock" />
+		<file DBField="F074N_USK127" name="additional paid-in capital" />
+		<file DBField="F075N_USK127" name="retained earnings" />
+		<file DBField="F076N_USK127" name="treasury stock" />
+		<file DBField="F077N_USK127" name="accumulated other comprehensive income" />
+		<file DBField="F078N_USK127" name="total stockholders' equity special subject" />
+		<file DBField="F079N_USK127" name="total stockholders' equity" />
+		<file DBField="F080N_USK127" name="minority interest" />
+		<file DBField="F081N_USK127" name="total equity" />
+		<file DBField="F082V_USK127" name="特殊情况说明" />
+		<file DBField="F083N_USK127" name="total equity special subject" />
+		<file DBField="F084V_USK127" name="报表年结日" />
+	</table>
+</content>

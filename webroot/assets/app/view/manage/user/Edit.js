@@ -53,7 +53,8 @@ Ext.define('IDAT.view.manage.user.Edit', {
                 valueField: 'value',
                 displayField: 'display',
                 allowBlank : false,
-                emptyText: LANG.EMPTY_TIPS.empty_combo_group
+                emptyText: LANG.EMPTY_TIPS.empty_combo_group,
+                value: this.record.get('groupId')
             }],
 
             buttonAlign: 'center',
@@ -70,7 +71,7 @@ Ext.define('IDAT.view.manage.user.Edit', {
                             method: 'GET',
                             success: function (form, action) {
                                 Ext.Msg.alert(LANG.TITLE.success, action.result.msg);
-                                userStore.reload();
+                                Ext.getStore('Users').reload();
                                 me.close();
                             },
                             failure: function (form, action) {

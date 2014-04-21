@@ -84,9 +84,11 @@ public class SecDirDataParser {
 		for (Element ele : elements) {
 			try {
 				ArrayBasedTable table = parser.parseTable(ele);
-				table.setName("table" + i);
-				if (!table.isEmpty()) {
-					tableList.add(table);
+				if (table != null) {
+					table.setName("table" + i);
+					if (!table.isEmpty()) {
+						tableList.add(table);
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

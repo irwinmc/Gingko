@@ -141,4 +141,30 @@ public class FileUtils {
 		}
 		return success;
 	}
+	
+	/**
+	 * 创建层级目录
+	*
+	* @Title: createCatalog 
+	* @Description: TODO(这里用一句话描述这个方法的作用) 
+	* @param @param dir    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public static void createCatalog(String  dir){
+		String  path=dir.substring(0,dir.lastIndexOf("/"));
+        File file=new File(path);
+        if(!file.exists()){
+            file.mkdirs();
+        }
+        file=new File(dir);
+        if(!file.exists()){
+            try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				LOG.error("Catalog  created  failed.", e);
+			}
+        }
+	}
 }

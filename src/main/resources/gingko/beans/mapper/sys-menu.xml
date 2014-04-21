@@ -7,6 +7,11 @@
 		select * from sys_menu where parentId=#{parentId} and menuId in (select menuId from gingko.sys_identity_menu where identity=#{identity})
     </select>
 
+    <select id="selectByMenuId" resultType="org.gingko.app.persist.domain.sys.Menu">
+		select * from sys_menu where menuId=#{menuId} and menuId in (select menuId from gingko.sys_identity_menu where identity=#{identity})
+    </select>
+
+
     <select id="selectAll" resultType="org.gingko.app.persist.domain.sys.Menu">
 		select * from sys_menu
     </select>

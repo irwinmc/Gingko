@@ -8,7 +8,7 @@
 	</select>
 
     <select id="selectByPage" resultType="org.gingko.app.persist.domain.SecIdx">
-		select * from gk_sec_idx where date=#{date}
+		select * from gk_sec_idx where date=#{date}  and amount>=1
         <if test="formTypes!= null" > and formType in
             <foreach item="item" index="index" collection="formTypes"
                      open="(" separator="," close=")">
@@ -18,7 +18,7 @@
 	</select>
 
     <select id="selectTotalCount" resultType="int">
-        select count(*) from gk_sec_idx where date=#{date}
+        select count(*) from gk_sec_idx where date=#{date} and amount>=1
         <if test="formTypes!= null" > and formType in
             <foreach item="item" index="index" collection="formTypes"
                      open="(" separator="," close=")">
@@ -37,24 +37,29 @@
 
     <insert id="insert">
 		insert into gk_sec_idx (
-			cik, companyName, formType, dateField, fileName, fillingHtmlUrl, siid, date
+			siid, cik, companyName, formType, dateField, fileName, fillingHtmlUrl, date, amount
 		) values (
-			#{cik}, #{companyName}, #{formType}, #{dateField}, #{fileName},
-			#{fillingHtmlUrl}, #{siid}, #{date}
+			#{siid}, #{cik}, #{companyName}, #{formType}, #{dateField}, #{fileName},
+			#{fillingHtmlUrl}, #{date}, #{amount}
 		)
 	</insert>
 
 	<insert id="insertList" parameterType="java.util.List">
 		insert into gk_sec_idx (
-			cik, companyName, formType, dateField, fileName, fillingHtmlUrl, siid, date
+        siid, cik, companyName, formType, dateField, fileName, fillingHtmlUrl, date, amount
 		) values
 		<foreach collection="list" item="item" index="index" open="(" separator="),(" close=")">
-			#{item.cik}, #{item.companyName}, #{item.formType}, #{item.dateField}, #{item.fileName},
-			#{item.fillingHtmlUrl}, #{item.siid}, #{item.date}
+            #{item.siid}, #{item.cik}, #{item.companyName}, #{item.formType}, #{item.dateField}, #{item.fileName},
+			#{item.fillingHtmlUrl}, #{item.date}, #{item.amount}
 		</foreach>
 	</insert>
 
-	<delete id="delete">
+    <update id="update">
+		update gk_sec_idx set amount=#{amount} where siid=#{siid}
+	</update>
+
+
+    <delete id="delete">
 		delete from gk_sec_idx
 	</delete>
 

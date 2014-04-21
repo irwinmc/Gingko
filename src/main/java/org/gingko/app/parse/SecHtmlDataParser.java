@@ -1,6 +1,5 @@
 package org.gingko.app.parse;
 
-import org.gingko.app.SecUtils;
 import org.gingko.app.collect.ArrayBasedTable;
 import org.gingko.app.collect.Cell;
 import org.jsoup.nodes.Attribute;
@@ -20,6 +19,7 @@ public class SecHtmlDataParser {
 
 	// Html attribute of table colspan for table data cell
 	private static final String HTML_COLSPAN = "colspan";
+	private static final String HTML_ROW_SPAN = "rowspan";
 
 	static {
 		removeAttrs.add("style");
@@ -165,6 +165,12 @@ public class SecHtmlDataParser {
 	 * @return
 	 */
 	private Element clearTableAttrs(Element ele) {
+		// Replace all th with td
+		for (Element e : ele.select("th")) {
+			e.tagName("td");
+		}
+
+		// For all elements
 		Elements elements = ele.select("*");
 		for (Element e : elements) {
 			for (Attribute attr : e.attributes()) {

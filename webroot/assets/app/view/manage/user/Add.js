@@ -68,7 +68,7 @@ Ext.define('IDAT.view.manage.user.Add', {
                             method : 'GET',
                             success : function(form, action) {
                                 Ext.Msg.alert(LANG.TITLE.success, action.result.msg);
-                                userStore.reload();
+                                Ext.getStore('Users').reload();
                                 me.close();
                             },
                             failure : function(form, action) {

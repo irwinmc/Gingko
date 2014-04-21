@@ -51,8 +51,8 @@ Ext.define('IDAT.view.setting.usk.type.Add', {
                                 Ext.Msg.alert(LANG.TITLE.success, action.result.msg);
 
                                 var groupId = form.findField('groupId').getValue()
-                                formTypeStore.proxy.extraParams = {groupId: groupId};
-                                formTypeStore.reload();
+                                Ext.getStore('FormTypes').proxy.extraParams = {groupId: groupId};
+                                Ext.getStore('FormTypes').reload();
                                 me.close();
                             },
                             failure: function (form, action) {

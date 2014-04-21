@@ -13,6 +13,8 @@ public interface SecHtmlIdxMapper {
 
 	List<SecHtmlIdx> selectBySiid(String siid);
 
+    List<SecHtmlIdx> selectByDate(String date);
+
 	void insert(SecHtmlIdx secHtmlIdx);
 
 	void insertList(List<SecHtmlIdx> list);

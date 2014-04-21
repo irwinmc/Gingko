@@ -2,7 +2,6 @@
  * Created by TangYing
  */
 Ext.onReady(function () {
-    /**
     var loginForm = Ext.create("Ext.form.Panel", {
         title: LANG.TITLE.login,
         frame: true,
@@ -41,7 +40,6 @@ Ext.onReady(function () {
                             GLOBAL.ACCOUNT = action.result.account;
                             GLOBAL.IDENTITY = action.result.identity;
                             loginForm.close();
-**/
                             Ext.application({
                                 name: 'IDAT',
                                 appFolder: 'assets/app',
@@ -55,8 +53,6 @@ Ext.onReady(function () {
                                     Ext.create('IDAT.view.Viewport');
                                 }
                             });
-
-/**
                         },
                         failure : function(form, action) {
                             Ext.Msg.alert(LANG.TITLE.failure, action.result.msg);
@@ -74,5 +70,4 @@ Ext.onReady(function () {
         }],
         renderTo: "loginDiv"
     });
- **/
 });

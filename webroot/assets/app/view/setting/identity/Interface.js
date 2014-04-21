@@ -2,27 +2,16 @@ Ext.define('IDAT.view.setting.identity.Interface' ,{
     extend: 'Ext.panel.Panel',
     alias : 'widget.settingidentity',
 
-    items : [{
-        layout : 'hbox',
+    items: [{
+        layout : 'border',
         items: [{
-            xtype: 'panel',
-            title: LANG.TITLE.identity_menu,
-            layout : 'fit',
-            collapsible: true,
-            collapseDirection: 'left',
-            flex: 1,
-            items: [{
-                height: 575,
-                xtype: 'identitytree'
-            }]
+            region: 'west',
+            xtype: 'identitytree',
+            title: LANG.TITLE.identity_menu
         },{
-            xtype: 'panel',
-            title: LANG.TITLE.identity_grid,
-            flex: 6,
-            items: [{
-                height: 575,
-                xtype: 'identitygrid'
-            }]
+            region: 'center',
+            xtype: 'identitygrid',
+            title: LANG.TITLE.grid_idx_form
         }]
     }],
 
@@ -46,8 +35,8 @@ Ext.define('IDAT.view.setting.identity.Interface' ,{
             scope: this,
             'select': function (combo, records) {
                 var identity = records[0].get('value');
-                identityMenuStore.proxy.extraParams = {identity: identity};
-                identityMenuStore.reload();
+                Ext.getStore('IdentityMenus').proxy.extraParams = {identity: identity};
+                Ext.getStore('IdentityMenus').reload();
                 // Reload identity menu tree
                 Ext.getStore('TreeIdentityMenus').proxy.extraParams={identity : identity};
                 Ext.getStore('TreeIdentityMenus').reload();

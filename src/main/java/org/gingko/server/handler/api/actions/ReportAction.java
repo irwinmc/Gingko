@@ -2,12 +2,14 @@ package org.gingko.server.handler.api.actions;
 
 import com.google.gson.Gson;
 import org.gingko.app.persist.PersistContext;
+import org.gingko.app.persist.domain.Report;
+import org.gingko.app.persist.domain.SecForm;
 import org.gingko.app.persist.domain.SecHtmlIdx;
 import org.gingko.app.persist.domain.SecIdx;
-import org.gingko.app.persist.domain.SecIdxForm;
-import org.gingko.app.persist.domain.sys.Identity;
+import org.gingko.app.persist.domain.sys.Menu;
+import org.gingko.app.persist.mapper.ReportMapper;
+import org.gingko.app.persist.mapper.SecFormMapper;
 import org.gingko.app.persist.mapper.SecHtmlIdxMapper;
-import org.gingko.app.persist.mapper.SecIdxFormMapper;
 import org.gingko.app.persist.mapper.SecIdxMapper;
 import org.gingko.app.persist.mapper.usk.CikMapper;
 import org.gingko.config.Lang;
@@ -25,9 +27,10 @@ public enum ReportAction {
     INSTANCE;
 
     private static SecIdxMapper secIdxMapper = (SecIdxMapper) AppContext.getBean(PersistContext.SEC_IDX_MAPPER);
-    private static SecIdxFormMapper secIdxFormMapper = (SecIdxFormMapper) AppContext.getBean(PersistContext.SEC_IDX_FORM_MAPPER);
+    private static SecFormMapper secFormMapper = (SecFormMapper) AppContext.getBean(PersistContext.SEC_FORM_MAPPER);
     private static SecHtmlIdxMapper secHtmlIdxMapper = (SecHtmlIdxMapper) AppContext.getBean(PersistContext.SEC_HTML_IDX_MAPPER);
     private static CikMapper cikMapper = (CikMapper) AppContext.getBean(PersistContext.CIK_MAPPER);
+    private static ReportMapper reportMapper = (ReportMapper) AppContext.getBean(PersistContext.REPORT_MAPPER);
 
     /**
      * SEC Idx laod
@@ -84,8 +87,8 @@ public enum ReportAction {
      * @return
      */
     public String secIdxFormLoad(String siid) {
-        List<SecIdxForm> list = secIdxFormMapper.selectBySiid(siid);
-        ExtPagingData<SecIdxForm> items = new ExtPagingData<SecIdxForm>(true, list.size(), list);
+        List<SecForm> list = secFormMapper.selectBySiid(siid);
+        ExtPagingData<SecForm> items = new ExtPagingData<SecForm>(true, list.size(), list);
         return new Gson().toJson(items);
     }
 
@@ -104,16 +107,32 @@ public enum ReportAction {
         }
 
         // Update state
-        SecIdxForm secIdxForm = secIdxFormMapper.select(i);
-        if (secIdxForm == null) {
+        SecForm secForm = secFormMapper.select(i);
+        if (secForm == null) {
             ExtMessage message = new ExtMessage(false, Lang.operateFailure);
             return new Gson().toJson(message);
         }
 
-        secIdxForm.setState(1);
-        secIdxFormMapper.update(secIdxForm);
+        secForm.setState(1);
+        secFormMapper.update(secForm);
         ExtMessage message = new ExtMessage(true, Lang.operateSuccess);
         return new Gson().toJson(message);
+    }
+
+
+    /**
+     * Report type combo
+     *
+     * @return
+     */
+    public String reportTypeCombo() {
+        List<Report> reports = reportMapper.select();
+        List<ExtCombo> list = new ArrayList<ExtCombo>();
+        list.add(new ExtCombo("ALL", "全部"));
+        for (Report report : reports) {
+            list.add(new ExtCombo(report));
+        }
+        return new Gson().toJson(list);
     }
 
     /**

@@ -55,10 +55,11 @@ Ext.define('IDAT.view.setting.identity.Add', {
                                 Ext.Msg.alert(LANG.TITLE.success, action.result.msg);
 
                                 var identity = form.findField('identity').getValue();
-                                identityMenuStore.proxy.extraParams = {identity: identity};
-                                identityMenuStore.reload();
-                                Ext.getStore('IdentityMenus').proxy.extraParams={identity : identity};
+                                Ext.getStore('IdentityMenus').proxy.extraParams = {identity: record.get('identity')};
                                 Ext.getStore('IdentityMenus').reload();
+
+                                Ext.getStore('TreeIdentityMenus').proxy.extraParams={identity : identity};
+                                Ext.getStore('TreeIdentityMenus').reload();
                                 me.close();
                             },
                             failure : function(form, action) {

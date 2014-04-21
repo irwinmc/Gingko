@@ -55,6 +55,7 @@ public class Lang {
     public static String operateEditSuccess = "Edit Success!";
     public static String operateDeleteSuccess = "Delete Success!";
     public static String operateSynCikSuccess = "Operate Success! Delete old cik #{deleteCount}, Add new cik #{addCount}";
+    public static String operateOutOfIdentity = "Operate Failure! Your identity lack!";
 
 	public static String userLoginSuccess = "Login Success!";
 	public static String userLoginFailure = "Login Failure! Please check your account and password!";

@@ -2,11 +2,11 @@ var cellEditing = Ext.create('Ext.grid.plugin.CellEditing', {
     clicksToEdit: 2
 });
 
-Ext.define('IDAT.view.usk.idx.GridIdx' ,{
+Ext.define('IDAT.view.usk.report.GridIdx' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.grididx',
 
-    store: idxStore,
+    store: 'ReportIdxs',
     columnLines: true,
     plugins: [cellEditing],
     columns: [
@@ -19,7 +19,7 @@ Ext.define('IDAT.view.usk.idx.GridIdx' ,{
 
     dockedItems: [{
         xtype: 'pagingtoolbar',
-        store: idxStore,
+        store: 'ReportIdxs',
         dock: 'bottom',
         displayInfo: true
     }],
@@ -27,12 +27,11 @@ Ext.define('IDAT.view.usk.idx.GridIdx' ,{
     tbar: [{
         xtype: 'datefield',
         fieldLabel: LANG.LABEL.date,
-        labelAlign: 'right',
+		labelAlign: 'right',
         labelWidth : 60,
         name: 'date',
         altFormats: 'Y-m-d',
         format: 'Y-m-d',
-        value: new Date(),
         listeners: {
             scope: this,
             'select': function (field, value) {
@@ -57,8 +56,8 @@ Ext.define('IDAT.view.usk.idx.GridIdx' ,{
             'select': function (combo, records) {
                 if (records.length > 0) {
                     var temp = "";
-                    for (var i =0; i <records.length; i++) {
-                        temp +=  records[i].get('value') + ",";
+                    for (var i = 0; i < records.length; i++) {
+                        temp += records[i].get('value') + ",";
                     }
                     REPORT.IDX.FORM_TYPE = temp.substring(0, temp.length - 1);
                 }
@@ -69,7 +68,7 @@ Ext.define('IDAT.view.usk.idx.GridIdx' ,{
 });
 
 idxPanelReload = function() {
-    idxStore.proxy.extraParams = {formType: REPORT.IDX.FORM_TYPE, date: REPORT.IDX.DATE};
-    idxStore.reload();
-    idxReportStore.removeAll();
+    Ext.getStore('ReportIdxs').proxy.extraParams = {formType: REPORT.IDX.FORM_TYPE, date: REPORT.IDX.DATE};
+    Ext.getStore('ReportIdxs').reload();
+    Ext.getStore('ReportForms').removeAll();
 }

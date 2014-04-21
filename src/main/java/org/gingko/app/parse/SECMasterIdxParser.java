@@ -85,6 +85,7 @@ public class SecMasterIdxParser {
 						item.setFillingHtmlUrl(fillingHtmlUrl);
 						item.setSiid(siid);
 						item.setDate(date);
+                        item.setAmount(0);
 						list.add(item);
 					}
 				}

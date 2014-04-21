@@ -2,7 +2,7 @@ Ext.define('IDAT.view.setting.group.List' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.settinggroup',
 
-    store: groupStore,
+    store: 'Groups',
     columnLines: true,
     columns: [
         {header: LANG.LABEL.group_id, dataIndex: 'groupId', flex: 1},

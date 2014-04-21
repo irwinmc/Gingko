@@ -16,7 +16,7 @@
 				<group>DOWNLOAD_GROUP</group>
 				<job-name>download-job</job-name>
 				<job-group>DOWNLOAD_GROUP</job-group>
-				<cron-expression>0 44 17 ? * TUE-SAT</cron-expression>
+				<cron-expression>0 36 9 ? * TUE-SAT</cron-expression>
 			</cron>
 		</trigger>
 	</schedule>
@@ -34,6 +34,23 @@
                 <job-name>sync-job</job-name>
                 <job-group>SYNC_GROUP</job-group>
                 <cron-expression>0 5 8 ? * TUE-SAT</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>
+    
+        <schedule>
+        <job>
+            <name>rssdownload-job</name>
+            <group>RSSDOWNLOAD_GROUP</group>
+            <job-class>org.gingko.app.schedule.job.SecRssDownloadJob</job-class>
+        </job>
+        <trigger>
+            <cron>
+                <name>rssdownload-trigger</name>
+                <group>Rssdownload_GROUP</group>
+                <job-name>rssdownload-job</job-name>
+                <job-group>RSSDOWNLOAD_GROUP</job-group>
+                <cron-expression>0,30 * 13-15 * * ? </cron-expression>
             </cron>
         </trigger>
     </schedule>

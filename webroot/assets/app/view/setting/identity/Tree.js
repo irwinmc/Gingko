@@ -4,5 +4,7 @@ Ext.define('IDAT.view.setting.identity.Tree', {
 
     store: 'TreeIdentityMenus',
     bodyStyle: "padding:5 5 5 5",
-    rootVisible: false
+    rootVisible: false,
+    split: true,
+    width: 200
 });

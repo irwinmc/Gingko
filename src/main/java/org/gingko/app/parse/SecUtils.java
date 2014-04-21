@@ -1,4 +1,4 @@
-package org.gingko.app;
+package org.gingko.app.parse;
 
 import org.gingko.util.DateUtils;
 
@@ -52,6 +52,9 @@ public class SecUtils {
 			// Em dash
 			html = html.replace("&#x2013;", "-");
 			html = html.replace("&#x2014;", "-");
+
+			html = html.replace("\u0096", "-");
+			html = html.replace("\u0097", "-");
 
 		} catch (Exception e) {
 			e.printStackTrace();

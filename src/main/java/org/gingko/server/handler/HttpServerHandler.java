@@ -143,6 +143,18 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
         // User Action end ----------------------------------------------------------------------------------------
 
         // Menu Action start --------------------------------------------------------------------------------------
+        else if (action.equals(Api.MENU_LOAD)) {
+            if (parameters.get("menuId") != null
+                    && parameters.get("identity") != null) {
+                String menuId = parameters.get("menuId").get(0);
+                String identity = parameters.get("identity").get(0);
+
+                String json = MenuAction.INSTANCE.loadMenu(menuId, identity);
+                sendJsonResponse(ctx, json);
+                return;
+            }
+        }
+
         else if (action.equals(Api.MENU_TREE_LOAD)) {
             if (parameters.get("parentId") != null
                     && parameters.get("identity") != null) {
@@ -215,6 +227,12 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
                 sendJsonResponse(ctx, json);
                 return;
             }
+        }
+
+        else if (action.equals(Api.REPORT_TYPE_COMBO)) {
+            String json = ReportAction.INSTANCE.reportTypeCombo();
+            sendJsonResponse(ctx, json);
+            return;
         }
 
         else if (action.equals(Api.REPORT_GRID_GENERATE)) {

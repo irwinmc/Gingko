@@ -9,18 +9,19 @@ import java.io.Serializable;
  */
 public class SecIdx implements Serializable {
 
+    /** sec idx id (cik and fileName) */
+    private String siid;
 	private String cik;
-    private String code;
 	private String companyName;
 	private String formType;
 	private String dateField;
 	private String fileName;
 	/** fill document index html url */
 	private String fillingHtmlUrl;
-	/** sec idx id (cik and fileName) */
-	private String siid;
 	/** date time, according to the idx date */
 	private String date;
+    private String code;
+    private int amount;
 
 	public SecIdx() {
 
@@ -33,14 +34,6 @@ public class SecIdx implements Serializable {
 	public void setCik(String cik) {
 		this.cik = cik;
 	}
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public String getCompanyName() {
 		return companyName;
@@ -97,4 +90,20 @@ public class SecIdx implements Serializable {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 }

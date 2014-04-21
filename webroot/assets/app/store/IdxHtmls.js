@@ -6,7 +6,6 @@ Ext.define('IDAT.store.IdxHtmls', {
         type: 'ajax',
         url: ACTION.REPORT_HTML_LOAD,
         method: 'GET',
-
         reader: {
             type: 'json',
             root: 'items',

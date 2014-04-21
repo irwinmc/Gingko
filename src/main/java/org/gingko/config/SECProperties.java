@@ -47,6 +47,8 @@ public class SecProperties {
 			dataTxtDst = get("data.txt.dst");
 			dataHtmlIndexDst = get("data.html.index.dst");
 			dataHtmlFormDst = get("data.html.form.dst");
+			
+			rssUrl=get("rss.url");
 
 			LOG.info("Remote properties load completed.");
 		} catch (IOException e) {
@@ -69,6 +71,8 @@ public class SecProperties {
 	public static String dataTxtDst = "data/sec/txt/";
 	public static String dataHtmlIndexDst = "data/sec/html/index/";
 	public static String dataHtmlFormDst = "data/sec/html/form/";
+
+	public static String rssUrl="http://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=10-Q&company=&dateb=&owner=include&start=0&count=10&output=atom";
 
 	/**
 	 * Get from properties file with blank filter

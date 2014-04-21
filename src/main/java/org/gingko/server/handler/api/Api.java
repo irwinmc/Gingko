@@ -15,6 +15,7 @@ public interface Api {
     public static final String USER_EDIT = "user_edit";// 用户编辑
 
     // 菜单相关接口
+    public static final String MENU_LOAD = "menu_load";// 获取菜单
     public static final String MENU_TREE_LOAD = "menu_tree_load";// 加载树菜单
     public static final String MENU_BY_IDENTITY = "menu_by_identity";// 加载权限菜单
     public static final String MENU_COMBO = "menu_combo";// 下拉菜单
@@ -25,6 +26,7 @@ public interface Api {
     public static final String REPORT_FORM_LOAD = "report_form_load";// 加载索引对应的表格内容
     public static final String REPORT_STATE_CHANGE = "report_state_change";// 改变报表处理状态
     public static final String REPORT_GRID_GENERATE = "report_grid_generate";// 动态表格生成
+    public static final String REPORT_TYPE_COMBO = "report_type_combo";// 报表类型下拉
 
     // 系统设置相关接口
     public static final String SET_IDENTITY_MENU_LOAD = "setting_identity_menu_load";// 权限菜单加载

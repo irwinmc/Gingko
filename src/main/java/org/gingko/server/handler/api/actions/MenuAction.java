@@ -27,6 +27,30 @@ public enum MenuAction {
      *
      * @return
      */
+    public String loadMenu(String menuId, String identity) {
+        int i = 0;
+        try {
+            i = Integer.valueOf(identity);
+        } catch (NumberFormatException e) {
+            return new Gson().toJson(new ExtMessage(false, Lang.paramError));
+        }
+
+        Menu menu = menuMapper.selectByMenuId(menuId, i);
+        if (menu == null) {
+            ExtMessage message = new ExtMessage(false, Lang.operateOutOfIdentity);
+            return new Gson().toJson(message);
+        } else {
+            ExtMessage message = new ExtMessage(true, Lang.operateSuccess);
+            message.setMenu(menu);
+            return new Gson().toJson(message);
+        }
+    }
+
+    /**
+     * Menu load
+     *
+     * @return
+     */
     public String load(String parentId, String identity) {
         int i = 0;
         try {

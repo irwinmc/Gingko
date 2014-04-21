@@ -43,7 +43,7 @@ Ext.define('IDAT.view.setting.group.Add', {
                             method: 'GET',
                             success: function (form, action) {
                                 Ext.Msg.alert(LANG.TITLE.success, action.result.msg);
-                                groupStore.reload();
+                                Ext.getStore('Groups').reload();
                                 me.close();
                             },
                             failure: function (form, action) {

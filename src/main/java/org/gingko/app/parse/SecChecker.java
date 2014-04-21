@@ -1,4 +1,4 @@
-package org.gingko.app;
+package org.gingko.app.parse;
 
 import org.gingko.app.persist.PersistContext;
 import org.gingko.app.persist.domain.SecIdx;

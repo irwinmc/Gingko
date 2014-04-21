@@ -31,10 +31,7 @@ public class SecSingleDataParser extends SecDataParser {
 		Document doc = Jsoup.parse(input, "iso-8859-1", baseUrl);
 
 		// Get specific element
-		Element element = doc.getElementsByTag("table").get(12);
-		for (Element e : element.select("th")) {
-			e.tagName("td");
-		}
+		Element element = doc.getElementsByTag("table").get(9);
 
 		// Html data parser
 		SecHtmlDataParser parser = new SecHtmlDataParser();

@@ -74,6 +74,13 @@ public class SecDownloadTask implements Runnable {
 					filteredList.add(secIdx);
 				}
 			}
+
+            // Check filtered list is empty
+            if (filteredList.isEmpty()) {
+                LOG.error("Master idx file filtered list empty, please check the file and try again!");
+                return;
+            }
+
 			// Batch insert into database
 			secIdxMapper.insertList(filteredList);
 			LOG.info("All filtered master idx data had been inserted into database.");
@@ -141,8 +148,11 @@ public class SecDownloadTask implements Runnable {
 				filteredList.add(secHtmlIdx);
 			}
 		}
-		// Batch insert
-		secHtmlIdxMapper.insertList(filteredList);
+
+        // Batch insert
+        if (!filteredList.isEmpty()) {
+            secHtmlIdxMapper.insertList(filteredList);
+        }
 	}
 
 	/**

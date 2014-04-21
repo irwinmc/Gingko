@@ -1,9 +1,9 @@
 Ext.define('IDAT.model.User', {
-    extend: 'Ext.data.Model',
+	extend: 'Ext.data.Model',
 
-    requires: [
-        'Ext.data.reader.Json'
-    ],
+	requires: [
+		'Ext.data.reader.Json'
+	],
 
-    fields: ['userId','account', 'password', 'name', 'identity', 'groupId']
+	fields: ['userId', 'account', 'password', 'name', 'identity', 'groupId']
 });

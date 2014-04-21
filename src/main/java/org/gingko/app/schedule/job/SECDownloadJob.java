@@ -1,8 +1,9 @@
 package org.gingko.app.schedule.job;
 
-import org.gingko.app.SecUtils;
 import org.gingko.app.download.impl.SecDownloader;
+import org.gingko.app.parse.SecUtils;
 import org.gingko.app.schedule.task.SecDownloadTask;
+import org.gingko.app.schedule.task.SecFormParserTask;
 import org.gingko.context.AppContext;
 import org.gingko.services.TaskManagerService;
 import org.quartz.Job;
@@ -11,7 +12,7 @@ import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Kyia
@@ -39,5 +40,9 @@ public class SecDownloadJob implements Job {
 		// Execute the task, it'll call itself again.
 		// Or make it work manually
 		taskManagerService.execute(new SecDownloadTask(downloader, date));
+
+        // After download, then parse form table.
+        // May be it's not a good idea put here.
+        taskManagerService.schedule(new SecFormParserTask(date), 10, TimeUnit.MINUTES);
 	}
 }

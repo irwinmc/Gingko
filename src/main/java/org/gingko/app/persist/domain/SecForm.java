@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author TangYing
  */
-public class SecIdxForm implements Serializable {
+public class SecForm implements Serializable {
 
     private int id;
 	private String siid;
@@ -17,7 +17,7 @@ public class SecIdxForm implements Serializable {
     private String anchor;
     private int state;
 
-	public SecIdxForm() {
+	public SecForm() {
 
 	}
 

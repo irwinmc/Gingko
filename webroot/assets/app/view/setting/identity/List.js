@@ -2,7 +2,7 @@ Ext.define('IDAT.view.setting.identity.List' ,{
     extend: 'Ext.grid.Panel',
     alias : 'widget.identitygrid',
 
-    store: identityMenuStore,
+    store: 'IdentityMenus',
     columns: [
         {header: LANG.LABEL.id,  dataIndex: 'id', hidden: true},
         {header: LANG.LABEL.identity, dataIndex: 'identity', flex: 1, renderer: RenderUtil.identity},
@@ -12,7 +12,7 @@ Ext.define('IDAT.view.setting.identity.List' ,{
 
     dockedItems: [{
         xtype: 'pagingtoolbar',
-        store: identityMenuStore,
+        store: 'IdentityMenus',
         dock: 'bottom',
         displayInfo: true
     }]

@@ -1,5 +1,6 @@
 package org.gingko.server.handler.api.vo;
 
+import org.gingko.app.persist.domain.Report;
 import org.gingko.app.persist.domain.sys.Group;
 import org.gingko.app.persist.domain.sys.Menu;
 import org.gingko.app.persist.domain.usk.FormType;
@@ -22,6 +23,11 @@ public class ExtCombo {
     public ExtCombo(FormType formType) {
         this.value = formType.getFormType();
         this.display = formType.getFormType();
+    }
+
+    public ExtCombo(Report report) {
+        this.value = report.getType();
+        this.display = report.getName();
     }
 
 	public ExtCombo(String value, String display) {

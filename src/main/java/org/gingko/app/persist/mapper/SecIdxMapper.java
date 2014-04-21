@@ -24,6 +24,8 @@ public interface SecIdxMapper {
 
     SecIdx selectBySiid(String siid);
 
+    void update(SecIdx secIdx);
+
     void insert(SecIdx secIdx);
 
     void insertList(List<SecIdx> list);

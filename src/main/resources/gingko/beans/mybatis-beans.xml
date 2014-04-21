@@ -24,8 +24,8 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 
-    <bean id="secIdxFormMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="org.gingko.app.persist.mapper.SecIdxFormMapper"/>
+    <bean id="secFormMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.gingko.app.persist.mapper.SecFormMapper"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
     </bean>
 
